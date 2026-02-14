@@ -1,1 +1,59 @@
-TODO add more here
+# Project Proposal
+
+Project Title: Baby Tracker
+
+## Team
+
+Team #5
+
+Team Name: FAWN
+
+Team Members:
+- Felice Forby
+- Antonio Duran
+- Will Hansen
+- Nate Bliton
+
+Meeting time: Wednesday 8:00pm EST / 6:00pm MT
+
+## Vision Statement
+
+Baby Tracker is a web application for parents to track and manage the baby's schedule, health, and milestones; for example for sleep and feeding schedules, tracking diaper changes (wet vs dry), doctor's appointments, etc. The application assists the parents with timely reminders and simple tracking of baby-related data.
+
+## Motivation
+
+There are many schedule and project tracking tools, but Baby Tracker is specialized for parents and their new babies. It helps parents who struggle with keeping track of and remembering all baby-related data. Instead of having schedules and other information scattered across various mediums, parents can enter and view all this data in one specialized app and even use it to share important information with doctors. 
+
+## Risks
+
+- Scope creep because there are so many possibilities and useful features that could be added
+- Learning curve in working with a new tech stack 
+- Having enough time to finish all planned features and coordinating schedules
+- Understanding the domain and actual priorities of parents
+
+### Mitigation Strategy for above risks
+
+- **Scope creep**: Clarifying and define early on the Minimum Viable Product, with other features as "stretch goals"
+- **Learning curve**: Using assignments/tutorials to learn and working with each other, as we all have a different skill set
+- **Scheduling/Coordiation**: Frequent communication & weekly standups along with using project management software to track who is doing what and when
+- **Understanding the domain**: Getting feedback from actual parents (we have one on the team!) and doing additional research
+
+## Development Method
+
+We will use an agile approach with time-boxed sprints and shorter once-per-week standup meetings to give progress updates and a longer once-per-week meeting for planning and assigning tasks, and making project adjustments if needed. We will use a kanban board for tracking tasks and progress. We would like to continuously test features as we progress with Github actions for automatically running unit test.
+
+## Project Tracking Software
+
+We plan to use Trello as our kanban board for task and progress tracking. Tasks will be assigned to specific team members.
+
+## Tech Stack
+
+**Frontend**
+- HTML and CSS for layout and styling
+- JavaScript, possibly using React for complex UI components
+
+**Backend**
+- Python with Flask
+
+**Database**
+- Relational database, likely SQLite to start, but we may change to a more powerful DB such as MySQL or Postgres
