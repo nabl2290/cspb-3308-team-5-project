@@ -46,6 +46,8 @@ We will use an agile approach with time-boxed sprints and shorter once-per-week 
 
 We plan to use Trello as our kanban board for task and progress tracking. Tasks will be assigned to specific team members.
 
+Link to Trello: https://trello.com/invite/b/699662ba3c112c364fc9206b/ATTI1766f5bcc1b7f416627efcc0c71f3b2bE0CB4D5F/team-fawn
+
 ## Tech Stack
 
 **Frontend**
