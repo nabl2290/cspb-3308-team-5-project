@@ -10,9 +10,17 @@ Team Name: FAWN
 
 Team Members:
 - Felice Forby
+  - Github: morinoko
+  - Email: fefo3515@colorado.edu
 - Antonio Duran
+  - Github: antonio11duran
+  - Email: Antonio.DuranJr@colorado.edu
 - Will Hansen
+  - Github: willthethrill824
+  - Email: Will.Hansen-2@colorado.edu
 - Nate Bliton
+  - Github: nabl2290
+  - Email: nabl2290@colorado.edu
 
 Meeting time: Wednesday 8:00pm EST / 6:00pm MT
 
