@@ -10,9 +10,17 @@ Team Name: FAWN
 
 Team Members:
 - Felice Forby
+  - Github: morinoko
+  - Email: fefo3515@colorado.edu
 - Antonio Duran
+  - Github: antonio11duran
+  - Email: Antonio.DuranJr@colorado.edu
 - Will Hansen
+  - Github: willthethrill824
+  - Email: Will.Hansen-2@colorado.edu
 - Nate Bliton
+  - Github: nabl2290
+  - Email: nabl2290@colorado.edu
 
 Meeting time: Wednesday 8:00pm EST / 6:00pm MT
 
@@ -45,6 +53,8 @@ We will use an agile approach with time-boxed sprints and shorter once-per-week 
 ## Project Tracking Software
 
 We plan to use Trello as our kanban board for task and progress tracking. Tasks will be assigned to specific team members.
+
+Link to Trello: https://trello.com/invite/b/699662ba3c112c364fc9206b/ATTI1766f5bcc1b7f416627efcc0c71f3b2bE0CB4D5F/team-fawn
 
 ## Tech Stack
 
