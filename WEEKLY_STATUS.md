@@ -13,7 +13,7 @@ We have set up two weekly meetings: Wednesday nights as our shorter standup, and
 - will brainstorm project ideas
 
 ## 2026-02-14
-(I'll try to remember what we talked about, or someone else can update this!)
+- We brainstormed possible features to discuss for the next meeting on 2/22
 
 ## 2026-02-22
 
