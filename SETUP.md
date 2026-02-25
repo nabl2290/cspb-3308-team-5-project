@@ -38,3 +38,12 @@
    ```
 
 The app will be available at `http://127.0.0.1:5000`.
+
+## Deactivate the virtual environment
+
+When you're done working on the project, you can deactivate the virtual environment by running:
+```bash
+deactivate
+```
+
+To reactivate it later, simply run the activation command again.
