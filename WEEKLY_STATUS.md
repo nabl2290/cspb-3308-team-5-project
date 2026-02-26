@@ -20,3 +20,10 @@ We have set up two weekly meetings: Wednesday nights as our shorter standup, and
 - We each checked out Flask some
 - established user stories
 - divided up tasks for Wednesday
+
+## 2026-02-26
+
+- Recorded our "stand up meeting"
+- Shared progress on Flask and establishing requirements
+- Started using Figma for UI and database design
+- Sent links to new team member Alana
