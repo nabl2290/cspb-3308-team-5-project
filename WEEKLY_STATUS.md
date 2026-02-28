@@ -27,3 +27,9 @@ We have set up two weekly meetings: Wednesday nights as our shorter standup, and
 - Shared progress on Flask and establishing requirements
 - Started using Figma for UI and database design
 - Sent links to new team member Alana
+
+## 2026-02-28
+
+- Worked together through rough Wireframes for each page in Figmia
+- Finished out Will's work on Database table design
+- Planned to move weekend working session to 10am Mountain Time on Sundays
