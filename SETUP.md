@@ -37,7 +37,38 @@
    flask run
    ```
 
+   For development with auto-reload and seed data:
+   ```bash
+   FLASK_ENV=development flask run --debug
+   ```
+
 The app will be available at `http://127.0.0.1:5000`.
+
+## Database
+
+This app uses SQLite with the Flask SQL-Alchemy extension. The database will be created automatically on first run.
+
+### Dev Seeds
+
+When `FLASK_ENV=development` is set, the app will automatically load sample data on first run (users, children, and feeding events). Seeds only run if the database is empty, so they won't duplicate on restart.
+
+To reset the database and re-run seeds, delete the database file and restart:
+```bash
+rm instance/database.db
+FLASK_ENV=development flask run --debug
+```
+
+Or if you don't want to type `FLASK_ENV=development` every time, add a `.env` with the following content:
+```
+FLASK_ENV=development
+```
+
+and simply run:
+```bash
+flask run --debug
+```
+
+See Flask SQL-Alchemy documentation for more details on how to manage the database: https://flask-sqlalchemy.readthedocs.io/en/stable/
 
 ## Deactivate the virtual environment
 
