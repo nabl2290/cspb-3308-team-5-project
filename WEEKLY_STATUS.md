@@ -46,7 +46,8 @@ Before meeting:
 ![trello board before meeting on 2026-03-04](meetings/trello_2026-03-04_beforemeeting.png)
 
 
-TODO after meeting
+After meeting:
+![trello board after meeting on 2026-03-04](meetings/trello_2026-03-04_aftermeeting.png)
 
 ---
 ## Progress Since Last Week
