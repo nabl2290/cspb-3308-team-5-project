@@ -87,15 +87,15 @@ Separate time zones is tricky for scheduling, but is working so far
 
 - organization in group is going well
 - coworking in Figma is effective
-- picking up research and implementation tasks is going well so far
+- each of us and then picking up individual research and implementation tasks is going well so far too
 
 ## Individual Contributions This Week
 
-- **Alana Powell** Worked on wireframes in Figma, did research on visualization
-- **Antonio Duran Jr** Worked on wireframes in Figma, worked on rudimentary input form for baby feedings page
-- **Felice Forby** Worked on wireframes in Figma and finished initial implementation of our database and tables in our Flask app
-- **Nate Bliton** Created this document, helped with wireframes, and investigated Flask and Javascript visualization libraries like Chart.js
-- **Will Hansen** Worked on wireframes in Figma, completed initial Database Design in Figma, and worked through initial HTML templates in Jinja
+- **Alana Powell** Worked on wireframes in Figma, some research on visualization, initial work on Child Profile form
+- **Antonio Duran Jr** Worked on wireframes in Figma, worked on rudimentary input form for baby Feeding Events page
+- **Felice Forby** Worked on wireframes in Figma, and finished initial implementation of our database and tables in our Flask app
+- **Nate Bliton** Created and worked on this document, helped with wireframes, and investigated visualization options some too
+- **Will Hansen** Worked on wireframes in Figma, completed initial database table design in Figma, and worked through initial HTML templates in Jinja
 
 ---
 ## Notes
@@ -108,34 +108,45 @@ We have set up two weekly meetings: Wednesday nights as our shorter standup, and
 
 Quick notes for those earlier meetings is below:
 
-## 2026-02-07
+### 2026-02-07
 - Initial meeting!
 - Discussed stack, upcoming tasks
 - brainstorm team name
 
-## 2026-02-11
+### 2026-02-11
 - made git repo and team name Fawn
 - during meeting verified github merge rules and commits
 - will brainstorm project ideas
 
-## 2026-02-14
+### 2026-02-14
 - We brainstormed possible features to discuss for the next meeting on 2/22
 
-## 2026-02-22
+### 2026-02-22
 
 - We each checked out Flask some
 - established user stories
 - divided up tasks for Wednesday
 
-## 2026-02-26
+### 2026-02-26
 
 - Recorded our "stand up meeting"
 - Shared progress on Flask and establishing requirements
 - Started using Figma for UI and database design
 - Sent links to new team member Alana
 
-## 2026-02-28
+### 2026-02-28
 
 - Worked together through rough Wireframes for each page in Figmia
 - Finished out Will's work on Database table design
 - Planned to move weekend working session to 10am Mountain Time on Sundays
+
+### 2026-03-04
+
+- Gave standup-style updates
+  - progress on Flask/Jinja implementation
+  - completion of initial database implementation
+- Discussed team-matters
+  - team/project name update
+  - meeting scheduling update, also moving Wednesday nights earlier to 5pm Mountain Time
+- Added some more cards in Trello for page implementations
+  - plan to pick them up at weekend meeting
