@@ -50,13 +50,6 @@ def login_post():
 
     return redirect(url_for('dashboard'))
 
-# User dashboard page
-@app.get("/dashboard")
-def dashboard():
-    # TODO: Add dashboard template with user-specific data
-    #  (e.g., list of children, recent feeding events)
-    return render_template('dashboard.html')
-
 # Show user profile page
 @app.get("/user/<int:user_id>")
 def get_user(user_id):
@@ -73,6 +66,14 @@ def update_user(user_id):
     # TODO: Add logic to update user profile based on request data
 
     return redirect(url_for('get_user', user_id=user_id))
+
+# User dashboard page
+@app.get("/user/<int:user_id>/dashboard")
+def dashboard(user_id):
+    user = db.get_or_404(User, user_id)
+    # TODO: Add dashboard template with user-specific data
+    #  (e.g., list of children, recent feeding events)
+    return render_template('dashboard.html', user=user)
 
 # Show baby/child profile page
 @app.get("/child/<int:child_id>")
