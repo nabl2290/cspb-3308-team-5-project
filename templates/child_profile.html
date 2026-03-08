@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>{{ child.first_name }}'s Profile</title>
+  <style>
+
+/* this is a CSS comment. everything within the style <> is CSS. */
+
+
+/* reset default browser spacing on everything */
+    * { /* means for the entiire page, apply such and such */
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+/*Notes about hex codes for colors: 
+Option 1: Google it
+Just search "light blue hex code" and Google shows you a color picker right in the results.
+
+Option 2: Use a color picker site 
+coolors.co is really popular for generating color palettes — you can lock colors you like and it generates matching ones.
+
+Option 3: Your browser's dev tools
+Right click any webpage → Inspect → click any colored element and it shows you the hex code. That's actually how designers "steal" colors from websites they like.
+*/
+
+/*Appllies to entire page */
+    body {
+      font-family: Arial, sans-serif; /*use arial font if available,if not use sans-serif */
+      background-color: #e0f0ff; /*this is a hex code for this color. To find other colors see above notes. */
+      display: flex; /*flex helps center things */
+      justify-content: center; /* center horizontally */
+      align-items: center; /* center vertically */
+      min-height: 100vh; /* make the page at least 100% of the screen height (vh = viewport height) */
+    }
+
+    .app-container {
+      display: flex;
+      width: 800px;
+      min-height: 600px;
+      border: 2px solid #999;
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 160px;
+      background-color: #4a9fd4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px 0;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .sidebar a.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .sidebar-label {
+      color: white;
+      font-size: 16px;
+      margin-top: auto;
+      margin-bottom: 20px;
+    }
+
+    /* Main content */
+    .main-content {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Top section: photo + name + info */
+    .profile-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .photo-placeholder {
+      width: 100px;
+      height: 100px;
+      border: 2px solid #333;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .name-banner {
+      background-color: #4a9fd4;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .info-list {
+      list-style: none;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .edit-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: not-allowed;
+      opacity: 0.85;
+    }
+
+    /* Data display section */
+    .data-section {
+      flex: 1;
+      background-color: #d0e8f8;
+      border: 2px solid #4a9fd4;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      color: #555;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="/">Home</a>
+      <a href="#" class="disabled">Profile</a>
+      <a href="#" class="disabled">Babies</a>
+      <a href="#" class="disabled">Logout</a>
+      <span class="sidebar-label">Profile</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+      <!-- Header: photo + name + info -->
+      <div class="profile-header">
+        <div class="photo-placeholder">Photo</div>
+        <div class="profile-info">
+          <div class="name-banner">{{ child.first_name }}</div>
+          <div class="info-row">
+            <ul class="info-list">
+              <li>{{ child.first_name }} {{ child.last_name }}</li>
+              <li>DOB: {{ child.dob }}</li>
+              <li>{{ "Female" if child.gender == "F" else "Male" }}</li>
+              <li>{{ child.eye_color | capitalize if child.eye_color else "Eye color not recorded" }} Eyes</li>
+            </ul>
+            <button class="edit-btn" disabled>Edit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TBD Data Section -->
+      <div class="data-section">
+        TBD Data display?
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
