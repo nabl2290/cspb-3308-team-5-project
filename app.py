@@ -22,12 +22,11 @@ with app.app_context():
 def index():
     return render_template('index.html')
 
-
 @app.route("/sample")
 def sample():
     return render_template('sample.html')
 
-# Registration page
+# Registration page form
 @app.get("/register")
 def register():
     # TODO: Add registration template
@@ -39,7 +38,7 @@ def register_post():
     # TODO: Add logic to create new user based on form data
     return redirect(url_for('dashboard'))
 
-# Login page
+# Login page with form
 @app.get("/login")
 def login():
     # TODO: Add login template
@@ -55,6 +54,12 @@ def login_post():
 
     return redirect(url_for('dashboard'))
 
+# Logout route
+@app.post("/logout")
+def logout():
+    # TODO: Add logic to log out user (e.g., clear session)
+    return redirect(url_for('index'))
+
 # Show user profile page
 @app.get("/user/<int:user_id>")
 def get_user(user_id):
@@ -62,6 +67,13 @@ def get_user(user_id):
 
     # TODO: Add user profile template with user data
     return render_template('user.html', user=user)
+
+# Edit user profile page with form
+@app.get("/user/<int:user_id>/edit")
+def edit_user(user_id):
+    user = db.get_or_404(User, user_id)
+
+    return render_template('edit_user.html', user=user)
 
 # Update user profile
 @app.patch("/user/<int:user_id>")
@@ -88,7 +100,12 @@ def get_child(child_id):
     # TODO: Add child profile template with child data
     return render_template('child.html', child=child)
 
-# Create new baby/child profile
+# New baby/child form
+@app.get("/child/new")
+def new_child():
+    return render_template('new_child.html')
+
+# Create new baby/child based on new form submission
 @app.post("/child")
 def create_child():
     # TODO: Add logic to create new child profile based on request data
@@ -96,7 +113,15 @@ def create_child():
     # TODO: After creating the child, redirect to their profile page
     return '', 201
 
-# Update baby/child profile
+# Edit baby/child form
+@app.get("/child/<int:child_id>/edit")
+def edit_child(child_id):
+    child = db.get_or_404(Child, child_id)
+
+    # TODO: Add child profile template with child data
+    return render_template('edit_child.html', child=child)
+
+# Update baby/child profile based on edit form submission
 @app.patch("/child/<int:child_id>")
 def update_child(child_id):
     child = db.get_or_404(Child, child_id)
@@ -105,13 +130,25 @@ def update_child(child_id):
 
     return redirect(url_for('get_child', child_id=child_id))
 
-# Create new feeding event
+# New feeding event form
+@app.get("/feeding-event/new")
+def new_feeding_event():
+    return render_template('new_feeding_event.html')
+
+# Create new feeding event based on new form submission
 @app.post("/feeding-event")
 def create_feeding_event():
     # TODO: Add logic to create new feeding event based on request data
     return '', 201
 
-# Edit feeding event
+# Edit feeding event form
+@app.get("/feeding-event/<int:event_id>/edit")
+def edit_feeding_event(event_id):
+    event = db.get_or_404(FeedingEvent, event_id)
+
+    return render_template('edit_feeding_event.html', event=event)
+
+# Update feeding event based on edit form submission
 @app.patch("/feeding-event/<int:event_id>")
 def update_feeding_event(event_id):
     event = db.get_or_404(FeedingEvent, event_id)
