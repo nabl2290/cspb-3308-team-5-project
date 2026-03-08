@@ -1,0 +1,22 @@
+<!doctype html>
+<head>
+  <title>Users</title>
+</head>
+
+<body>
+  <h1>All Users</h1>
+  <ul>
+    {% for user in users %}
+      <li>
+        {{ user.first_name }} {{ user.last_name }} ({{ user.email }})
+        {% if user.children %}
+          <ul>
+            {% for child in user.children %}
+              <li>{{ child.first_name }} {{ child.last_name }} (born {{ child.dob }})</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
