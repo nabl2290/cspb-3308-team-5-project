@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Dashboard</h1>
+    <p>You have {{ baby_count }} babies</p>
+
+    {% for baby in babies %}
+        <div>
+            <h3>{{ baby[1] }} {{ baby[2] }}</h3>
+            <p>DOB: {{ baby[3] }}</p>
+            <p>Gender: {{ baby[4] }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

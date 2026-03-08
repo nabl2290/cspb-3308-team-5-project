@@ -22,6 +22,11 @@ with app.app_context():
 def index():
     return render_template('index.html')
 
+
+@app.route("/sample")
+def sample():
+    return render_template('sample.html')
+
 # Registration page
 @app.get("/register")
 def register():
@@ -120,3 +125,4 @@ def update_feeding_event(event_id):
 def users():
     all_users = User.query.all()
     return render_template('users.html', users=all_users)
+
