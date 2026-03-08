@@ -41,7 +41,6 @@ def register_post():
 # Login page with form
 @app.get("/login")
 def login():
-    # TODO: Add login template
     return render_template('login.html')
 
 # Post login for authentication
