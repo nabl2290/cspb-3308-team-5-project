@@ -50,48 +50,60 @@ TODO List of tests for verifying the rendering of the page
 # 2) Login
 
 ## Page Title
-TODO Page Title
+Login
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+This page allows users to log in to their account using their email and password. It includes form validation and error handling for incorrect credentials.
 
 ## Mockup
 ![Login](mockups/login.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+None
 
 ## Data needed to render the page
-TODO Data needed to render the page
+None, as the user is not authenticated yet and no data is need to render the form.
 
 ## Link destinations for the page
-TODO Link destinations for the page
+- "New User?" to take user to Registration page → `/register`
+- Submit button to submit login form → `/login` (POST request)
 
 ## Tests for Verifying Rendering of the Page
-TODO List of tests for verifying the rendering of the page
+- **Form fields render**: Email and password input fields are displayed
+- **Submit button present**: Login button is visible and enabled
+- **Link to registration**: "New User?" link is visible and navigates to `/register`
+- **Submit button posts form**: Clicking submit sends a POST request to `/login` with email and password
+- **Error handling**: Incorrect credentials show an error message
+- **Successful login**: Correct credentials redirect to user dashboard. Session data should be set to keep user logged in.
 
 # 3) Register User
 
 ## Page Title
-TODO Page Title
+Sign Up
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+Allows new users to create an account by providing their name, email, and password. Includes form validation and error handling for missing fields, existing email addresses, and failed password confirmation.
 
 ## Mockup
-TODO
+![registration.png](mockups/registration.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+None
 
 ## Data needed to render the page
-TODO Data needed to render the page
+None, as the user is not authenticated yet and no data is need to render the form.
 
 ## Link destinations for the page
-TODO Link destinations for the page
+- "Have an account?" to take user to Login page → `/login`
+- Submit button to submit registration form → `/register` (POST request)
 
 ## Tests for Verifying Rendering of the Page
-TODO List of tests for verifying the rendering of the page
+- **Form fields render**: First name, last name, email, password, and confirm password input fields are displayed.
+- **Submit button present**: Sign Up button is visible and enabled.
+- **Link to login**: "Have an account?" link is visible and navigates to `/login`.
+- **Submit button posts form**: Clicking submit sends a POST request to `/register` with the form data.
+- **Error handling**: Missing fields, existing email, and password confirmation errors show appropriate error messages.
+- **Successful registration**: Correct form submission creates the user, logs them in, and redirects them to user dashboard. Session data should be set to keep user logged in.
 
 # 4) User Landing Screen
 
