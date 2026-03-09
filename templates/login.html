@@ -15,6 +15,9 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" placeholder="Enter your password" required>
     </div>
+    {% if error %}
+      <div class="form__error">{{ error }}</div>
+    {% endif %}
     <div class="form__actions">
       <button type="submit" class="form__submit btn btn--blue">Login</button>
     </div>

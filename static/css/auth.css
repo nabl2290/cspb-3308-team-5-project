@@ -71,6 +71,12 @@ form {
     width: 100%;
 }
 
+.form__error {
+    color: #b71c1c;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
 .btn {
     border: none;
     border-radius: 0.5rem;
