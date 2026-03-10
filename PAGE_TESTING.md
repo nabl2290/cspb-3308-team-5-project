@@ -108,25 +108,49 @@ None, as the user is not authenticated yet and no data is need to render the for
 # 4) User Landing Screen
 
 ## Page Title
-TODO Page Title
+User Dashboard
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+Purpose: View and click into children and/or add feeding events or more children.
 
 ## Mockup
-TODO
+![dashboard.png](mockups/dashboard.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+- Route params: 
+  - `user_id` (required) from `/user/<int:user_id>/dashboard`
+- Query params (optional): 
+  - `user_id`
 
 ## Data needed to render the page
-TODO Data needed to render the page
+- Auth state: current user id
+- Database data:
+  - User data
+  - Child data
 
 ## Link destinations for the page
-TODO Link destinations for the page
+- HOME click → `/user/:user_id/dashboard`
+- Profile → `/user/:user_id`
+- Logout → `/logout`
+- Edit → `/child/:child_id/edit`
+- Child card/section → `/child/<int:child_id>`
+- Add another baby → `/child/new`
+- Add Feeding Event → `/feeding-event`
 
 ## Tests for Verifying Rendering of the Page
-TODO List of tests for verifying the rendering of the page
+1. **Route param required**
+   - Visiting `/dashboard/` without `user_id` shows error or redirects
+2. **User header renders**
+   - User name and information is displayed
+
+3. **child information renders**
+   - If children related to parent/user exists, it is displayed
+   - If no feeding info exists , "No children to show " is displayed
+4. **Child info only available to this Child's parent**
+   - Non-parents cannot access (redirect or “access denied”)
+6. **Links**
+   - Clicking onto a child card directs the user to `/child/<int:child_id>`
+   - “Add Feeding Event” navigates to `/feeding-event/new`
 
 # 5) Add/Edit baby form
 
