@@ -190,7 +190,7 @@ TODO Page Description (include a mockup or hand drawn image of the page, Figma f
 ![user profile](mockups/user_profile.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+View a users info, update photo or user data
 
 ## Data needed to render the page
 - Auth state: current user id
@@ -199,7 +199,7 @@ TODO Parameters needed for the page
   - User photo
 - UI state:
   - Selected user data and photo
-  - Whether data is unsaved
+  - Whether any data is unsaved
 
 ## Link destinations for the page
 - HOME click → `/user/:user_id/dashboard`
