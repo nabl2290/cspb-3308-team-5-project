@@ -245,7 +245,7 @@ TODO update screenshot
    - “Edit” navigates to correct route or opens modal
    - “Add Feeding Event” navigates to correct route or opens modal
 
-# 8) Feeding Events
+# 8) Add Feeding Event
 
 ## Page Title
 Feeding Event
@@ -259,6 +259,39 @@ Purpose: Be able to log the time, date, amount, and description of a child's fee
 ## Parameters needed for the page
 - Route params: 
   - `/feeding-event/new` for new event
+
+## Data needed to render the page
+- Auth state: only available to logged in user
+- Database data:
+  - Child data
+- UI state:
+  - Selected Child info
+
+## Link destinations for the page
+- HOME click → `/user/:user_id/dashboard`
+- Profile → `/user/:user_id`
+- Logout → `/logout`
+- Add Feeding Event → `/feeding-event`
+
+## Tests for Verifying Rendering of the Page
+1. **Child name renders**
+   - Child name is displayed
+2. **Only available if logged in**
+   - Non-parents and logged out users cannot access (redirect or “access denied”)
+  
+# 9) Edit/Delete Feeding Event
+
+## Page Title
+Edit Feeding Event
+
+## Page Description
+Purpose: Be able to edit the time, date, amount, and description of a child's feed/meal or delete the event entirely.
+
+## Mockup
+![editfeedevent.png](mockups/editfeedevent.png)
+
+## Parameters needed for the page
+- Route params: 
   - `/feeding-event/<int:event_id>/edit` for editing an existing event
 - Query params (optional): none
 
@@ -275,16 +308,16 @@ Purpose: Be able to log the time, date, amount, and description of a child's fee
 - HOME click → `/user/:user_id/dashboard`
 - Profile → `/user/:user_id`
 - Logout → `/logout`
-- Add Feeding Event → `/feeding-event`
-- Update/delete Feeding Event → `/feeding-event/<int:event_id>`
-
+- Edit Feeding Event → `/feeding-event/<int:event_id>`
+- Delete Feeding Event → `/feeding-event/<int:event_id>` (DELETE request)
+  
 ## Tests for Verifying Rendering of the Page
 1. **Route param required**
    - Editing: Visiting `/feeding-event` without `event_id` shows error or redirects
 2. **Child name renders**
    - Child name is displayed
 3. **Previous event renders**
-   - When editing an existing event, the respective information for that event is displayed and able to be changed
+   - Editing an existing event, the respective information for that event is displayed and able to be changed
 4. **Only available if logged in**
    - Non-parents and logged out users cannot access (redirect or “access denied”)
 6. **Deletion removes event**
