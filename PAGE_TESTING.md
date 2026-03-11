@@ -248,22 +248,44 @@ TODO update screenshot
 # 8) Feeding Events
 
 ## Page Title
-TODO Page Title
+Feeding Event
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+Purpose: Be able to log the time, date, amount, and description of a child's feed/meal.
 
 ## Mockup
-TODO
+![feedevent.png](mockups/feedevent.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+- Route params: 
+  - `/feeding-event/new` for new event
+  - `/feeding-event/<int:event_id>/edit` for editing an existing event
+- Query params (optional): none
 
 ## Data needed to render the page
-TODO Data needed to render the page
+- Auth state: only available to logged in user
+- Database data:
+  - Child data
+  - Feed data if updating/deleting previous input
+- UI state:
+  - Selected Child info
+  - Selected event info
 
 ## Link destinations for the page
-TODO Link destinations for the page
+- HOME click → `/user/:user_id/dashboard`
+- Profile → `/user/:user_id`
+- Logout → `/logout`
+- Add Feeding Event → `/feeding-event`
+- Update/delete Feeding Event → `/feeding-event/<int:event_id>`
 
 ## Tests for Verifying Rendering of the Page
-TODO List of tests for verifying the rendering of the page
+1. **Route param required**
+   - Editing: Visiting `/feeding-event` without `event_id` shows error or redirects
+2. **Child name renders**
+   - Child name is displayed
+3. **Previous event renders**
+   - When editing an existing event, the respective information for that event is displayed and able to be changed
+4. **Only available if logged in**
+   - Non-parents and logged out users cannot access (redirect or “access denied”)
+6. **Deletion removes event**
+   - Deleting an event removes it permanently from the database
