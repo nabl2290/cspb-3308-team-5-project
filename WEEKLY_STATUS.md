@@ -63,7 +63,8 @@ Key accomplishments include:
   - Child Profile
   - (in PR) Feeding Event form
 - Login authorization
-- 
+- Common components
+  - Navigation side-bar
 
 ## Blockers and issues
 - May need to troubleshoot navigation when running from c-sel environment (doesn't work yet for Nate)
@@ -241,4 +242,14 @@ Quick notes for those earlier meetings is below:
 ### 2026-03-11
 
 - Code updates
-- 
+- Felice
+  login page and page testing for login/registration
+  no blockers off next week
+- Antonio
+    worked on feeding event forms
+      saw flask library
+- Alana
+    created css file in static folder for styles, in PR soon
+- Will
+    updates to block html and block stylesheet, in PR soon
+    fixed some links
