@@ -7,6 +7,82 @@
 
 **Team Name:** FAWNA
 
+## Overview
+This document captures the **weekly status** of the Baby managing project for the specified reporting period. It is intended to provide a concise snapshot of progress, plans, and risks, and will be updated weekly throughout the project.
+
+This weekly status format is designed to:
+- Track ongoing progress over time
+- Surface risks and blockers early
+- Provide accountability for individual contributions
+- Supplement the project management tool used by the team
+
+---
+
+## Reporting Period
+**Week:** 7
+
+**Meeting Held:** Yes
+
+**Meeting Date:** March 11 standup, March 8 working session
+
+**Meeting Duration:** ? minutes, 2 hours
+
+**Meeting Format:** Zoom
+
+---
+
+## Project Management Snapshot
+
+The team is using a shared **Trello board** to manage tasks and sprint progress.
+At the time of the report:
+- Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done
+- Tasks are assigned to one or more individual team member(s)
+- Due dates are now added!
+
+Before meeting:
+![2026-03-11 trello before meeting](meetings/trello_2026-03-04_beforemeeting.png)
+After meeting:
+
+---
+## Progress Since Last Week
+
+Key accomplishments include:
+- Nearing completion of page testing document
+- User login implementation and navigation routes
+- Progress on html templates
+
+---
+## Completed Tasks
+- Page behavior documentation for testing:
+  - (in PR) Welcome
+  - Login
+  - Register User
+  - User Landing Screen
+  - TODO Add/Edit baby form
+  - (in PR) Profile
+  - Child Profile
+  - (in PR) Feeding Event form
+- Login authorization
+- 
+
+## Blockers and issues
+- May need to troubleshoot navigation when running from c-sel environment (doesn't work yet for Nate)
+---
+
+## Risks and Mitigation
+-
+
+## Team Reflection
+- 
+
+## Individual Contributions This Week
+
+- **Alana Powell** Full Child Profile html template page, testing documentation, established deadlines in Trello
+- **Antonio Duran Jr** Testing documentation of Feeding Event page
+- **Felice Forby** Login/authorization code implementation with reusable component, testing documentation of Login and Registration pages
+- **Nate Bliton** Testing documentation of Welcome and User Profile pages, progress on Welcome page HTML template
+- **Will Hansen** Reusable HTML Sidebar component, boilerplate HTML content, User landing screen testing documentation
+
 ---
 
 ## Reporting Period
@@ -151,3 +227,18 @@ Quick notes for those earlier meetings is below:
   - meeting scheduling update, also moving Wednesday nights earlier to 5pm Mountain Time
 - Added some more cards in Trello for page implementations
   - plan to pick them up at weekend meeting
+
+### 2026-03-08
+
+- Code updates
+  - some intitial pages
+  - initial navigation routes
+  - login implementation
+- Documentation
+  - Started PAGE_TESTING.md with initial Child profile
+- Established more tasks and divided up some of them
+
+### 2026-03-11
+
+- Code updates
+- 
