@@ -245,7 +245,7 @@ TODO update screenshot
    - “Edit” navigates to correct route or opens modal
    - “Add Feeding Event” navigates to correct route or opens modal
 
-# 8) Add Feeding Event
+# 8) Feeding Events
 
 ## Page Title
 Feeding Event
@@ -259,7 +259,7 @@ Purpose: Be able to log the time, date, amount, and description of a child's fee
 ## Parameters needed for the page
 - Route params: 
   - `/feeding-event/new` for new event
-
+ 
 ## Data needed to render the page
 - Auth state: only available to logged in user
 - Database data:
