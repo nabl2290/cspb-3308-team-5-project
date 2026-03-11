@@ -26,26 +26,28 @@ filters, toggles
 # 1) Welcome Page
 
 ## Page Title
-TODO Page Title
+Welcome
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+Has a basic welcome message and title, and buttons to either create a new account or log in with a pre-existing account.
 
 ## Mockup
 ![Welcome page](mockups/welcome.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+None
 
 ## Data needed to render the page
-TODO Data needed to render the page
+None
 
 ## Link destinations for the page
-TODO Link destinations for the page
+- "New Account" to take user to Registration page → `/register`
+- "Login" to take user to Login page → `/login` (GET request)
 
 ## Tests for Verifying Rendering of the Page
-TODO List of tests for verifying the rendering of the page
-
+- **Welcome message renders**: Welcome message and description is displayed on the screen when the page is loaded
+- **Submit button present**: Login button is visible and navigates to `/login`
+- **Link to registration**: "New User?" link is visible and navigates to `/register`
 
 # 2) Login
 
