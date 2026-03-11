@@ -190,7 +190,7 @@ TODO Page Description (include a mockup or hand drawn image of the page, Figma f
 ![user profile](mockups/user_profile.png)
 
 ## Parameters needed for the page
-View a users info, update photo or user data
+View a user's info, or update user data
 
 ## Data needed to render the page
 - Auth state: current user id
