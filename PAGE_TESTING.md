@@ -184,13 +184,15 @@ TODO List of tests for verifying the rendering of the page
 User Profile
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+View a user's info, or update user data
 
 ## Mockup
 ![user profile](mockups/user_profile.png)
 
 ## Parameters needed for the page
-View a user's info, or update user data
+- Route params: 
+  - `user_id` (required) from `/user/:user_id`
+- Query params (optional): none
 
 ## Data needed to render the page
 - Auth state: current user id
