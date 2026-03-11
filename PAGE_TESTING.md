@@ -59,7 +59,8 @@ This page allows users to log in to their account using their email and password
 ![Login](mockups/login.png)
 
 ## Parameters needed for the page
-None
+- URL query params :
+  - `error` to display error messages for unauthorized access (e.g., `?/login?error=You+are+not+authorized+to+access+this+page`)
 
 ## Data needed to render the page
 None, as the user is not authenticated yet and no data is need to render the form.
