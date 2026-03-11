@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
 {% block content %}
-<h1>Dashboard</h1>
+<h1 class="dashboard-h1">Dashboard</h1>
     <p>You have {{ baby_count }} babies</p>
 
     {% for baby in babies %}
