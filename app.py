@@ -1,12 +1,13 @@
 import os
 
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, session
 from models import db, User, Child, FeedingEvent
 from seeds import seed_db
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.secret_key = os.getenv('APP_SECRET_KEY') or 'dev-secret-key'
 db.init_app(app)
 
 # Create tables if they don't exist
@@ -16,6 +17,29 @@ with app.app_context():
     # Seed the database with test data if in development environment
     if os.getenv('FLASK_ENV') == 'development':
         seed_db()
+
+"""
+Helper function to get the currently logged-in user
+"""
+def get_current_user():
+  user_id = session.get('user_id')
+
+  if user_id is None:
+      return None
+
+  return db.get_or_404(User, user_id)
+
+"""
+Helper function to require user is authorized to access a page (e.g., their own dashboard or profile)
+"""
+def authorized_user(requested_user_id):
+  current_user_id = session.get('user_id')
+
+  if current_user_id is None:
+        return False
+  else:
+    return current_user_id == requested_user_id
+
 
 # Welcome page
 @app.route("/")
@@ -41,8 +65,9 @@ def register_post():
 # Login page with form
 @app.get("/login")
 def login():
-    # TODO: Add login template
-    return render_template('login.html')
+    # Get any error message from query parameters (e.g., after unauthorized access)
+    error = request.args.get('error')
+    return render_template('login.html', error=error)
 
 # Post login for authentication
 @app.post("/login")
@@ -50,9 +75,13 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    # TODO: Add logic to authenticate user based on form data
+    user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
 
-    return redirect(url_for('dashboard'))
+    if user is None or not user.check_password(password):
+        return render_template('login.html', error="Invalid email or password."), 422
+
+    session['user_id'] = user.id
+    return redirect(url_for('dashboard', user_id=user.id))
 
 # Logout route
 @app.post("/logout")
@@ -87,7 +116,11 @@ def update_user(user_id):
 # User dashboard page
 @app.get("/user/<int:user_id>/dashboard")
 def dashboard(user_id):
+    if not authorized_user(user_id):
+        return redirect(url_for('login', error="You are not authorized to access this page"))
+
     user = db.get_or_404(User, user_id)
+
     # TODO: Add dashboard template with user-specific data
     #  (e.g., list of children, recent feeding events)
     return render_template('dashboard.html', user=user)
