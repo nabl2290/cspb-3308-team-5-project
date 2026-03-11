@@ -275,8 +275,9 @@ Purpose: Be able to log the time, date, amount, and description of a child's fee
 - HOME click → `/user/:user_id/dashboard`
 - Profile → `/user/:user_id`
 - Logout → `/logout`
-- Add Feeding Event → `/feeding-event`
-- Update/delete Feeding Event → `/feeding-event/<int:event_id>`
+- Add Feeding Event → `/feeding-event/new`
+- Edit Feeding Event → `/feeding-event/<int:event_id>/edit`
+- Delete Feeding Event → `/feeding-event/<int:event_id>` (DELETE request)
 
 ## Tests for Verifying Rendering of the Page
 1. **Route param required**
