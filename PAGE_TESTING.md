@@ -26,26 +26,28 @@ filters, toggles
 # 1) Welcome Page
 
 ## Page Title
-TODO Page Title
+Welcome
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+Has a basic welcome message and title, and buttons to either create a new account or log in with a pre-existing account.
 
 ## Mockup
 ![Welcome page](mockups/welcome.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+None
 
 ## Data needed to render the page
-TODO Data needed to render the page
+None
 
 ## Link destinations for the page
-TODO Link destinations for the page
+- "New Account" to take user to Registration page → `/register`
+- "Login" to take user to Login page → `/login` (GET request)
 
 ## Tests for Verifying Rendering of the Page
-TODO List of tests for verifying the rendering of the page
-
+- **Welcome message renders**: Welcome message and description is displayed on the screen when the page is loaded
+- **Submit button present**: Login button is visible and navigates to `/login`
+- **Link to registration**: "New User?" link is visible and navigates to `/register`
 
 # 2) Login
 
@@ -179,25 +181,51 @@ TODO List of tests for verifying the rendering of the page
 # 6) Profile
 
 ## Page Title
-TODO Page Title
+User Profile
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+View a user's info, or update user data
 
 ## Mockup
-TODO
+![user profile](mockups/user_profile.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+- Route params: 
+  - `user_id` (required) from `/user/:user_id`
+- Query params (optional): none
 
 ## Data needed to render the page
-TODO Data needed to render the page
+- Auth state: current user id
+- Database data:
+  - User data
+  - User photo
+- UI state:
+  - Selected user data and photo
+  - Whether any data is unsaved
 
 ## Link destinations for the page
-TODO Link destinations for the page
+- HOME click → `/user/:user_id/dashboard`
+- Profile → `/user/:user_id`
+- Logout → `/logout`
+- Upload → `POST /user/:user_id/photo`
+- Save → `PATCH /user/:user_id`
 
 ## Tests for Verifying Rendering of the Page
-TODO List of tests for verifying the rendering of the page
+1. **Route param required**
+   - Visiting `/user/` without `user_id` shows error or redirects
+2. **User header renders**
+   - User name is displayed
+3. **User data renders**
+   - User name and email are displayed, and password is obfuscated
+4. **Password button enables editing**
+   - Pressing “Change Password” empties password field so a new one can be typed in
+5. **Save button functionality**
+   - Save button is initially disabled
+   - If a field is edited, the save button is enabled
+   - If the save button is pressed, the user is updated
+6. **Photo**
+   - If a user has a photo, it is displayed
+   - Pressing “Upload” opens a pop-up so the user can select a photo to upload and associate with this user
 
 # 7) Child Profile
 
@@ -208,7 +236,7 @@ Child Profile
 Purpose: view Child info, and view feeding events.
 
 ## Mockup
-TODO update screenshot
+![child profile](mockups/child_profile.png)
 
 ## Parameters needed for the page
 - Route params: 
