@@ -40,9 +40,9 @@ At the time of the report:
 - Due dates are now added!
 
 Before meeting:
-![2026-03-11 trello before meeting](meetings/trello_2026-03-04_beforemeeting.png)
+![2026-03-11 trello before meeting](meetings/trello_2026-03-11_beforemeeting.png)
 After meeting:
-
+![2026-03-11 trello before meeting](meetings/trello_2026-03-11_aftermeeting.png)
 ---
 ## Progress Since Last Week
 
@@ -54,35 +54,39 @@ Key accomplishments include:
 ---
 ## Completed Tasks
 - Page behavior documentation for testing:
-  - (in PR) Welcome
   - Login
   - Register User
   - User Landing Screen
-  - TODO Add/Edit baby form
-  - (in PR) Profile
   - Child Profile
-  - (in PR) Feeding Event form
 - Login authorization
 - Common components
   - Navigation side-bar
+  - HTML/CSS reusable components
+
+## Tasks on deck
+- Page behavior documentation for testing:
+  - (in PR) Welcome
+  - Alana picking up Add/Edit baby form
+  - (in PR) Profile
+  - (in PR) Feeding Event view/add and edit/delete forms
 
 ## Blockers and issues
-- May need to troubleshoot navigation when running from c-sel environment (doesn't work yet for Nate)
+- May need to troubleshoot navigation when running app in c-sel environment (doesn't work yet just for Nate)
 ---
 
 ## Risks and Mitigation
--
+- None
 
 ## Team Reflection
-- 
+- Scope is feeling bigger than expected as we flesh out documentation, but making progress
 
 ## Individual Contributions This Week
 
-- **Alana Powell** Full Child Profile html template page, testing documentation, established deadlines in Trello
-- **Antonio Duran Jr** Testing documentation of Feeding Event page
+- **Alana Powell** Full Child Profile html template page, refactor separating out css from html, testing documentation, established deadlines in Trello
+- **Antonio Duran Jr** Testing documentation of Feeding Event page and progress on input forms, itemized testing documentation work in Trello
 - **Felice Forby** Login/authorization code implementation with reusable component, testing documentation of Login and Registration pages
-- **Nate Bliton** Testing documentation of Welcome and User Profile pages, progress on Welcome page HTML template
-- **Will Hansen** Reusable HTML Sidebar component, boilerplate HTML content, User landing screen testing documentation
+- **Nate Bliton** Testing documentation of Welcome and User Profile pages, progress on Welcome page HTML template, notes for this document
+- **Will Hansen** Reusable HTML Sidebar component, boilerplate HTML and css content, User landing screen testing documentation
 
 ---
 
@@ -99,17 +103,6 @@ Key accomplishments include:
 
 ---
 
-## Overview
-This document captures the **weekly status** of the Baby managing project for the
-specified reporting period.
-It is intended to provide a concise snapshot of progress, plans, and risks, and
-will be updated weekly throughout the project.
-This weekly status format is designed to:
-- Track ongoing progress over time
-- Surface risks and blockers early
-- Provide accountability for individual contributions
-- Supplement the project management tool used by the team
----
 ## Project Management Snapshot
 
 The team is using a shared **Trello board** to manage tasks and sprint progress.
@@ -241,15 +234,15 @@ Quick notes for those earlier meetings is below:
 
 ### 2026-03-11
 
-- Code updates
+- Code updates, PRs for testing document too
 - Felice
   login page and page testing for login/registration
-  no blockers off next week
+  no blockers, off next week
 - Antonio
-    worked on feeding event forms
-      saw flask library
+  worked on feeding event forms
+  saw flask library for forms that Felice mentioned
 - Alana
-    created css file in static folder for styles, in PR soon
+  created separate css file in static folder for styles, PR merged
 - Will
-    updates to block html and block stylesheet, in PR soon
-    fixed some links
+  updates to block html and block stylesheet, PR merged
+  fixed some links
