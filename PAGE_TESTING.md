@@ -201,14 +201,14 @@ View a user's info, or update user data
   - User photo
 - UI state:
   - Selected user data and photo
-  - Whether any data is unsaved
+  - Whether in view mode or edit mode
 
 ## Link destinations for the page
 - HOME click → `/user/:user_id/dashboard`
-- Profile → `/user/:user_id`
+- Profile View → `/user/:user_id` (GET request)
+- Profile Update (Save) → `/user/:user_id` (PATCH request)
 - Logout → `/logout`
-- Upload → `POST /user/:user_id/photo`
-- Save → `PATCH /user/:user_id`
+- Upload Photo → `/user/:user_id/photo` (POST request)
 
 ## Tests for Verifying Rendering of the Page
 1. **Route param required**
@@ -216,13 +216,14 @@ View a user's info, or update user data
 2. **User header renders**
    - User name is displayed
 3. **User data renders**
-   - User name and email are displayed, and password is obfuscated
-4. **Password button enables editing**
-   - Pressing “Change Password” empties password field so a new one can be typed in
+   - User first and last name and email are displayed, and password is initially not visible
+4. **Edit button enables editing**
+   - Pressing “Edit” changes name and email fields to text boxes, and fields appear with obfuscated password that you can update
 5. **Save button functionality**
-   - Save button is initially disabled
-   - If a field is edited, the save button is enabled
-   - If the save button is pressed, the user is updated
+   - Save button is initially not visible if not in "edit" mode
+   - If in edit mode, the save button is enabled
+   - If the save button is pressed and input is valid, the user is updated and the UI returns to the "view" mode, user info as text labels instead of input fields, and password fields are hidden
+   - If the save button is pressed and the password is changed, and the New Password and New Password Confirmation fields have different contents, an informative error will appear and the save will not be completed
 6. **Photo**
    - If a user has a photo, it is displayed
    - Pressing “Upload” opens a pop-up so the user can select a photo to upload and associate with this user
