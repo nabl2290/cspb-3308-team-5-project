@@ -4,27 +4,26 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}My Website{% endblock %}</title>
+        <title>Baby Steps</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        {% block stylesheet%}{% endblock %}
         <!-- <link rel="stylesheet" href="../static/css/styles.css"> -->
     </head>
     <body>
         <div class = "outer-wrapper">
             <nav class = "sidebar">
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/Profile">Profile</a></li>
-                    <li><a href="/Babies">Babies</a></li>
-                    <li><a href="/Logout">Logout</a></li>
+                    <li><a href="{{ url_for('dashboard', user_id=user.id) }}">Home</a></li>
+                    <li><a href="{{ url_for('get_user', user_id=user.id) }}">Profile</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 </ul>
             </nav>
             <div class = "main-area">
                 <header class = "header">
                     <h1 class = "logo">Baby Steps</h1>
                     <div class = "user-info">
-                        <span>Welcome, {{ user.first_name }}</span>
-                        <img src = "{{ url_for('static', filename='images/profile-pic.png') }}" alt = "Profile Picture" class = "profile-pic" href = "/Profile">
-                        
+                        <a href = "{{ url_for('get_user', user_id=user.id) }}">Welcome, {{ user.first_name }}</a>
+                        <a href = "{{ url_for('get_user', user_id=user.id) }}"><img src = "{{ url_for('static', filename='images/Default_pfp.jpg') }}" alt = "Profile Picture" class = "profile-pic"></a>
                     </div>
                 </header>
                 
