@@ -320,5 +320,7 @@ Purpose: Be able to edit the time, date, amount, and description of a child's fe
    - Editing an existing event, the respective information for that event is displayed and able to be changed
 4. **Only available if logged in**
    - Non-parents and logged out users cannot access (redirect or “access denied”)
+5. **Save event**
+   - Selecting to update an event, updates the information for that event in the database.
 6. **Deletion removes event**
    - Deleting an event removes it permanently from the database
