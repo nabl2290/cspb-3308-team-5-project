@@ -1,9 +1,10 @@
 
 /* reset default browser spacing on everything */
     * { /* means for the entiire page, apply such and such */
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      /* box-sizing: border-box; */
+      /* margin: 0; */
+      /* padding: 0; */
+      /* 3/11/26 WHansen - Handled in styles.css*/
     }
 
 /*Notes about hex codes for colors: 
@@ -18,61 +19,61 @@ Right click any webpage → Inspect → click any colored element and it shows y
 */
 
 /*Appllies to entire page */
-    body {
-      font-family: Arial, sans-serif; /*use arial font if available,if not use sans-serif */
-      background-color: #e0f0ff; /*this is a hex code for this color. To find other colors see above notes. */
-      display: flex; /*flex helps center things */
-      justify-content: center; /* center horizontally */
-      align-items: center; /* center vertically */
-      min-height: 100vh; /* make the page at least 100% of the screen height (vh = viewport height) */
+    body {/* 3/11/26 WHansen - Handled in styles.css*/
+      /*font-family: Arial, sans-serif; /*use arial font if available,if not use sans-serif */
+      /*background-color: #e0f0ff; /*this is a hex code for this color. To find other colors see above notes. */
+      /*display: flex; /*flex helps center things */
+      /*justify-content: center; /* center horizontally */
+      /*align-items: center; /* center vertically */
+      /*min-height: 100vh; /* make the page at least 100% of the screen height (vh = viewport height) */
     }
 
-    .app-container {
-      display: flex;
-      width: 800px;
-      min-height: 600px;
-      border: 2px solid #999;
-      border-radius: 8px;
-      overflow: hidden;
-      background: white;
+    .app-container {/* 3/11/26 WHansen - Handled in styles.css*/
+      /* display: flex; */
+      /* width: 800px; */
+      /* min-height: 600px; */
+      /* border: 2px solid #999; */
+      /* border-radius: 8px; */
+      /* overflow: hidden; */
+      /* background: white; */
     }
 
     /* Sidebar */
-    .sidebar {
-      width: 160px;
-      background-color: #4a9fd4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 0;
+    .sidebar {/* 3/11/26 WHansen - Handled in styles.css*/
+      /* width: 160px; */
+      /* background-color: #4a9fd4; */
+      /* display: flex; */
+      /* flex-direction: column; */
+      /* align-items: center; */
+      /* padding-top: 0; */
     }
 
-    .sidebar a {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 14px 0;
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+    .sidebar a {/* 3/11/26 WHansen - Handled in styles.css*/
+      /* display: block; */
+      /* width: 100%; */
+      /* text-align: center; */
+      /* padding: 14px 0; */
+      /* color: white; */
+      /* text-decoration: none; */
+      /* font-size: 15px; */
+      /* border-bottom: 1px solid rgba(255,255,255,0.2); */
     }
 
-    .sidebar a:hover {
-      background-color: rgba(255,255,255,0.2);
+    .sidebar a:hover {/* 3/11/26 WHansen - Handled in styles.css*/
+      /* background-color: rgba(255,255,255,0.2); */
     }
 
-    .sidebar a.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      pointer-events: none;
+    .sidebar a.disabled {/* 3/11/26 WHansen - Handled in styles.css*/
+      /* opacity: 0.5; */
+      /* cursor: not-allowed; */
+      /* pointer-events: none; */
     }
 
-    .sidebar-label {
-      color: white;
-      font-size: 16px;
-      margin-top: auto;
-      margin-bottom: 20px;
+    .sidebar-label {/* 3/11/26 WHansen - Handled in styles.css*/
+      /* color: white; */
+      /* font-size: 16px; */
+      /* margin-top: auto; */
+      /* margin-bottom: 20px; */
     }
 
     /* Main content */
@@ -102,6 +103,15 @@ Right click any webpage → Inspect → click any colored element and it shows y
       color: #666;
       font-size: 14px;
       flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .photo-placeholder img {
+      width: 140px;
+      height: 140px;
+      object-fit: fill;
+      /* border-radius: 8px; */
+      
     }
 
     .profile-info {
