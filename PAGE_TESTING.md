@@ -178,16 +178,16 @@ TODO Link destinations for the page
 ## Tests for Verifying Rendering of the Page
 TODO List of tests for verifying the rendering of the page
 
-# 6) Profile
+# 6) View User Profile
 
 ## Page Title
-User Profile
+View User Profile
 
 ## Page Description
-View a user's info, or update user data
+View a user's info, and have an option to navigate to the page to edit.
 
 ## Mockup
-![user profile](mockups/user_profile.png)
+![view user profile](mockups/view_user_profile.png)
 
 ## Parameters needed for the page
 - Route params: 
@@ -201,14 +201,13 @@ View a user's info, or update user data
   - User photo
 - UI state:
   - Selected user data and photo
-  - Whether any data is unsaved
 
 ## Link destinations for the page
 - HOME click → `/user/:user_id/dashboard`
-- Profile → `/user/:user_id`
+- Profile View → `/user/:user_id` (GET request)
 - Logout → `/logout`
-- Upload → `POST /user/:user_id/photo`
-- Save → `PATCH /user/:user_id`
+- Upload Photo → `/user/:user_id/photo` (POST request)
+- Edit User page → `/user/:user_id/edit` (GET request)
 
 ## Tests for Verifying Rendering of the Page
 1. **Route param required**
@@ -216,14 +215,56 @@ View a user's info, or update user data
 2. **User header renders**
    - User name is displayed
 3. **User data renders**
-   - User name and email are displayed, and password is obfuscated
-4. **Password button enables editing**
-   - Pressing “Change Password” empties password field so a new one can be typed in
-5. **Save button functionality**
-   - Save button is initially disabled
-   - If a field is edited, the save button is enabled
-   - If the save button is pressed, the user is updated
-6. **Photo**
+   - User first and last name and email are displayed, and password is initially not visible
+4. **Edit button enables editing**
+   - Pressing “Edit” navigates to the Edit User Info page, with editable fields
+5. **Photo**
+   - If a user has a photo, it is displayed
+   - Pressing “Upload” opens a pop-up so the user can select a photo to upload and associate with this user
+
+
+# 6B) Edit User Profile
+
+## Page Title
+Edit User Profile
+
+## Page Description
+Edit a user's info, and have an option to save and navigate back to the view page.
+
+## Mockup
+![alt text](mockups/edit_user_profile.png)
+
+## Parameters needed for the page
+- Route params: 
+  - `user_id` (required) from `/user/:user_id/edit`
+- Query params (optional): none
+
+## Data needed to render the page
+- Auth state: current user id
+- Database data:
+  - User data
+  - User photo
+- UI state:
+  - Selected user data and photo
+
+## Link destinations for the page
+- HOME click → `/user/:user_id/dashboard`
+- Profile View → `/user/:user_id` (GET request)
+- Logout → `/logout`
+- Upload Photo → `/user/:user_id/photo` (POST request)
+- User Info Update (Save) → `/user/:user_id` (PATCH request)
+
+## Tests for Verifying Rendering of the Page
+1. **Route param required**
+   - Visiting `/user/` without `user_id` shows error or redirects
+2. **User header renders**
+   - User name is displayed
+3. **User data renders**
+   - User first and last name and email are displayed, and password is initially not visible
+4. **Save button functionality**
+   - If the save button is pressed and input is valid, the user is updated and the UI returns to the view user info page, with user info as text labels instead of input fields, and password fields are hidden
+   - If the save button is pressed and the password is changed, and the New Password and New Password Confirmation fields have different contents, an informative error will appear and the save will not be completed
+5. **Photo**
    - If a user has a photo, it is displayed
    - Pressing “Upload” opens a pop-up so the user can select a photo to upload and associate with this user
 
