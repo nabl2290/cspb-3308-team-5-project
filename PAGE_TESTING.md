@@ -176,7 +176,7 @@ Auth state: current user id
 - HOME click → /user/:user_id/dashboard
 - Profile → /user/:user_id
 - Logout → /logout
-- Save (form submit) → /child/new (POST), redirects to /user/:user_id/dashboard on success
+- Save (form submit) → /child (POST), redirects to /child/:child_id on success
 
 
 ## Tests for Verifying Rendering of the Page
