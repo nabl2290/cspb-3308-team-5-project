@@ -164,7 +164,7 @@ Add or Edit Baby Profile
 Purpose: Allows a logged-in parent to add a new child profile 
 
 ## Mockup
-In the works. A screenshot has been provided 
+![add baby screenshot](mockups/add_baby.png)
 
 ## Parameters needed for the page
 Auth state: current user_id (required to associate the new child with the parent)
@@ -194,7 +194,7 @@ Edit Baby Profile
 Purpose: Allows a logged-in parent to edit a pre-existing child profile 
 
 ## Mockup
-In the works. A screenshot has been provided 
+![edit baby screenshot](mockups/edit_baby.png)
 
 ## Parameters needed for the page
 - Auth state: current user_id (required to associate the child with the parent)
