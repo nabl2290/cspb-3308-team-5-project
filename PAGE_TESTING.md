@@ -155,28 +155,70 @@ Purpose: View and click into children and/or add feeding events or more children
    - Clicking onto a child card directs the user to `/child/<int:child_id>`
    - “Add Feeding Event” navigates to `/feeding-event/new`
 
-# 5) Add/Edit baby form
+# 5a) Add baby form
 
 ## Page Title
-TODO Page Title
+Add or Edit Baby Profile
 
 ## Page Description
-TODO Page Description (include a mockup or hand drawn image of the page, Figma for us)
+Purpose: Allows a logged-in parent to add a new child profile 
 
 ## Mockup
-TODO
+![add baby screenshot](mockups/add_baby.png)
 
 ## Parameters needed for the page
-TODO Parameters needed for the page
+Auth state: current user_id (required to associate the new child with the parent)
 
 ## Data needed to render the page
-TODO Data needed to render the page
+Auth state: current user id
 
 ## Link destinations for the page
-TODO Link destinations for the page
+- HOME click → /user/:user_id/dashboard
+- Profile → /user/:user_id
+- Logout → /logout
+- Save (form submit) → /child (POST), redirects to /child/:child_id on success
+
 
 ## Tests for Verifying Rendering of the Page
-TODO List of tests for verifying the rendering of the page
+1. Child data is rendered — Name, DOB, sex, and eye color fields are displayed
+2. Submit button present — Save button is visible and enabled
+3. Only accessible to logged-in users — Unauthenticated users are redirected to /login
+4. Successful submission — Valid form data creates a new child profile and redirects to /user/:user_id/dashboard
+5. Error handling — Missing required fields show appropriate error messages
+     
+# 5b) Edit Baby Form
+## Page Title
+Edit Baby Profile
+
+## Page Description
+Purpose: Allows a logged-in parent to edit a pre-existing child profile 
+
+## Mockup
+![edit baby screenshot](mockups/edit_baby.png)
+
+## Parameters needed for the page
+- Auth state: current user_id (required to associate the child with the parent)
+- Route params: child_id (required) from /child/:child_id/edit
+
+## Data needed to render the page
+- Auth state: current user id
+- Database data: existing child data
+
+## Link destinations for the page
+- HOME click → /user/:user_id/dashboard
+- Profile → /user/:user_id
+- Logout → /logout
+- Save (form submit) → /child/:child_id (PATCH), redirects to /child/:child_id on success
+
+
+## Tests for Verifying Rendering of the Page
+1. Route param required — Visiting /child/edit without child_id shows error or redirects
+2. Form pre-populates — Existing child data (name, DOB, sex, eye color) is pre-filled in the form
+3. Only accessible to this child's parent — Non-parents are redirected or shown "access denied"
+4. Submit button present — Save button is visible and enabled
+5. Successful submission — Valid edits update the child profile and redirect to /child/:child_id
+6. Error handling — Missing required fields show appropriate error messages
+
 
 # 6) View User Profile
 
