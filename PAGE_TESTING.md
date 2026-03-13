@@ -208,7 +208,7 @@ Purpose: Allows a logged-in parent to edit a pre-existing child profile
 - HOME click → /user/:user_id/dashboard
 - Profile → /user/:user_id
 - Logout → /logout
-- Save (form submit) → /child/edit (POST), redirects to /child/:child_id on success
+- Save (form submit) → /child/:child_id (PATCH), redirects to /child/:child_id on success
 
 
 ## Tests for Verifying Rendering of the Page
