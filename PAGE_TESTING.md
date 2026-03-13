@@ -180,7 +180,7 @@ Auth state: current user id
 
 
 ## Tests for Verifying Rendering of the Page
-1. Form fields render — Name, DOB, sex, and eye color fields are displayed
+1. Child data is rendered — Name, DOB, sex, and eye color fields are displayed
 2. Submit button present — Save button is visible and enabled
 3. Only accessible to logged-in users — Unauthenticated users are redirected to /login
 4. Successful submission — Valid form data creates a new child profile and redirects to /user/:user_id/dashboard
