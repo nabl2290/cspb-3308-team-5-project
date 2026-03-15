@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Add Feed Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block stylesheet%}{% endblock %}
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+    <body style="text-align: center;">
+        <h1>{{ BABY NAME }}</h1>
+        <form method="POST" action="/feeding-event">
+            <label for="date">Date & Time:</label>
+            <!-- can do type datetime-local for both on one line or separate date and time inputs -->
+            <input type="datetime-local" id="date" name="date" required><br>
+            <!-- <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required><br> -->
+            <label for="description">Description:</label>
+            <input id="description" name="description"><br>
+            <button type="submit">ADD FEED</button>
+        </form>
+    </body>
+</html>

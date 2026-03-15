@@ -3,6 +3,7 @@ import os
 from flask import Flask, request, render_template, redirect, url_for, session
 from models import db, User, Child, FeedingEvent
 from seeds import seed_db
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -172,6 +173,20 @@ def new_feeding_event():
 @app.post("/feeding-event")
 def create_feeding_event():
     # TODO: Add logic to create new feeding event based on request data
+    # How to add childId to this post? include in route? drop down in form from existing children? That could require userid
+    date = request.form.get("date")
+    description = request.form.get("description") or None
+    timestamp = datetime.fromisoformat(date)
+
+    new_feed = FeedingEvent(
+        # child id = ,
+        timestamp=timestamp,
+        description=description
+    )
+
+    db.session.add(new_feed)
+    db.session.commit()
+    
     return '', 201
 
 # Edit feeding event form
