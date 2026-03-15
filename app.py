@@ -132,7 +132,7 @@ def login_post():
 # Logout route
 @app.post("/logout")
 def logout():
-    # TODO: Add logic to log out user (e.g., clear session)
+    session.clear()
     return redirect(url_for('index'))
 
 # Show user profile page
