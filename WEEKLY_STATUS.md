@@ -246,3 +246,11 @@ Quick notes for those earlier meetings is below:
 - Will
   updates to block html and block stylesheet, PR merged
   fixed some links
+
+### 2026-03-15
+- Merged Alana's start on our SQL design doc, revised SQL diagrams and discussed relation strategy (sticking with current design for now)
+- Merged Felice's PR with Registration page and Logout handling
+- Reviewed Will's work in progress on User Dashboard
+- Discussed possibility of refactoring app.py to use [Flask Blueprint](https://flask.palletsprojects.com/en/stable/blueprints/) objects to clean up the code
+- Discussed adopting the [WTForms](https://flask.palletsprojects.com/en/stable/patterns/wtforms/) for input forms
+- Likely won't meet mid week over spring break, next meeting likely following Sunday
