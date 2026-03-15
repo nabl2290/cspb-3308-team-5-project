@@ -9,21 +9,21 @@
       <h2 class="form__title">Sign Up</h2>
       <div class="form__input-group">
         <label for="first_name">First Name</label>
-        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" value="{{ form.first_name if form }}" required>
         {% if errors and errors.first_name %}
           <span class="form__error">{{ errors.first_name }}</span>
         {% endif %}
       </div>
       <div class="form__input-group">
         <label for="last_name">Last Name</label>
-        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="{{ form.last_name if form }}" required>
         {% if errors and errors.last_name %}
           <span class="form__error">{{ errors.last_name }}</span>
         {% endif %}
       </div>
       <div class="form__input-group">
         <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <input type="email" id="email" name="email" placeholder="Enter your email" value="{{ form.email if form }}" required>
         {% if errors and errors.email %}
           <span class="form__error">{{ errors.email }}</span>
         {% endif %}

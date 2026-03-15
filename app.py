@@ -95,7 +95,7 @@ def register_post():
         errors['last_name'] = "Last name is required."
 
     if len(errors) > 0:
-        return render_template('registration.html', errors=errors), 422
+        return render_template('registration.html', errors=errors, form=request.form), 422
     else:
         # Set up new user object
         new_user = User(first_name=first_name, last_name=last_name, email=email)
