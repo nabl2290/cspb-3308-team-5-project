@@ -1,3 +1,79 @@
 .dashboard-h1{
-    color: green;
+    /* color: green; */
+}
+
+
+.dashboard-user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    /* margin-right: 10px; */
+}
+
+.dashboard-baby-content {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    gap: 10px;
+    width: 200px;
+    height:300px;
+}
+
+.dashboard-baby-card{
+    border: solid 2px black;
+    border-radius: 5px;
+    padding: 10px;
+    height: 80%;
+    width: 95%;
+}
+
+.dashboard-baby-card table{
+    width: 100%;
+}
+
+.dashboard-baby-card td{
+    width: 100%;
+    padding: 5px;
+}
+.dashboard-baby-card-header{
+    display: flex;
+    /* align-items: center; */
+    gap: 10px;  
+}
+
+.dashboard-baby-card-header:hover{
+    cursor: pointer;
+}
+
+.dashboard-baby-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+}
+
+.dashboard-baby-name{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.dashboard-baby-content button{
+    background-color: #66d575;
+    border: solid 2px #45914f;
+    border-radius: 3px;
+    padding: 5px 10px;
+    color: #254d2a;
+    cursor: pointer;
+    width: 95%;
+}
+
+.dashboard-baby-content button:hover{
+    background-color: #6ee67e;
+    /* color: white; */
+}
+
+.dashboard-baby-content button:active{
+    background-color: #45914f;
 }

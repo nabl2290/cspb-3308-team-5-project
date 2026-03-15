@@ -1,3 +1,4 @@
+from datetime import date
 import os
 
 from flask import Flask, request, render_template, redirect, url_for, session
@@ -120,10 +121,15 @@ def dashboard(user_id):
         return redirect(url_for('login', error="You are not authorized to access this page"))
 
     user = db.get_or_404(User, user_id)
-
+    babies = user.children
+    current_date = date.today()
+    recent_feeding_evts = {}
+    for baby in babies:
+        latest = FeedingEvent.query.filter_by(child_id=baby.id).order_by(FeedingEvent.timestamp.desc()).first()
+        recent_feeding_evts[baby.id] = latest
     # TODO: Add dashboard template with user-specific data
     #  (e.g., list of children, recent feeding events)
-    return render_template('dashboard.html', user=user)
+    return render_template('dashboard.html', user=user, babies=babies, current_date=current_date, recent_feedings=recent_feeding_evts)
 
 # Show baby/child profile page
 @app.get("/child/<int:child_id>")
