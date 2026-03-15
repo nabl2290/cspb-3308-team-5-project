@@ -68,21 +68,25 @@ def register_post():
     confirm_password = request.form['confirm_password']
 
     errors = {}
-    existing_user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
-    if existing_user is not None:
-        errors['email'] = "An account with this email already exists."
-        return render_template('register.html', errors=errors), 422
 
     if not email:
         errors['email'] = "Email is required."
     elif not re.match(EMAIL_REGEX, email):
         errors['email'] = "Please enter a valid email address."
+    else:
+        existing_user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
+        if existing_user is not None:
+            errors['email'] = "An account with this email already exists."
 
-    if password != confirm_password:
-        errors['confirm_password'] = "Passwords do not match."
-
-    if len(password) < 8:
+    if not password:
+        errors['password'] = "Password is required."
+    elif len(password) < 8:
         errors['password'] = "Password must be at least 8 characters long."
+
+    if not confirm_password:
+        errors['confirm_password'] = "Please confirm your password."
+    elif password != confirm_password:
+        errors['confirm_password'] = "Passwords do not match."
 
     if not first_name:
         errors['first_name'] = "First name is required."
@@ -100,6 +104,8 @@ def register_post():
         db.session.add(new_user)
         db.session.commit()
 
+        # Log in the new user by saving their ID in the session
+        session['user_id'] = new_user.id
         return redirect(url_for('dashboard', user_id=new_user.id))
 
 # Login page with form
