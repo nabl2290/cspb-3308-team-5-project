@@ -18,6 +18,61 @@ This weekly status format is designed to:
 
 ---
 
+(Spring Break)
+
+---
+
+## Reporting Period
+**Week:** 8
+
+**Meeting Held:** Yes
+
+**Meeting Date:** March 15 working session
+
+**Meeting Duration:** ~2 hours
+
+**Meeting Format:** Zoom
+
+---
+
+## Project Management Snapshot
+
+The team is using a shared **Trello board** to manage tasks and sprint progress.
+At the time of the report:
+- Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done, Due Dates
+- Tasks are assigned to one or more individual team member(s)
+- Due dates are now added!
+
+As of 3/22/2026:
+![trello snapshot](meetings/trello_2026-03-22.png)
+
+---
+
+## Progress Since Last Week
+
+Key accomplishments include:
+- Started SQL design doc and discussed design strategies
+- Started experiments with Flask Blueprint and WTForms features
+- Progress on pages like User Dashboard
+
+## Completed Tasks
+- Pages
+  - Registration
+- Functionality
+  - Logout handling
+
+## Tasks on deck
+- Finish SQL design doc
+- Work on implementation of remaining pages
+
+## Blockers and issues
+- None
+
+## Risks and Mitigation
+- None
+
+---
+
 ## Reporting Period
 **Week:** 7
 
@@ -35,7 +90,7 @@ This weekly status format is designed to:
 
 The team is using a shared **Trello board** to manage tasks and sprint progress.
 At the time of the report:
-- Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done
+- Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done, Due Dates
 - Tasks are assigned to one or more individual team member(s)
 - Due dates are now added!
 
@@ -254,3 +309,9 @@ Quick notes for those earlier meetings is below:
 - Discussed possibility of refactoring app.py to use [Flask Blueprint](https://flask.palletsprojects.com/en/stable/blueprints/) objects to clean up the code
 - Discussed adopting the [WTForms](https://flask.palletsprojects.com/en/stable/patterns/wtforms/) for input forms
 - Likely won't meet mid week over spring break, next meeting likely following Sunday
+
+### 2026-03-18
+- Off for Spring Break
+
+### 2026-03-22
+- Off for Spring Break
