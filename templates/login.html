@@ -5,7 +5,7 @@
 <div>
   <h1 class="app-title">Baby Steps</h1>
   <section id="login" class="form form__wrapper">
-    <form action="login" method="post" class="login-form">
+    <form action="{{ url_for('login') }}" method="post" class="login-form">
       <h2 class="form__title">Login</h2>
       <div class="form__input-group">
         <label for="email">E-mail</label>
