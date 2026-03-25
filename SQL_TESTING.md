@@ -72,6 +72,42 @@ TODO include children field here, or is that implicitly in the user_child table?
 
 TODO more tests?
 
+### Data Access Methods
+
+**Name:** GET User by Id
+
+**Description:** Retrieves a user by its unique id
+
+**Parameters:**
+| Name | Type | Description | Constraints |
+|------|------|-------|-------------|
+| id | Integer | Unique user identifier | Must be valid integer |
+
+**Return values:**
+
+User row
+
+**Tests:**
+
+**Use Case Name:** Retrieve existing user
+
+**Description:** Verify a new user can be retrieved if it exists
+
+**Pre-conditions:** 
+- Database running
+- `user_id` matches the `id` field of a row in the `User` table
+
+**Test Steps:**
+1. call `get_user(user_id)` with valid `user_id`
+
+**Expected Result:** User row should be returned
+
+**Actual Result:** User returned by query
+
+**Status:** Pass
+
+**Post-conditions:** No other change
+
 ## 2) Table: Child
 
 ### Table Description
