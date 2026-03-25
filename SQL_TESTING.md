@@ -26,7 +26,7 @@ At minimum, the system requires the following tables:
 - `User`
 - `Child`
 - `FeedingEvent`
-- `user_child` (TODO is this a "weak" table, or something else?)
+- `user_child`
 
 Each table is described below.
 ---
@@ -44,11 +44,10 @@ Stores user account and profile information for all BabySteps users.
 | last_name | User last name | NOT NULL, max 50 charcters |
 | email | User last name | UNIQUE NOT NULL, max 120 charcters |
 | password_hash | Hashed password | NOT NULL, max 256 characters |
-TODO include children field here, or is that implicitly in the user_child table?
 
 ### Relationships
 
-- One-to-many with `Child` through `user_child` table
+- Many-to-many with `Child` through `user_child` table
 
 ### Table Tests
 
@@ -70,43 +69,6 @@ TODO include children field here, or is that implicitly in the user_child table?
 
 **Post-conditions:** User persisted
 
-TODO more tests?
-
-### Data Access Methods
-
-**Name:** GET User by Id
-
-**Description:** Retrieves a user by its unique id
-
-**Parameters:**
-| Name | Type | Description | Constraints |
-|------|------|-------|-------------|
-| id | Integer | Unique user identifier | Must be valid integer |
-
-**Return values:**
-
-User row
-
-**Tests:**
-
-**Use Case Name:** Retrieve existing user
-
-**Description:** Verify a new user can be retrieved if it exists
-
-**Pre-conditions:** 
-- Database running
-- `user_id` matches the `id` field of a row in the `User` table
-
-**Test Steps:**
-1. call `get_user(user_id)` with valid `user_id`
-
-**Expected Result:** User row should be returned
-
-**Actual Result:** User returned by query
-
-**Status:** Pass
-
-**Post-conditions:** No other change
 
 ## 2) Table: Child
 
@@ -141,43 +103,6 @@ TODO
 
 **Post-conditions:** TODO
 
-### Data Access Methods
-
-**Name:** TODO
-
-**Description:** TODO
-
-**Parameters:**
-| Name | Type | Description | Constraints |
-|------|------|-------|-------------|
-| TODO | TODO | TODO | TODO |
-
-**Return values:**
-
-TODO
-
-**Tests:**
-
-**Use Case Name:** TODO
-
-**Description:** TODO
-
-**Pre-conditions:** 
-- Database running
-- TODO
-
-**Test Steps:**
-1. TODO
-
-**Expected Result:** TODO
-
-**Actual Result:** TODO
-
-**Status:** TODO
-
-**Post-conditions:** TODO
-
-
 ## 3) Table: FeedingEvent
 
 ### Table Description
@@ -210,43 +135,6 @@ TODO
 **Status:** TODO (Pass)
 
 **Post-conditions:** TODO
-
-### Data Access Methods
-
-**Name:** TODO
-
-**Description:** TODO
-
-**Parameters:**
-| Name | Type | Description | Constraints |
-|------|------|-------|-------------|
-| TODO | TODO | TODO | TODO |
-
-**Return values:**
-
-TODO
-
-**Tests:**
-
-**Use Case Name:** TODO
-
-**Description:** TODO
-
-**Pre-conditions:** 
-- Database running
-- TODO
-
-**Test Steps:**
-1. TODO
-
-**Expected Result:** TODO
-
-**Actual Result:** TODO
-
-**Status:** TODO
-
-**Post-conditions:** TODO
-
 
 ## 4) Table: user_child
 
@@ -281,41 +169,23 @@ TODO
 
 **Post-conditions:** TODO
 
+
+---
+# Data Access Methods
+Each table has at least one access method.
+---
+
 ### Data Access Methods
-
-**Name:** TODO
-
-**Description:** TODO
-
-**Parameters:**
-| Name | Type | Description | Constraints |
-|------|------|-------|-------------|
-| TODO | TODO | TODO | TODO |
-
-**Return values:**
-
-TODO
-
-**Tests:**
-
-**Use Case Name:** TODO
-
-**Description:** TODO
-
-**Pre-conditions:** 
-- Database running
-- TODO
-
-**Test Steps:**
-1. TODO
-
-**Expected Result:** TODO
-
-**Actual Result:** TODO
-
-**Status:** TODO
-
-**Post-conditions:** TODO
+## Access Method: get_user_by_id
+### Description
+Retrieves a user from the database
+### Parameters
+- user_id (int)
+### Return Values
+- User record (or None)
+### Tests
+1. User returned when user_id matches a user's id
+2. None when no User has a matching id
 
 ---
 
