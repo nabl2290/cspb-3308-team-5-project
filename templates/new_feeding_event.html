@@ -9,8 +9,13 @@
     <link rel="stylesheet" href="../static/css/styles.css">
 </head>
     <body style="text-align: center;">
-        <h1>{{ BABY NAME }}</h1>
         <form method="POST" action="/feeding-event">
+            <label>Child:</label>
+            <select name="child_id" required>
+                {% for child in children %}
+                <option value="{{ child.id }}">{{ child.name }}</option>
+                {% endfor %}
+            </select>
             <label for="date">Date & Time:</label>
             <!-- can do type datetime-local for both on one line or separate date and time inputs -->
             <input type="datetime-local" id="date" name="date" required><br>
