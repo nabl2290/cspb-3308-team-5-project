@@ -1,6 +1,8 @@
 import os
 import re
 
+import prefix
+
 from flask import Flask, request, render_template, redirect, url_for, session
 from models import db, User, Child, FeedingEvent
 from seeds import seed_db
@@ -8,6 +10,10 @@ from seeds import seed_db
 EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
 app = Flask(__name__)
+
+# Insert the wrapper for handling PROXY when using csel.io virtual machine
+# Calling this routine will have no effect if running on local machine
+prefix.use_PrefixMiddleware(app)   
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.secret_key = os.getenv('APP_SECRET_KEY') or 'dev-secret-key'

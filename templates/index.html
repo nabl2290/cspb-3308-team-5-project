@@ -1,9 +1,20 @@
 <!doctype html>
 <head>
   <title>Baby Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 </head>
 
 <body>
-  <h1>Baby Tracker</h1>
-  <p>Track your baby's progress and keep your schedule organized!</p>
+  <header>
+    <div>
+      <a href="{{ url_for('register')}}" class="btn btn--blue">New Account</a>
+      <a href="{{ url_for('login')}}" class="btn btn--blue">Login</a>
+    </div>
+  </header>
+  <main>
+    <h1>Welcome to the Baby Tracker</h1>
+    <p>Track your baby's progress and keep your schedule organized!</p>
+    <p>In this app you will be able to efficiently track different progress events that you have for you and your child. Get started by creating a new account or logging in above.</p>
+  </main>
 </body>
