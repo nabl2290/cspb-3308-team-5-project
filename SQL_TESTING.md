@@ -73,12 +73,17 @@ Stores user account and profile information for all BabySteps users.
 ## 2) Table: Child
 
 ### Table Description
-TODO
+Stores child profile information.
 
 ### Fields
 | Field Name | Description | Constraints |
 |------------|-------------|-------------|
-| TODO | TODO | TODO |
+| id | Unique child identifier | Primary key |
+| first_name | Child first name | NOT NULL, max 50 charcters |
+| last_name  | Child last name | NOT NULL, max 50 charcters |
+| dob        | Date of birth | UNIQUE NOT NULL, valid Date |
+| gender     | Gender [M/F/X] | NOT NULL, exactly 1 character |
+| eye_color  | Color of their eyes | max 20 charcters |
 
 ### Relationships
 
@@ -87,23 +92,27 @@ TODO
 
 ### Table Tests
 
-**Use Case Name:** TODO
+**Use Case Name:** Create child record associated with User
 
-**Description:** TODO
+**Description:** Verify a new child can be stored
 
-**Pre-conditions:** TODO
+**Pre-conditions:** Database running
 
 **Test Steps:**
-1. TODO
-2. TODO
+1. Insert valid user row
+2. Insert valid child row
+3. Insert valid user_child row
+4. Query for child by id
+5. Query for child of user using user_child relationship
+6. Query for user (parent) of child using user_child relationship
 
-**Expected Result:** TODO
+**Expected Result:** Child row exists, and assocation between child and user is made
 
-**Actual Result:** TODO
+**Actual Result:** Rows are created in child, user, and user_child tables
 
-**Status:** TODO (Pass)
+**Status:** Pass
 
-**Post-conditions:** TODO
+**Post-conditions:** Child is persisted, and relationship between user and child is persisted
 
 ## 3) Table: FeedingEvent
 
@@ -334,11 +343,35 @@ Retrieves all feeding events of one child
 2. Valid child_id with no feeding events returns empty list
 3. If invalid child_id or authorized access, error is returned
 
-TODO other table methods:
-perhaps:
-get_child_by_id
-update_child
+## Access Method: `get_child_by_id`
+### Description
+Retrieves one child by its id
+### Parameters
+- child_id
+- user_id (for verifying user_child entry)
+### Return Values
+- Child 
+- None (if child does not exist for valid child_id)
+- Error (if invalid child_id like "s")
+### Tests
+1. Valid child_id returns the child row
+2. If invalid child_id, error is raised
+3. If child_id does not match a child, then None is returned.
+4. If child_id matches a child, but there is not a user_child entry for the child_id and user_id, then None is returned.
 
+## Access Method: `update_child`
+### Description
+Updates a child's information in the database
+### Parameters
+- Child record
+- fields_to_update (dict of field names and new values)
+### Return Values
+- Updated Child record when update is successful
+- Note: error is raised if fields_to_update contains invalid field names or values, or if the user does not exist
+### Tests
+1. Child record is updated when Child is present and fields are valid
+2. Validation errors raised when fields_to_update contains invalid fields or values
+3. Error raised when Child does not exist
 --- 
 
 # Page Data Access Tests
