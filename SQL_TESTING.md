@@ -227,28 +227,78 @@ Note: Composite primary key on (user_id, child_id) to prevent duplicate associat
 # Data Access Methods
 ---
 
-## Access Method: get_user_by_id
+## Access Method: `get_user_by_id`
 ### Description
 Retrieves a user from the database
 ### Parameters
 - user_id (int)
 ### Return Values
-- User record (or None)
+- User object (or None)
 ### Tests
 1. User returned when user_id matches a user's id
 2. None when no User has a matching id
 
+## Access Method: `get_user_by_email_and_password`
+### Description
+Retrieves a user from the database by email and password
+### Parameters
+- email (str)
+- password (str)
+- Note: Password should be hashed and compared to stored password_hash
+### Return Values
+- User object (or None)
+### Tests
+1. User returned when email and password match a user's credentials
+2. None returned when no User has matching email and password
+
+## Access Method: `update_user`
+### Description
+Updates a user's information in the database
+### Parameters
+- User record
+- fields_to_update (dict of field names and new values)
+### Return Values
+- Updated User record when update is successful
+- Note: error is raised if fields_to_update contains invalid field names or values, or if the user does not exist
+### Tests
+1. User record is updated when User is present and fields are valid
+3. Validation errors raised when fields_to_update contains invalid fields or values
+4. Error raised when User does not exist
+
+## Access Method: `create_child`
+### Description
+Creates a new child record for a user in the database
+### Parameters
+- user_id (int)
+- child_data (dict of child field names and values)
+- Note: child_data must contain all required fields for the Child table
+### Return Values
+- Newly created Child record when creation is successful
+- Note: error is raised if child_data is missing required fields or contains invalid values, or if the user_id does not exist
+### Tests
+1. Child record is created and linked to user when user_id exists and child_data is valid. A new user_child association is also created.
+2. Validation errors raised when child_data is missing required fields or contains invalid values
+3. Error raised when user_id does not exist
+
+## Access Method: `user.children`
+### Description
+We will use the existing SQLAlchemy relationship to access a user's children, which will return a list of Child objects associated with the user through the user_child table.
+### Parameters
+- none (accessed via User object)
+### Return Values
+- List of Child objects associated with the user
+### Tests
+1. Returns a list of Child objects when the user has associated children
+2. Returns an empty list when the user has no associated children
+
+
 TODO other table methods:
 perhaps:
-get_user_by_id (done)
-get_user_by_email_password
-update_user
 get_child_by_id
 update_child
 get_feeding_event_by_id
 update_feeding_event
 get_feeding_events_by_child_id
-get_children_of_user
 
 --- 
 
