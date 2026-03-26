@@ -233,7 +233,7 @@ Retrieves a user from the database
 ### Parameters
 - user_id (int)
 ### Return Values
-- User object (or None)
+- User record (or None)
 ### Tests
 1. User returned when user_id matches a user's id
 2. None when no User has a matching id
@@ -246,7 +246,7 @@ Retrieves a user from the database by email and password
 - password (str)
 - Note: Password should be hashed and compared to stored password_hash
 ### Return Values
-- User object (or None)
+- User record (or None)
 ### Tests
 1. User returned when email and password match a user's credentials
 2. None returned when no User has matching email and password
@@ -282,13 +282,13 @@ Creates a new child record for a user in the database
 
 ## Access Method: `user.children`
 ### Description
-We will use the existing SQLAlchemy relationship to access a user's children, which will return a list of Child objects associated with the user through the user_child table.
+We will use the existing SQLAlchemy relationship to access a user's children, which will return a list of Child records associated with the user through the user_child table.
 ### Parameters
 - none (accessed via User object)
 ### Return Values
-- List of Child objects associated with the user
+- List of Child records associated with the user
 ### Tests
-1. Returns a list of Child objects when the user has associated children
+1. Returns a list of Child records when the user has associated children
 2. Returns an empty list when the user has no associated children
 
 
