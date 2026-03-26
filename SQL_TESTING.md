@@ -294,14 +294,50 @@ We will use the existing SQLAlchemy relationship to access a user's children, wh
 1. Returns a list of Child records when the user has associated children
 2. Returns an empty list when the user has no associated children
 
+## Access Method: `get_feeding_event_by_id`
+### Description
+Retrieves a feeding event from the database
+### Parameters
+- event_id
+- user_id for authenticated access
+### Return Values
+- Feeding event record
+- Error if no record is found
+### Tests
+1. Return a specific event by id with valid child id
+2. Return 404 error when invalid event id is entered
+
+## Access Method: `update_feeding_event`
+### Description
+Updates an existing feeding event
+### Parameters
+- event_id
+- user_id for authenticated access
+### Return Values
+- Updated feeding event record
+- Error if record is failed to be updated
+### Tests
+1. Updating any field in a feed event updates that event in the database (new event is not created)
+2. Returns error if an event is unable to be updated & the record remains but is unchanged
+
+## Access Method: `get_feeding_events_by_child_id`
+### Description
+Retrieves all feeding events of one child
+### Parameters
+- child_id
+- user_id for authenticated access
+### Return Values
+- List of all feeding events
+- Error (if child does not exist)
+### Tests
+1. Valid child_id with feeding events returns list of all feed events
+2. Valid child_id with no feeding events returns empty list
+3. If invalid child_id or authorized access, error is returned
 
 TODO other table methods:
 perhaps:
 get_child_by_id
 update_child
-get_feeding_event_by_id
-update_feeding_event
-get_feeding_events_by_child_id
 
 --- 
 
