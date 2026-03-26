@@ -1,6 +1,8 @@
 # SQL_TESTING.md
+
 ## Project Milestone 5: SQL Design
-**Project:** Team 5: BabySteps
+
+**Project:** Team 5: BabySteps  
 **Purpose:** Database design and testing specification for developers
 
 ---
@@ -36,18 +38,18 @@ Each table is described below.
 Stores user account and profile information for all BabySteps users.
 
 ### Fields
-| Field Name | Description | Constraints |
-|------------|-------------|-------------|
-| id | Unique user identifier | Primary key |
-| first_name | User first name | NOT NULL, max 50 charcters |
-| last_name | User last name | NOT NULL, max 50 charcters |
-| email | User last name | UNIQUE NOT NULL, max 120 charcters |
-| password_hash | Hashed password | NOT NULL, max 256 characters |
+| Field Name | Description | Type | Constraints |
+|------------|-------------|------|-------|
+| id | Unique user identifier | INT | Primary key |
+| first_name | User first name | STRING | NOT NULL, max 50 characters |
+| last_name | User last name | STRING | NOT NULL, max 50 characters |
+| email | User last name | STRING | UNIQUE NOT NULL, max 120 characters |
+| password_hash | Hashed password | STRING | NOT NULL, max 256 characters |
 
 ### Relationships
 
-- Many-to-many with `Child` through `user_child` table
-- One-to-many with `user_child` table
+- Many-to-many with `child` through `user_child` table (many users have many children)
+- One-to-many with `user_child` table (one user has many children)
 
 ### Table Tests
 
@@ -63,11 +65,7 @@ Stores user account and profile information for all BabySteps users.
 
 **Expected Result:** User row exists
 
-**Actual Result:** User returned by query
-
-**Status:** Pass
-
-**Post-conditions:** User persisted
+**Expected Post-conditions:** User persisted
 
 
 ## 2) Table: Child
@@ -76,19 +74,20 @@ Stores user account and profile information for all BabySteps users.
 Stores child profile information.
 
 ### Fields
-| Field Name | Description | Constraints |
-|------------|-------------|-------------|
-| id | Unique child identifier | Primary key |
-| first_name | Child first name | NOT NULL, max 50 charcters |
-| last_name  | Child last name | NOT NULL, max 50 charcters |
-| dob        | Date of birth | UNIQUE NOT NULL, valid Date |
-| gender     | Gender [M/F/X] | NOT NULL, exactly 1 character |
-| eye_color  | Color of their eyes | max 20 charcters |
+| Field Name | Description | TYPE | Constraints |
+|------------|-------------|------|-------|
+| id | Unique child identifier | INT | Primary key |
+| first_name | Child first name | STRING | NOT NULL, max 50 characters |
+| last_name  | Child last name | STRING | NOT NULL, max 50 characters |
+| dob        | Date of birth | DATE | NOT NULL |
+| gender     | Gender [M/F/X] | CHAR | NOT NULL, exactly 1 character |
+| eye_color  | Color of their eyes | STRING | max 20 characters |
 
 ### Relationships
 
-- Many-to-many with `User` through `user_child` table
-- One-to-many with `user_child` table
+- Many-to-many with `user` through `user_child` table (many children have many users)
+- One-to-many with `user_child` table (one child has many users)
+- One-to-many with `feeding_event` (one child has many feeding events)
 
 ### Table Tests
 
@@ -108,11 +107,7 @@ Stores child profile information.
 
 **Expected Result:** Child row exists, and assocation between child and user is made
 
-**Actual Result:** Rows are created in child, user, and user_child tables
-
-**Status:** Pass
-
-**Post-conditions:** Child is persisted, and relationship between user and child is persisted
+**Expected Post-conditions:** Child is persisted, and relationship between user and child is persisted
 
 ## 3) Table: FeedingEvent
 
@@ -120,15 +115,15 @@ Stores child profile information.
 Stores a child's feed desctiprion, date/time, and relationship to child.
 
 ### Fields
-| Field Name | Description | Constraints |
-|------------|-------------|-------------|
-| event_id | Unique event identifier | Primary Key |
-| child_id | id of corresponding child | Foreign Key |
-| timestamp | date/time of event | NOT NULL, datetime |
-| description | event description | VARCHAR, max 512 characters |
+| Field Name | Description | TYPE | Constraints |
+|------------|-------------|------|-------|
+| event_id | Unique event identifier | INT | Primary Key |
+| child_id | id of corresponding child | INT | Foreign Key |
+| timestamp | date/time of event | DATETIME | NOT NULL |
+| description | event description | STRING | max 512 characters |
 
 ### Relationships
-- One-to-many with `child`
+- Many-to-one with `child` (many feeding_events have one child)
 
 ### Table Tests
 
@@ -144,11 +139,7 @@ Stores a child's feed desctiprion, date/time, and relationship to child.
 
 **Expected Result:** Event exists in database
 
-**Actual Result:** Event returned by the query
-
-**Status:** Pass
-
-**Post-conditions:** Event continues to exist is database
+**Expected Post-conditions:** Event continues to exist is database
 
 ## 4) Table: user_child
 
@@ -157,16 +148,16 @@ Stores a child's feed desctiprion, date/time, and relationship to child.
 Join table to represent many-to-many relationship between users and children.
 
 ### Fields
-| Field Name | Description      | Constraints   |
-|------------|------------------|---------------|
-| user_id    | user identifier  | int, NOT NULL |
-| child_id   | child identifier | int, NOT NULL |
+| Field Name | Description      | TYPE | Constraints |
+|------------|------------------|------|-------------|
+| user_id    | user identifier  | INT  | NOT NULL    |
+| child_id   | child identifier | INT  | NOT NULL    |
 
 Note: Composite primary key on (user_id, child_id) to prevent duplicate associations.
 
 ### Relationships
-- Many-to-one with `User` (user_id foreign key)
-- Many-to-one with `Child` (child_id foreign key)
+- Many-to-one with `user` (user_id foreign key) (many user_child entries have one user)
+- Many-to-one with `child` (child_id foreign key) (many user_child entries have one child)
 
 ### Table Tests
 
@@ -177,16 +168,14 @@ Note: Composite primary key on (user_id, child_id) to prevent duplicate associat
 **Pre-conditions:** Database running, user record exists, child record exists
 
 **Test Steps:**
-1. Create a user record
-2. Create a child record
-3. Insert a row into user_child linking the user to the child
-4. Query user_child with the `user_id` and `child_id` to confirm the association exists
-5. Query user_child with the `user_id` to confirm the child is linked to the user
-6. Query user_child with the `child_id` to confirm the user is linked to the child
+1. Insert a row into user_child linking the user to the child
+2. Query user_child with the `user_id` and `child_id` to confirm the association exists
+3. Query user_child with the `user_id` to confirm the child is linked to the user
+4. Query user_child with the `child_id` to confirm the user is linked to the child
 
 **Expected Result:** Query returns the inserted row, confirming the association exists.
 
-**Post-conditions:** User, child, and association persisted
+**Expected Post-conditions:** user_child row is persisted
 
 #### **Use Case Name:** Inserting a user-child association with NULL values
 
@@ -200,40 +189,36 @@ Note: Composite primary key on (user_id, child_id) to prevent duplicate associat
 
 **Expected Result:** Both insertions are rejected with a NOT NULL constraint error
 
-**Post-conditions:** No rows are added to user_child
+**Expected Post-conditions:** No rows are added to user_child
 
 #### **Use Case Name:** One user linked to multiple children
 
 **Description:** Verify that a single user can be associated with multiple children by inserting multiple rows with the same       
   user_id and different child_id values, confirming the many-to-many relationship works correctly.
 
-**Pre-conditions:** Database running, user record exists, children records exist
+**Pre-conditions:** Database running, user record exists, 2 child records exist
 
 **Test Steps:**
-1. Create a user record
-2. Create two child records
-3. Insert two rows into user_child, linking the user to each child
-4. Query user_child with the `user_id` to confirm all associations exist
+1. Insert two rows into user_child, linking the user to each child
+2. Query user_child with the `user_id` to confirm all associations exist
 
 **Expected Result:** Query returns two rows, each linking the user to a different child
 
-**Post-conditions:** User, child, and associations persisted
+**Expected Post-conditions:** 2 user_child associations persisted
 
 #### **Use Case Name:** One child linked to multiple users
 
 **Description:** Verify that a single child can be associated with multiple users by inserting multiple rows with the same child_id and different user_id values, confirming the many-to-many relationship works correctly.
 
-**Pre-conditions:** Database running, users records exist, child record exists
+**Pre-conditions:** Database running, 2 user records exist, child record exists
 
 **Test Steps:**
-1. Create two user records
-2. Create a child record
-3. Insert two rows into user_child, linking each user to the child
-4. Query user_child with the `child_id` to confirm all associations exist
+1. Insert two rows into user_child, linking each user to the child
+2. Query user_child with the `child_id` to confirm all associations exist
 
 **Expected Result:** Query returns two rows, each linking a different user to the child
 
-**Post-conditions:** User, child, and associations persisted
+**Post-conditions:** 2 user_child associations persisted
 
 ---
 # Data Access Methods
@@ -308,47 +293,46 @@ We will use the existing SQLAlchemy relationship to access a user's children, wh
 Retrieves a feeding event from the database
 ### Parameters
 - event_id
-- user_id for authenticated access
 ### Return Values
 - Feeding event record
-- Error if no record is found
+- None if no record is found
+- Error if invalid id like "s"
 ### Tests
 1. Return a specific event by id with valid child id
-2. Return 404 error when invalid event id is entered
+2. Return None for a valid id that doesn't exist
+3. Raise error when invalid event id is entered
 
 ## Access Method: `update_feeding_event`
 ### Description
 Updates an existing feeding event
 ### Parameters
-- event_id
-- user_id for authenticated access
+- feeding_event record
+- fields_to_update (dict of field names and new values)
 ### Return Values
 - Updated feeding event record
-- Error if record is failed to be updated
+- Note: error is raised if fields_to_update contains invalid field names or values, or if the user does not exist
 ### Tests
 1. Updating any field in a feed event updates that event in the database (new event is not created)
-2. Returns error if an event is unable to be updated & the record remains but is unchanged
+2. Raises error if an event is unable to be updated & the record remains but is unchanged
 
 ## Access Method: `get_feeding_events_by_child_id`
 ### Description
 Retrieves all feeding events of one child
 ### Parameters
 - child_id
-- user_id for authenticated access
 ### Return Values
-- List of all feeding events
+- List of all feeding events (which could be empty)
 - Error (if child does not exist)
 ### Tests
 1. Valid child_id with feeding events returns list of all feed events
 2. Valid child_id with no feeding events returns empty list
-3. If invalid child_id or authorized access, error is returned
+3. If invalid child_id error is raised
 
 ## Access Method: `get_child_by_id`
 ### Description
 Retrieves one child by its id
 ### Parameters
 - child_id
-- user_id (for verifying user_child entry)
 ### Return Values
 - Child 
 - None (if child does not exist for valid child_id)
@@ -357,7 +341,6 @@ Retrieves one child by its id
 1. Valid child_id returns the child row
 2. If invalid child_id, error is raised
 3. If child_id does not match a child, then None is returned.
-4. If child_id matches a child, but there is not a user_child entry for the child_id and user_id, then None is returned.
 
 ## Access Method: `update_child`
 ### Description
@@ -379,51 +362,51 @@ Updates a child's information in the database
 ### Login
 **Use Case Name:** Login form starts user session  
 **Description:** Verify login page works properly  
-**Pre-conditions:** None  
+**Pre-conditions:** BabySteps server is running  
 **Test Steps:**  
-     1. Login with valid credentials and confirm dashboard opens.  
-     2. Logging in with invalid credentials and notification informs user.
+1. Login with valid credentials and confirm dashboard opens.  
+2. Logging in with invalid credentials and notification informs user.
 
 ### Registration
 **Use Case Name:** Alternative form of login to create user  
 **Description:** Confirm that entering in data in form can successfully generate new user data.  
-**Pre-conditions:** None  
+**Pre-conditions:** BabySteps server is running  
 **Test Steps:**  
-    1. Test form by filling in required data and confirming.  
-    - This should create a new user account and direct the user either back to login or dashboard.  
-    2. Failing to enter all required information does not allow the user to proceed.
+1. Test form by filling in required data and confirming.  
+    - This should create a new user account and direct the user to their dashboard.
+2. Failing to enter all required information does not allow the user to proceed and displays errors for any invalid entries in fields.
 
 ### Dashboard
 **Use Case Name:** Dashboard loads user data  
 **Description:** Verify dashboard queries correct tables  
 **Pre-conditions:** User logged in  
 **Test Steps:**  
-    1. Load dashboard  
-    2. Fetch user and children and most recent feeding event for display.
+1. Load dashboard  
+2. Fetch user and children and most recent feeding event for display.
 
 ### User Profile Page
 **Use Case Name:** View/edit User information  
 **Description:** Verify current user can view their profile information  
 **Pre-conditions:** User logged in  
 **Test Steps:**  
-    1. Load user profile with information from database  
-    2. press edit button to be redirected to editing page. 
+1. Load user profile with information from database  
+2. Press edit button to be redirected to editing page. 
 
 ### Child Profile Page
-**Use Case Name:** View/edit User information 
+**Use Case Name:** View/edit Child information  
 **Description:** Verify current user can view their child's information  
 **Pre-conditions:** User logged in and is related to child  
 **Test Steps:**  
-    1. Load child's with information from database  
-    2. press edit button to be redirected to editing page.
+1. Load child's with information from database  
+2. press edit button to be redirected to editing page.
 
 ### Feeding Event Page
 **Use Case Name:** view/edit feeding event information  
 **Description:** Verify that feeding event information is valid.  
 **Pre-conditions:** User logged in  
 **Test Steps:**  
-    1. Load feeding event information  
-    2. press edit button to be redirected to editing page.
+1. Load feeding event information  
+2. press edit button to be redirected to editing page.
 
 
 ---
