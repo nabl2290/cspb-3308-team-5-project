@@ -303,19 +303,56 @@ get_feeding_events_by_child_id
 --- 
 
 # Page Data Access Tests
-**Use Case Name:** Dashboard loads user data
-**Description:** Verify dashboard queries correct tables
-**Pre-conditions:** User logged in
-**Test Steps:**
-1. Load dashboard
-2. Fetch user and children
 
-TODO, add one for each page
-Login
-Registration
-User Profile Page
-Child Profile Page
-Feeding Event Page
+### Login
+**Use Case Name:** Login form starts user session  
+**Description:** Verify login page works properly  
+**Pre-conditions:** None  
+**Test Steps:**  
+     1. Login with valid credentials and confirm dashboard opens.  
+     2. Logging in with invalid credentials and notification informs user.
+
+### Registration
+**Use Case Name:** Alternative form of login to create user  
+**Description:** Confirm that entering in data in form can successfully generate new user data.  
+**Pre-conditions:** None  
+**Test Steps:**  
+    1. Test form by filling in required data and confirming.  
+    - This should create a new user account and direct the user either back to login or dashboard.  
+    2. Failing to enter all required information does not allow the user to proceed.
+
+### Dashboard
+**Use Case Name:** Dashboard loads user data  
+**Description:** Verify dashboard queries correct tables  
+**Pre-conditions:** User logged in  
+**Test Steps:**  
+    1. Load dashboard  
+    2. Fetch user and children and most recent feeding event for display.
+
+### User Profile Page
+**Use Case Name:** View/edit User information  
+**Description:** Verify current user can view their profile information  
+**Pre-conditions:** User logged in  
+**Test Steps:**  
+    1. Load user profile with information from database  
+    2. press edit button to be redirected to editing page. 
+
+### Child Profile Page
+**Use Case Name:** View/edit User information 
+**Description:** Verify current user can view their child's information  
+**Pre-conditions:** User logged in and is related to child  
+**Test Steps:**  
+    1. Load child's with information from database  
+    2. press edit button to be redirected to editing page.
+
+### Feeding Event Page
+**Use Case Name:** view/edit feeding event information  
+**Description:** Verify that feeding event information is valid.  
+**Pre-conditions:** User logged in  
+**Test Steps:**  
+    1. Load feeding event information  
+    2. press edit button to be redirected to editing page.
+
 
 ---
 
