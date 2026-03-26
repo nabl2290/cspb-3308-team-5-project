@@ -109,35 +109,38 @@ TODO
 ## 3) Table: FeedingEvent
 
 ### Table Description
-TODO
+Stores a child's feed desctiprion, date/time, and relationship to child.
 
 ### Fields
 | Field Name | Description | Constraints |
 |------------|-------------|-------------|
-| TODO | TODO | TODO |
+| event_id | Unique event identifier | Primary Key |
+| child_id | id of corresponding child | Foreign Key |
+| timestamp | date/time of event | NOT NULL, datetime |
+| description | event description | VARCHAR, max 512 characters |
 
 ### Relationships
-- TODO
+- One-to-many with `child`
 
 ### Table Tests
 
-**Use Case Name:** TODO
+**Use Case Name:** Create new event
 
-**Description:** TODO
+**Description:** Verify a new event has been stored
 
-**Pre-conditions:** TODO
+**Pre-conditions:** Database running, child exists
 
 **Test Steps:**
-1. TODO
-2. TODO
+1. Insert event with an existing child id
+2. Query the event by id
 
-**Expected Result:** TODO
+**Expected Result:** Event exists in database
 
-**Actual Result:** TODO
+**Actual Result:** Event returned by the query
 
-**Status:** TODO (Pass)
+**Status:** Pass
 
-**Post-conditions:** TODO
+**Post-conditions:** Event continues to exist is database
 
 ## 4) Table: user_child
 
