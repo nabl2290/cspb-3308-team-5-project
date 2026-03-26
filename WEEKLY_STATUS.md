@@ -18,6 +18,54 @@ This weekly status format is designed to:
 
 ---
 
+## Reporting Period
+**Week:** 9
+
+**Meeting Held:** Yes
+
+**Meeting Date:** March 25 standup and working session
+
+**Meeting Duration:** 1.5 hours
+
+**Meeting Format:** Zoom
+
+---
+
+## Project Management Snapshot
+
+The team is using a shared **Trello board** to manage tasks and sprint progress.
+At the time of the report:
+- Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done, Due Dates
+- Tasks are assigned to one or more individual team member(s)
+Before meeting:
+![2026-03-25 trello before meeting](meetings/trello_2026-03-25_beforemeeting.png)
+After meeting:
+![2026-03-25 trello before meeting](meetings/trello_2026-03-25_aftermeeting.png)
+
+---
+
+## Progress Since Last Week
+
+Key accomplishments include:
+- Continued work Milestone 5 document, on track to finish tomorrow
+- Continued development of remaining pages
+
+## Completed Tasks
+- prefix module for running in c-sel
+
+## Tasks on deck
+- Finish SQL design doc
+- Finish implementation of remaining pages
+- Start work on unit tests
+
+## Blockers and issues
+- None
+
+## Risks and Mitigation
+- None
+
+---
+
 (Spring Break)
 
 ---
@@ -41,7 +89,6 @@ The team is using a shared **Trello board** to manage tasks and sprint progress.
 At the time of the report:
 - Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done, Due Dates
 - Tasks are assigned to one or more individual team member(s)
-- Due dates are now added!
 
 As of 3/22/2026:
 ![trello snapshot](meetings/trello_2026-03-22.png)
@@ -315,3 +362,9 @@ Quick notes for those earlier meetings is below:
 
 ### 2026-03-22
 - Off for Spring Break
+
+### 2026-03-25
+- Nate added prefix.py for c-sel and welcome page
+- Felice did registration and login, may move on to adding unit tests
+- Will did work on dashboard, ready for the next thing
+- Antonio did work on forms for feeding event, continuing working on formatting and testing, integrating with base.html
