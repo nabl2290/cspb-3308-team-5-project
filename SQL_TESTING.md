@@ -1,4 +1,3 @@
-Directions: 
 # SQL_TESTING.md
 ## Project Milestone 5: SQL Design
 **Project:** Team 5: BabySteps
@@ -142,42 +141,93 @@ TODO
 ## 4) Table: user_child
 
 ### Table Description
-TODO
+
+Join table to represent many-to-many relationship between users and children.
 
 ### Fields
-| Field Name | Description | Constraints |
-|------------|-------------|-------------|
-| TODO | TODO | TODO |
+| Field Name | Description      | Constraints   |
+|------------|------------------|---------------|
+| user_id    | user identifier  | int, NOT NULL |
+| child_id   | child identifier | int, NOT NULL |
+
+Note: Composite primary key on (user_id, child_id) to prevent duplicate associations.
 
 ### Relationships
-- TODO
+- Many-to-one with `User` (user_id foreign key)
+- Many-to-one with `Child` (child_id foreign key)
 
 ### Table Tests
 
-**Use Case Name:** TODO
+#### **Use Case Name:** Inserting a valid user-child association
 
-**Description:** TODO
+**Description:** Verify that a valid association can be created by inserting a row with existing user_id and child_id values, confirming the many-to-many relationship works correctly.
 
-**Pre-conditions:** TODO
+**Pre-conditions:** Database running, user record exists, child record exists
 
 **Test Steps:**
-1. TODO
-2. TODO
+1. Create a user record
+2. Create a child record
+3. Insert a row into user_child linking the user to the child
+4. Query user_child with the `user_id` and `child_id` to confirm the association exists
+5. Query user_child with the `user_id` to confirm the child is linked to the user
+6. Query user_child with the `child_id` to confirm the user is linked to the child
 
-**Expected Result:** TODO
+**Expected Result:** Query returns the inserted row, confirming the association exists.
 
-**Actual Result:** TODO
+**Post-conditions:** User, child, and association persisted
 
-**Status:** TODO (Pass)
+#### **Use Case Name:** Inserting a user-child association with NULL values
 
-**Post-conditions:** TODO
+**Description:** Verify that inserting a row with a NULL user_id or child_id fails due to NOT NULL constraints.
 
+**Pre-conditions:** Database running
+
+**Test Steps:**
+1. Attempt to insert a row into user_child with a NULL user_id
+2. Attempt to insert a row into user_child with a NULL child_id
+
+**Expected Result:** Both insertions are rejected with a NOT NULL constraint error
+
+**Post-conditions:** No rows are added to user_child
+
+**Use Case Name:** One user linked to multiple children
+
+**Description:** Verify that a single user can be associated with multiple children by inserting multiple rows with the same       
+  user_id and different child_id values, confirming the many-to-many relationship works correctly.
+
+**Pre-conditions:** Database running, user record exists, children records exist
+
+**Test Steps:**
+1. Create a user record
+2. Create two child records
+3. Insert two rows into user_child, linking the user to each child
+4. Query user_child with the `user_id` to confirm all associations exist
+
+**Expected Result:** Query returns two rows, each linking the user to a different child
+
+**Post-conditions:** User, child, and associations persisted
+
+#### **Use Case Name:** One child linked to multiple users
+
+**Description:** Verify that a single child can be associated with multiple users by inserting multiple rows with the same child_id and different user_id values, confirming the many-to-many relationship works correctly.
+
+**Pre-conditions:** Database running, users records exist, child record exists
+
+**Test Steps:**
+1. Create two user records
+2. Create a child record
+3. Insert two rows into user_child, linking each user to the child
+4. Query user_child with the `child_id` to confirm all associations exist
+
+**Expected Result:** Query returns two rows, each linking a different user to the child
+
+**Post-conditions:** User, child, and associations persisted
 
 ---
 # Data Access Methods
 ---
 
-## Access Method: get_user_by_id
+## Access Method: `get_user_by_id`
 ### Description
 Retrieves a user from the database
 ### Parameters
@@ -188,17 +238,67 @@ Retrieves a user from the database
 1. User returned when user_id matches a user's id
 2. None when no User has a matching id
 
+## Access Method: `get_user_by_email_and_password`
+### Description
+Retrieves a user from the database by email and password
+### Parameters
+- email (str)
+- password (str)
+- Note: Password should be hashed and compared to stored password_hash
+### Return Values
+- User record (or None)
+### Tests
+1. User returned when email and password match a user's credentials
+2. None returned when no User has matching email and password
+
+## Access Method: `update_user`
+### Description
+Updates a user's information in the database
+### Parameters
+- User record
+- fields_to_update (dict of field names and new values)
+### Return Values
+- Updated User record when update is successful
+- Note: error is raised if fields_to_update contains invalid field names or values, or if the user does not exist
+### Tests
+1. User record is updated when User is present and fields are valid
+3. Validation errors raised when fields_to_update contains invalid fields or values
+4. Error raised when User does not exist
+
+## Access Method: `create_child`
+### Description
+Creates a new child record for a user in the database
+### Parameters
+- user_id (int)
+- child_data (dict of child field names and values)
+- Note: child_data must contain all required fields for the Child table
+### Return Values
+- Newly created Child record when creation is successful
+- Note: error is raised if child_data is missing required fields or contains invalid values, or if the user_id does not exist
+### Tests
+1. Child record is created and linked to user when user_id exists and child_data is valid. A new user_child association is also created.
+2. Validation errors raised when child_data is missing required fields or contains invalid values
+3. Error raised when user_id does not exist
+
+## Access Method: `user.children`
+### Description
+We will use the existing SQLAlchemy relationship to access a user's children, which will return a list of Child records associated with the user through the user_child table.
+### Parameters
+- none (accessed via User object)
+### Return Values
+- List of Child records associated with the user
+### Tests
+1. Returns a list of Child records when the user has associated children
+2. Returns an empty list when the user has no associated children
+
+
 TODO other table methods:
 perhaps:
-get_user_by_id (done)
-get_user_by_email_password
-update_user
 get_child_by_id
 update_child
 get_feeding_event_by_id
 update_feeding_event
 get_feeding_events_by_child_id
-get_children_of_user
 
 --- 
 
