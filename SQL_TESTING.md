@@ -108,35 +108,38 @@ TODO
 ## 3) Table: FeedingEvent
 
 ### Table Description
-TODO
+Stores a child's feed desctiprion, date/time, and relationship to child.
 
 ### Fields
 | Field Name | Description | Constraints |
 |------------|-------------|-------------|
-| TODO | TODO | TODO |
+| event_id | Unique event identifier | Primary Key |
+| child_id | id of corresponding child | Foreign Key |
+| timestamp | date/time of event | NOT NULL, datetime |
+| description | event description | VARCHAR, max 512 characters |
 
 ### Relationships
-- TODO
+- One-to-many with `child`
 
 ### Table Tests
 
-**Use Case Name:** TODO
+**Use Case Name:** Create new event
 
-**Description:** TODO
+**Description:** Verify a new event has been stored
 
-**Pre-conditions:** TODO
+**Pre-conditions:** Database running, child exists
 
 **Test Steps:**
-1. TODO
-2. TODO
+1. Insert event with an existing child id
+2. Query the event by id
 
-**Expected Result:** TODO
+**Expected Result:** Event exists in database
 
-**Actual Result:** TODO
+**Actual Result:** Event returned by the query
 
-**Status:** TODO (Pass)
+**Status:** Pass
 
-**Post-conditions:** TODO
+**Post-conditions:** Event continues to exist is database
 
 ## 4) Table: user_child
 
@@ -291,14 +294,50 @@ We will use the existing SQLAlchemy relationship to access a user's children, wh
 1. Returns a list of Child records when the user has associated children
 2. Returns an empty list when the user has no associated children
 
+## Access Method: `get_feeding_event_by_id`
+### Description
+Retrieves a feeding event from the database
+### Parameters
+- event_id
+- user_id for authenticated access
+### Return Values
+- Feeding event record
+- Error if no record is found
+### Tests
+1. Return a specific event by id with valid child id
+2. Return 404 error when invalid event id is entered
+
+## Access Method: `update_feeding_event`
+### Description
+Updates an existing feeding event
+### Parameters
+- event_id
+- user_id for authenticated access
+### Return Values
+- Updated feeding event record
+- Error if record is failed to be updated
+### Tests
+1. Updating any field in a feed event updates that event in the database (new event is not created)
+2. Returns error if an event is unable to be updated & the record remains but is unchanged
+
+## Access Method: `get_feeding_events_by_child_id`
+### Description
+Retrieves all feeding events of one child
+### Parameters
+- child_id
+- user_id for authenticated access
+### Return Values
+- List of all feeding events
+- Error (if child does not exist)
+### Tests
+1. Valid child_id with feeding events returns list of all feed events
+2. Valid child_id with no feeding events returns empty list
+3. If invalid child_id or authorized access, error is returned
 
 TODO other table methods:
 perhaps:
 get_child_by_id
 update_child
-get_feeding_event_by_id
-update_feeding_event
-get_feeding_events_by_child_id
 
 --- 
 
