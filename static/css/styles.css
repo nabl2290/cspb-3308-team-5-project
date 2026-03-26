@@ -167,3 +167,8 @@ a.btn {
         background: #0d47a1;
     }
 }
+
+.wt-form {
+    display: flex;
+    flex-direction: column;
+}

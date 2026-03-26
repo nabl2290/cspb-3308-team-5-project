@@ -3,9 +3,13 @@ import re
 
 import prefix
 
+import user_forms
+
 from flask import Flask, request, render_template, redirect, url_for, session
 from models import db, User, Child, FeedingEvent
 from seeds import seed_db
+
+from flask_wtf import FlaskForm
 
 EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
@@ -154,16 +158,27 @@ def get_user(user_id):
 def edit_user(user_id):
     user = db.get_or_404(User, user_id)
 
-    return render_template('edit_user.html', user=user)
+    form=user_forms.EditUserForm(first_name=user.first_name,last_name=user.last_name,email=user.email)
+
+    return render_template('edit_user.html', user=user, form=form)
 
 # Update user profile
-@app.patch("/user/<int:user_id>")
+@app.post("/user/<int:user_id>/edit") # TODO update this in documentation, changed from PATCH
 def update_user(user_id):
     user = db.get_or_404(User, user_id)
 
-    # TODO: Add logic to update user profile based on request data
+    if request.form["first_name"]:
+        user.first_name = request.form["first_name"]
+    if request.form["last_name"]:
+        user.last_name = data["last_name"]
+    if request.form["email"]:
+        user.email = data["email"]
 
-    return redirect(url_for('get_user', user_id=user_id))
+    # TODO update password too
+
+    db.session.commit()
+
+    return redirect(url_for('get_user', user_id=user.id))
 
 # User dashboard page
 @app.get("/user/<int:user_id>/dashboard")
