@@ -51,7 +51,7 @@ Stores user account and profile information for all BabySteps users.
 
 ### Table Tests
 
-**Use Case Name:** Create user record
+#### **Use Case Name:** Create user record
 
 **Description:** Verify a new user can be stored
 
@@ -92,7 +92,7 @@ Stores child profile information.
 
 ### Table Tests
 
-**Use Case Name:** Create child record associated with User
+#### **Use Case Name:** Create child record associated with User
 
 **Description:** Verify a new child can be stored
 
@@ -132,7 +132,7 @@ Stores a child's feed desctiprion, date/time, and relationship to child.
 
 ### Table Tests
 
-**Use Case Name:** Create new event
+#### **Use Case Name:** Create new event
 
 **Description:** Verify a new event has been stored
 
@@ -202,7 +202,7 @@ Note: Composite primary key on (user_id, child_id) to prevent duplicate associat
 
 **Post-conditions:** No rows are added to user_child
 
-**Use Case Name:** One user linked to multiple children
+#### **Use Case Name:** One user linked to multiple children
 
 **Description:** Verify that a single user can be associated with multiple children by inserting multiple rows with the same       
   user_id and different child_id values, confirming the many-to-many relationship works correctly.
