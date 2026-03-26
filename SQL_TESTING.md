@@ -23,9 +23,9 @@ The backend uses **SQLite** accessed through **SQLAlchemy**.
 
 # Database Tables
 At minimum, the system requires the following tables:
-- `User`
-- `Child`
-- `FeedingEvent`
+- `user`
+- `child`
+- `feeding_event`
 - `user_child`
 
 Each table is described below.
@@ -48,6 +48,7 @@ Stores user account and profile information for all BabySteps users.
 ### Relationships
 
 - Many-to-many with `Child` through `user_child` table
+- One-to-many with `user_child` table
 
 ### Table Tests
 
@@ -81,7 +82,9 @@ TODO
 | TODO | TODO | TODO |
 
 ### Relationships
-- TODO
+
+- Many-to-many with `User` through `user_child` table
+- One-to-many with `user_child` table
 
 ### Table Tests
 
@@ -172,10 +175,8 @@ TODO
 
 ---
 # Data Access Methods
-Each table has at least one access method.
 ---
 
-### Data Access Methods
 ## Access Method: get_user_by_id
 ### Description
 Retrieves a user from the database
@@ -187,9 +188,54 @@ Retrieves a user from the database
 1. User returned when user_id matches a user's id
 2. None when no User has a matching id
 
+TODO other table methods:
+perhaps:
+get_user_by_id (done)
+get_user_by_email_password
+update_user
+get_child_by_id
+update_child
+get_feeding_event_by_id
+update_feeding_event
+get_feeding_events_by_child_id
+get_children_of_user
+
+--- 
+
+# Page Data Access Tests
+**Use Case Name:** Dashboard loads user data
+**Description:** Verify dashboard queries correct tables
+**Pre-conditions:** User logged in
+**Test Steps:**
+1. Load dashboard
+2. Fetch user and children
+
+TODO, add one for each page
+Login
+Registration
+User Profile Page
+Child Profile Page
+Feeding Event Page
+
+---
+
+# Page-to-Database Mapping
+| Page | Tables Accessed |
+|----|----------------|
+| Login | user |
+| Registration | user |
+| Dashboard | user, user_child, child, feeding_event |
+| View User Profile Page | user |
+| Edit User Profile Page | user |
+| Add Child Profile Page | user, user_child, child |
+| View Child Profile Page | user, user_child, child, feeding_event |
+| Edit Child Profile Page | user, user_child, child |
+| Add Feeding Event Page | user, user_child, child, feeding_event |
+| Edit Feeding Event Page | user, user_child, child, feeding_event |
+
 ---
 
 ## Notes
-- Constraints enforced at DB and ORM levels (TODO confirm?)
-- All access methods wrapped in service layer (TODO confirm?)
-- Tests executable via integration test suite (TODO shall we plan to do this?)
+- Constraints enforced at DB and ORM levels
+- All data access will go through direct or wrapped SQLAlchemy methods
+- Tests executable via unit test suite
