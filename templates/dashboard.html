@@ -12,8 +12,9 @@
     <!-- <span>{{ user.first_name }} {{ user.last_name }}</span> -->
     <!-- <br> -->
     <p>Welcome back, here you can manage your babies and add new feeding events.</p>
-    <span>You have {{ babies|length }} babies</span>
     <hr>
+    <span>You have {{ babies|length }} babies</span>
+    
 </div>
     
 
@@ -46,8 +47,13 @@
     
                 </table>
             </card>
-            <button type="submit" class="dashboard-baby-fevent-button">New Event</button>
+            <button type="submit" class="dashboard-baby-fevent-button" onclick="window.location.href='{{ url_for('create_feeding_event', child_id=baby.id) }}'">New Event</button>
         </div>
             
     {% endfor %}
+
+    <div class ="dashboard-add-baby-button-container">
+        <button class="dashboard-add-baby-button" onclick="window.location.href='{{ url_for('create_child') }}'">Add Baby</button>
+    </div>
+
 {% endblock %}

@@ -1,7 +1,11 @@
-.dashboard-h1{
-    /* color: green; */
-}
+/* .dashboard-h1{
+    color: green; 
+} */
 
+.dashboard-user-info p{
+    padding: 20px 20px 20px 0px;
+
+}
 
 .dashboard-user-icon {
     width: 30px;
@@ -67,6 +71,7 @@
     color: #254d2a;
     cursor: pointer;
     width: 95%;
+    height: 10%;
 }
 
 .dashboard-baby-content button:hover{
@@ -77,3 +82,26 @@
 .dashboard-baby-content button:active{
     background-color: #45914f;
 }
+
+.dashboard-add-baby-button-container{
+    width: 100%;
+    height: 35px;
+    
+}
+.dashboard-add-baby-button{
+    background-color: #66d575;
+    border: solid 2px #45914f;
+    border-radius: 3px;
+    color: black;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.dashboard-add-baby-button:hover{
+    background-color: #6ee67e;
+    font-weight: bold;
+    /* color: white; */
+}
+
