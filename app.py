@@ -182,8 +182,9 @@ def dashboard(user_id):
 def get_child(child_id):
     child = db.get_or_404(Child, child_id)
 
+    user = db.get_or_404(User, session.get('user_id'))
     # TODO: Add child profile template with child data
-    return render_template('child.html', child=child)
+    return render_template('child.html', child=child, user=user)
 
 # New baby/child form
 @app.get("/child/new")
