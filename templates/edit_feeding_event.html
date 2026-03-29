@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Add Feed Form</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    {% block stylesheet%}{% endblock %}
-    <link rel="stylesheet" href="../static/css/styles.css">
-</head>
+{% extends "auth_base.html" %} {% block title %}Edit Event{% endblock %} {%
+block content %}
+<div>
     <body style="text-align: center;">
         <form method="POST" action="/feeding-event/{{ event.id }}/edit">
             <select name="child_id" required>
                 {% for child in children %}
                 <option value="{{ child.id }}"
                     {% if child.id == event.child_id %}selected{% endif %}>
-                    {{ child.name }}
+                    {{ child.first_name }} {{ child.last_name }}
                 </option>
                 {% endfor %}
             </select>
@@ -29,4 +22,5 @@
             <button type="submit">UPDATE FEED</button>
 </form>
     </body>
-</html>
+</div>
+{% endblock %}
