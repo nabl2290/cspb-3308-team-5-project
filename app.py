@@ -9,6 +9,7 @@ import user_forms
 from flask import Flask, request, render_template, redirect, url_for, session
 from models import db, User, Child, FeedingEvent
 from seeds import seed_db
+from datetime import datetime
 
 from flask_wtf import FlaskForm
 
@@ -240,29 +241,73 @@ def update_child(child_id):
 # New feeding event form
 @app.get("/feeding-event/new")
 def new_feeding_event():
-    return render_template('new_feeding_event.html')
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for("login"))
+    children = current_user.children
+    return render_template('new_feeding_event.html', children=children)
 
 # Create new feeding event based on new form submission
 @app.post("/feeding-event")
 def create_feeding_event():
-    # TODO: Add logic to create new feeding event based on request data
-    return '', 201
+    child_id = int(request.form.get("child_id"))
+    date = request.form.get("date")
+
+    if not child_id or not date:
+        return "Missing required fields", 400
+        
+    description = request.form.get("description") or None
+    
+    timestamp = datetime.fromisoformat(date)
+
+    new_feed = FeedingEvent(
+        child_id=int(child_id),
+        timestamp=timestamp,
+        description=description
+    )
+
+    db.session.add(new_feed)
+    db.session.commit()
+    
+    return redirect(url_for("new_feeding_event"))
 
 # Edit feeding event form
 @app.get("/feeding-event/<int:event_id>/edit")
 def edit_feeding_event(event_id):
     event = db.get_or_404(FeedingEvent, event_id)
-
-    return render_template('edit_feeding_event.html', event=event)
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for("login"))
+    if event.child_id not in [child.id for child in current_user.children]:
+        return "Unauthorized", 403
+    children = current_user.children
+    return render_template('edit_feeding_event.html', event=event, children=children)
 
 # Update feeding event based on edit form submission
-@app.patch("/feeding-event/<int:event_id>")
+@app.post("/feeding-event/<int:event_id>/edit")
 def update_feeding_event(event_id):
     event = db.get_or_404(FeedingEvent, event_id)
+    child_id = request.form.get("child_id")
+    date = request.form.get("date")
+    description = request.form.get("description") or None
 
-    # TODO: Add logic to update feeding event based on request data
+    if not child_id or not date:
+        return "Missing required fields", 400
 
-    return redirect(url_for('get_child', child_id=event.child_id))
+    event.child_id = int(child_id)
+    event.timestamp = datetime.fromisoformat(date)
+    event.description = description
+
+    db.session.commit()
+    return redirect(url_for("edit_feeding_event", event_id=event.id))
+
+# @app.patch("/feeding-event/<int:event_id>")
+# def update_feeding_event(event_id):
+#     event = db.get_or_404(FeedingEvent, event_id)
+
+#     # TODO: Add logic to update feeding event based on request data
+
+#     return redirect(url_for('get_child', child_id=event.child_id))
 
 # Route to display all users (for testing purposes)
 @app.route("/users")

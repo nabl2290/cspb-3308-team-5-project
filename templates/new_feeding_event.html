@@ -1,0 +1,23 @@
+{% extends "auth_base.html" %} {% block title %}New Feed Event{% endblock %} {%
+block content %}
+<div>
+  <body style="text-align: center">
+    <form method="POST" action="/feeding-event">
+      <label>Child:</label>
+      <select name="child_id" required>
+        {% for child in children %}
+        <option value="{{ child.id }}">{{ child.first_name }} {{ child.last_name }}</option>
+        {% endfor %}
+      </select>
+      <label for="date">Date & Time:</label>
+      <!-- can do type datetime-local for both on one line or separate date and time inputs -->
+      <input type="datetime-local" id="date" name="date" required /><br />
+      <!-- <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required><br> -->
+      <label for="description">Description:</label>
+      <input id="description" name="description" /><br />
+      <button type="submit">ADD FEED</button>
+    </form>
+  </body>
+</div>
+{% endblock %}
