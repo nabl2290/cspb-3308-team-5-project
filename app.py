@@ -125,7 +125,7 @@ def dashboard(user_id):
     current_date = date.today()
     recent_feeding_evts = {}
     for baby in babies:
-        latest = FeedingEvent.query.filter_by(child_id=baby.id).order_by(FeedingEvent.timestamp.desc()).first()
+        latest = FeedingEvent.query.filter_by(child_id=baby.id).order_by(FeedingEvent.timestamp).first()
         recent_feeding_evts[baby.id] = latest
     # TODO: Add dashboard template with user-specific data
     #  (e.g., list of children, recent feeding events)

@@ -18,7 +18,7 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    margin: 20px 20px 10px 0px;
     gap: 10px;
     width: 200px;
     height:300px;
@@ -29,7 +29,7 @@
     border-radius: 5px;
     padding: 10px;
     height: 80%;
-    width: 95%;
+    width: 100%;
 }
 
 .dashboard-baby-card table{
@@ -68,15 +68,13 @@
     border: solid 2px #45914f;
     border-radius: 3px;
     padding: 5px 10px;
-    color: #254d2a;
     cursor: pointer;
-    width: 95%;
+    width: 100%;
     height: 10%;
 }
 
 .dashboard-baby-content button:hover{
     background-color: #6ee67e;
-    /* color: white; */
 }
 
 .dashboard-baby-content button:active{
@@ -101,7 +99,5 @@
 
 .dashboard-add-baby-button:hover{
     background-color: #6ee67e;
-    font-weight: bold;
-    /* color: white; */
 }
 

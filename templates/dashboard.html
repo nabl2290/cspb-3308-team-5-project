@@ -13,7 +13,8 @@
     <!-- <br> -->
     <p>Welcome back, here you can manage your babies and add new feeding events.</p>
     <hr>
-    <span>You have {{ babies|length }} babies</span>
+    <span>Showing
+         {{ babies|length }} babies</span>
     
 </div>
     
@@ -23,12 +24,14 @@
             <card class ="dashboard-baby-card">
                 <table>
                     <tr>
-                        <td class="dashboard-baby-card-header">
-                            <img src="{{ url_for('static', filename='images/Default_pfp.jpg') }}" alt="Baby Icon" class="dashboard-baby-icon" href="{{ url_for('get_child', child_id=baby.id) }}">
-                            <div href="{{ url_for('get_child', child_id=baby.id) }}" class="dashboard-baby-name">
-                                <h4>{{ baby.first_name}}</h4>
-                                <h4>{{ baby.last_name }}</h4>
-                            </div>    
+                        <td>
+                            <a class="dashboard-baby-card-header" href="{{url_for('get_child', child_id=baby.id)}}">
+                                <img src="{{ url_for('static', filename='images/Default_pfp.jpg') }}" alt="Baby Icon" class="dashboard-baby-icon" href="{{ url_for('get_child', child_id=baby.id) }}">
+                                <div href="{{ url_for('get_child', child_id=baby.id) }}" class="dashboard-baby-name">
+                                    <h4>{{ baby.first_name}}</h4>
+                                    <h4>{{ baby.last_name }}</h4>
+                                </div>  
+                            </a>
                         </td>
                     </tr>
                     <tr><td><hr></td></tr>
@@ -39,8 +42,8 @@
                             <p> <strong>Age:</strong> {{ (current_date - baby.dob).days // 30 }} months</p>
                             <div>
                                 <p><strong>Last Feeding:</strong></p>
-                                <p>Timestamp: {{ feeding_event.timestamp if feeding_event else "No feeding events" }}</p>
-                                <p>Description: {{ feeding_event.description if feeding_event else "No description available" }}</p>
+                                <p>{{ feeding_event.timestamp.strftime("%A, %I:%M %p") if feeding_event else "No feeding events" }}</p>
+                                <p>Description: <br>{{ feeding_event.description if feeding_event else "No description available" }}</p>
                             </div>
                         </td>
                     </tr>
