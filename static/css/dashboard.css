@@ -44,10 +44,15 @@
     display: flex;
     /* align-items: center; */
     gap: 10px;  
+    text-decoration: none;
+    color: inherit;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-baby-card-header:hover{
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dashboard-baby-icon {
@@ -62,6 +67,9 @@
     justify-content: center;
 }
 
+.dashboard-baby-name:hover{
+    text-decoration: underline;
+}
 
 .dashboard-baby-content button{
     background-color: #66d575;
