@@ -170,9 +170,9 @@ def update_user(user_id):
     if request.form["first_name"]:
         user.first_name = request.form["first_name"]
     if request.form["last_name"]:
-        user.last_name = data["last_name"]
+        user.last_name = request.form["last_name"]
     if request.form["email"]:
-        user.email = data["email"]
+        user.email = request.form["email"]
 
     # TODO update password too
 
