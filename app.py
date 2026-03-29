@@ -213,7 +213,10 @@ def update_child(child_id):
 # New feeding event form
 @app.get("/feeding-event/new")
 def new_feeding_event():
-    children = Child.query.all()
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for("login"))
+    children = current_user.children
     return render_template('new_feeding_event.html', children=children)
 
 # Create new feeding event based on new form submission
@@ -240,11 +243,17 @@ def create_feeding_event():
     
     return redirect(url_for("new_feeding_event"))
 
+# TODO: Make sure user is parent of child, right now anyone can edit any event
 # Edit feeding event form
 @app.get("/feeding-event/<int:event_id>/edit")
 def edit_feeding_event(event_id):
     event = db.get_or_404(FeedingEvent, event_id)
-    children = Child.query.all()
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for("login"))
+    if event.child_id not in [child.id for child in current_user.children]:
+        return "Unauthorized", 403
+    children = current_user.children
     return render_template('edit_feeding_event.html', event=event, children=children)
 
 # Update feeding event based on edit form submission
