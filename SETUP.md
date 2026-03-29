@@ -78,3 +78,20 @@ deactivate
 ```
 
 To reactivate it later, simply run the activation command again.
+
+## Adding new dependencies
+
+If you add new dependencies to the project, make sure to update the `requirements.txt`. 
+
+Make sure your virtual environment is activated, install dependencies using pip, and then run the following command to update `requirements.txt`:
+
+```bash
+pip freeze > requirements.txt
+```
+
+## Testing
+
+To run tests, make sure your virtual environment is activated and run:
+```bash
+pytest tests/ -v  
+```
