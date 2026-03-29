@@ -16,7 +16,7 @@
                     <li><a href="{{ url_for('dashboard', user_id=user.id) }}">Home</a></li>
                     <li><a href="{{ url_for('get_user', user_id=user.id) }}">Profile</a></li>
                     <li class="logout__menu-item">
-                        <form action="/logout" method="post">
+                        <form action="{{ url_for('logout') }}" method="post">
                             <button type="submit" class="logout-link">Logout</button>
                         </form>
                     </li>

@@ -1,9 +1,34 @@
 <!doctype html>
 <head>
-  <title>Baby Tracker</title>
+  <title>Baby Steps</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}"> -->
 </head>
 
 <body>
-  <h1>Baby Tracker</h1>
-  <p>Track your baby's progress and keep your schedule organized!</p>
+  <header>
+    <h1 class="logo">Baby Steps</h1>
+    <div>
+      <a href="{{ url_for('register')}}" class="btn btn--blue">New Account</a>
+      <a href="{{ url_for('login')}}" class="btn btn--blue">Login</a>
+    </div>
+  </header>
+  <h1 class="banner">Welcome to Baby Steps!</h1>
+  <main class="content">
+    <div>
+
+      <section>
+        <p>Track your baby's progress and keep your schedule organized!</p>
+        <p>In this app you will be able to efficiently track different progress events that you have for you and your child. 
+          With this tool, you can:
+        </p>
+        <ul>
+          <li>Create and manage your user profile</li>
+          <li>Add profiles for your children</li>
+          <li>Record data about child feedings</li>
+        </ul>
+      <p>Get started by creating a new account or logging in above.</p>  
+      </section>
+    </div>
+</main>
 </body>

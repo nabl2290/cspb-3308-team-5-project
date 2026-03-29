@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1 class="dashboard-h1">Edit User Profile</h1>
+<section>
+    <img src = "{{ url_for('static', filename='images/Default_pfp.jpg') }}" alt = "Profile Picture" class = "profile-pic">
+</section>
+<section class="wt-form">
+    <form method="POST" action="{{ url_for('update_user', user_id=user.id)}}" class="wt-form">
+        {{ form.csrf_token }}
+        <div>{{ form.first_name.label }}: {{ form.first_name(size=20) }}</div>
+        <div>{{ form.last_name.label }}: {{ form.last_name(size=20) }}</div>
+        <div>{{ form.email.label }}: {{ form.email(size=20) }}</div>
+        <div>{{ form.new_password.label }}: {{ form.new_password(size=20) }}</div>
+        <div>{{ form.new_password_confirmed.label }}: {{ form.new_password_confirmed(size=20) }}</div>
+        <input type="submit" value="Save" class="btn btn--blue">
+    </form>
+</section>
+
+{% endblock %}
