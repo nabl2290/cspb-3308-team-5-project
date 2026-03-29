@@ -73,8 +73,12 @@ form {
 
 .form__error {
     color: #b71c1c;
-    margin-top: 0.5rem;
-    text-align: center;
+    margin-top: 0.25rem;
+}
+
+.form__input-group:has(.form__error) input {
+    border: 2px solid #b71c1c;
+    border-radius: 3px;
 }
 
 .btn {
