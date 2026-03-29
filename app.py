@@ -243,7 +243,6 @@ def create_feeding_event():
     
     return redirect(url_for("new_feeding_event"))
 
-# TODO: Make sure user is parent of child, right now anyone can edit any event
 # Edit feeding event form
 @app.get("/feeding-event/<int:event_id>/edit")
 def edit_feeding_event(event_id):
