@@ -88,3 +88,10 @@ Make sure your virtual environment is activated, install dependencies using pip,
 ```bash
 pip freeze > requirements.txt
 ```
+
+## Testing
+
+To run tests, make sure your virtual environment is activated and run:
+```bash
+pytest tests/ -v  
+```
