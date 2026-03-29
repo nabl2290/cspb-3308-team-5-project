@@ -3,7 +3,7 @@ from models import db, User, Child, FeedingEvent
 # ---- User Queries ----
 def get_user_by_id(user_id):
     """Retrieves a user by ID. Returns User or None."""
-    pass
+    return db.session.get(User, user_id)
 
 
 def get_user_by_email_and_password(email, password):

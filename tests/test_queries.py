@@ -1,9 +1,3 @@
-import sys
-import os
-
-# Allow importing from the parent directory (where models and queries are located)
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
 import pytest
 from models import db, User, Child, FeedingEvent
 from queries import (
@@ -20,11 +14,15 @@ from queries import (
 
 # ---- User Query Tests ----
 class TestGetUserById:
-    def test_returns_user_when_exists(self):
-        pass
+    def test_returns_user_when_exists(self, create_user):
+        user = create_user()
+        retrieved_user = get_user_by_id(user.id)
+        assert retrieved_user is not None
+        assert retrieved_user.id == user.id
 
-    def test_returns_none_when_not_found(self):
-        pass
+    def test_returns_none_when_not_found(self, app):
+        retrieved_user = get_user_by_id(9999)  # Assuming this ID does not exist
+        assert retrieved_user is None
 
 
 class TestGetUserByEmailAndPassword:
