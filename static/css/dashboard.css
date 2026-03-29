@@ -1,3 +1,111 @@
-.dashboard-h1{
-    color: green;
+/* .dashboard-h1{
+    color: green; 
+} */
+
+.dashboard-user-info p{
+    padding: 20px 20px 20px 0px;
+
 }
+
+.dashboard-user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    /* margin-right: 10px; */
+}
+
+.dashboard-baby-content {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 20px 10px 0px;
+    gap: 10px;
+    width: 200px;
+    height:300px;
+}
+
+.dashboard-baby-card{
+    border: solid 2px black;
+    border-radius: 5px;
+    padding: 10px;
+    height: 80%;
+    width: 100%;
+}
+
+.dashboard-baby-card table{
+    width: 100%;
+}
+
+.dashboard-baby-card td{
+    width: 100%;
+    padding: 5px;
+}
+.dashboard-baby-card-header{
+    display: flex;
+    /* align-items: center; */
+    gap: 10px;  
+    text-decoration: none;
+    color: inherit;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-baby-card-header:hover{
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-baby-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+}
+
+.dashboard-baby-name{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dashboard-baby-name:hover{
+    text-decoration: underline;
+}
+
+.dashboard-baby-content button{
+    background-color: #66d575;
+    border: solid 2px #45914f;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 100%;
+    height: 10%;
+}
+
+.dashboard-baby-content button:hover{
+    background-color: #6ee67e;
+}
+
+.dashboard-baby-content button:active{
+    background-color: #45914f;
+}
+
+.dashboard-add-baby-button-container{
+    width: 100%;
+    height: 35px;
+    
+}
+.dashboard-add-baby-button{
+    background-color: #66d575;
+    border: solid 2px #45914f;
+    border-radius: 3px;
+    color: black;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.dashboard-add-baby-button:hover{
+    background-color: #6ee67e;
+}
+

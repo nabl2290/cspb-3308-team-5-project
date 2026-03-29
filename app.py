@@ -1,3 +1,4 @@
+from datetime import date
 import os
 import re
 
@@ -187,18 +188,24 @@ def dashboard(user_id):
         return redirect(url_for('login', error="You are not authorized to access this page"))
 
     user = db.get_or_404(User, user_id)
-
+    babies = user.children
+    current_date = date.today()
+    recent_feeding_evts = {}
+    for baby in babies:
+        latest = FeedingEvent.query.filter_by(child_id=baby.id).order_by(FeedingEvent.timestamp).first()
+        recent_feeding_evts[baby.id] = latest
     # TODO: Add dashboard template with user-specific data
     #  (e.g., list of children, recent feeding events)
-    return render_template('dashboard.html', user=user)
+    return render_template('dashboard.html', user=user, babies=babies, current_date=current_date, recent_feedings=recent_feeding_evts)
 
 # Show baby/child profile page
 @app.get("/child/<int:child_id>")
 def get_child(child_id):
     child = db.get_or_404(Child, child_id)
 
+    user = db.get_or_404(User, session.get('user_id'))
     # TODO: Add child profile template with child data
-    return render_template('child.html', child=child)
+    return render_template('child.html', child=child, user=user)
 
 # New baby/child form
 @app.get("/child/new")
