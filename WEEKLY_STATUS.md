@@ -368,3 +368,10 @@ Quick notes for those earlier meetings is below:
 - Felice did registration and login, may move on to adding unit tests
 - Will did work on dashboard, ready for the next thing
 - Antonio did work on forms for feeding event, continuing working on formatting and testing, integrating with base.html
+
+### 2026-03-29
+- Felice got started on testing stuff, use pytest instead of unit test, merged PR with framework setup and initial tests
+- Will demoed work on dashboard and more integration, merged
+- Nate demoed progress on user pages and csel prefix.py, merged with help from team, next working on password update and fixing local run problem with prefix
+- Alana progress on child pages, will work on child data access tests too
+- Antonio demoed add/edit feeding event pages, merged
