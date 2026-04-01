@@ -26,11 +26,21 @@ class TestGetUserById:
 
 
 class TestGetUserByEmailAndPassword:
-    def test_returns_user_with_valid_credentials(self):
-        pass
+    def test_returns_user_with_valid_credentials(self, create_user):
+        user = create_user(email="user@example.com", password="test123")
+        retrieved_user = get_user_by_email_and_password("user@example.com", "test123")
+        assert retrieved_user is not None
+        assert retrieved_user.id == user.id
 
-    def test_returns_none_with_invalid_credentials(self):
-        pass
+    def test_returns_none_with_invalid_credentials(self, create_user):
+        user = create_user(email="user@example.com", password="test123")
+        # With wrong password
+        retrieved_user = get_user_by_email_and_password("user@example.com", "wrongpassword")
+        assert retrieved_user is None
+
+        # With wrong email
+        retrieved_user = get_user_by_email_and_password("wrong@example.com", "test123")
+        assert retrieved_user is None
 
 
 class TestUpdateUser:

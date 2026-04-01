@@ -8,7 +8,10 @@ def get_user_by_id(user_id):
 
 def get_user_by_email_and_password(email, password):
     """Retrieves a user by email and password. Returns User or None."""
-    pass
+    user = db.session.query(User).filter_by(email=email).first()
+    if user and user.check_password(password):
+        return user
+    return None
 
 
 def update_user(user, fields_to_update):
