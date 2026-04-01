@@ -11,8 +11,6 @@ from models import db, User, Child, FeedingEvent
 from seeds import seed_db
 from datetime import datetime
 
-from flask_wtf import FlaskForm
-
 EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
 app = Flask(__name__)
@@ -156,31 +154,32 @@ def get_user(user_id):
     return render_template('user.html', user=user)
 
 # Edit user profile page with form
-@app.get("/user/<int:user_id>/edit")
+@app.route("/user/<int:user_id>/edit", methods=['GET','POST'])
 def edit_user(user_id):
     user = db.get_or_404(User, user_id)
+    
+    if request.method == 'GET':
+        form=user_forms.EditUserForm(first_name=user.first_name,last_name=user.last_name,email=user.email)
 
-    form=user_forms.EditUserForm(first_name=user.first_name,last_name=user.last_name,email=user.email)
+        return render_template('edit_user.html', user=user, form=form)
+    
+    form = user_forms.EditUserForm(request.form)
+    if request.method == 'POST' and form.validate():
+        if request.form["first_name"]:
+            user.first_name = request.form["first_name"]
+        if request.form["last_name"]:
+            user.last_name = request.form["last_name"]
+        if request.form["email"]:
+            user.email = request.form["email"]
+        if request.form["new_password"]:
+            user.set_password(request.form["new_password"])
 
+        db.session.commit()
+
+        return redirect(url_for('get_user', user_id=user.id))
+    
+    # otherwise show the edit screen again
     return render_template('edit_user.html', user=user, form=form)
-
-# Update user profile
-@app.post("/user/<int:user_id>/edit") # TODO update this in documentation, changed from PATCH
-def update_user(user_id):
-    user = db.get_or_404(User, user_id)
-
-    if request.form["first_name"]:
-        user.first_name = request.form["first_name"]
-    if request.form["last_name"]:
-        user.last_name = request.form["last_name"]
-    if request.form["email"]:
-        user.email = request.form["email"]
-
-    # TODO update password too
-
-    db.session.commit()
-
-    return redirect(url_for('get_user', user_id=user.id))
 
 # User dashboard page
 @app.get("/user/<int:user_id>/dashboard")

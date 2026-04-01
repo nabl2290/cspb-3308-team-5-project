@@ -171,4 +171,13 @@ a.btn {
 .wt-form {
     display: flex;
     flex-direction: column;
+    max-width: 500px;
+}
+
+.form-box {
+    border: 1px solid #808080;
+}
+
+.form-line {
+    margin: 5px;
 }
