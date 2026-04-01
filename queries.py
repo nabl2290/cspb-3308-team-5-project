@@ -1,6 +1,18 @@
 from models import db, User, Child, FeedingEvent
 
 # ---- User Queries ----
+def create_user(user_data):
+    """Creates a new user. Returns new User."""
+    user = User(
+        first_name=user_data.get("first_name"),
+        last_name=user_data.get("last_name"),
+        email=user_data.get("email"),
+    )
+    user.set_password(user_data.get("password"))
+    db.session.add(user)
+    db.session.commit()
+    return user
+
 def get_user_by_id(user_id):
     """Retrieves a user by ID. Returns User or None."""
     return db.session.get(User, user_id)

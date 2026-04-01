@@ -1,6 +1,7 @@
 import pytest
 from models import db, User, Child, FeedingEvent
 from queries import (
+    create_user as create_user_query,
     get_user_by_id,
     get_user_by_email_and_password,
     update_user,
@@ -13,6 +14,35 @@ from queries import (
 )
 
 # ---- User Query Tests ----
+class TestCreateUser:
+    def test_creates_user_with_valid_data(self, app):
+        user = create_user_query({
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "email": "jane@example.com",
+            "password": "Password123",
+        })
+        assert user.id is not None
+        assert user.first_name == "Jane"
+        assert user.last_name == "Doe"
+        assert user.email == "jane@example.com"
+        assert user.check_password("Password123")
+
+    def test_raises_error_with_missing_fields(self, app):
+        with pytest.raises(Exception):
+            create_user_query({"first_name": "Jane"})
+
+    def test_raises_error_with_duplicate_email(self, app, create_user):
+        create_user(email="taken@example.com")
+        with pytest.raises(Exception):
+            create_user_query({
+                "first_name": "Jane",
+                "last_name": "Doe",
+                "email": "taken@example.com",
+                "password": "Password123",
+            })
+
+
 class TestGetUserById:
     def test_returns_user_when_exists(self, create_user):
         user = create_user()
