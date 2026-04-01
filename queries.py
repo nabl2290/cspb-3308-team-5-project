@@ -16,7 +16,19 @@ def get_user_by_email_and_password(email, password):
 
 def update_user(user, fields_to_update):
     """Updates a user's information. Returns updated User."""
-    pass
+    if not user:
+        raise ValueError("User cannot be None")
+
+    for field, value in fields_to_update.items():
+        if field == "password":
+            user.set_password(value)
+        elif field in User.__table__.columns.keys():
+            setattr(user, field, value)
+        else:
+            raise ValueError(f"Invalid field: {field}")
+
+    db.session.commit()
+    return user
 
 
 # ---- Child Queries ----

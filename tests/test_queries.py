@@ -44,14 +44,31 @@ class TestGetUserByEmailAndPassword:
 
 
 class TestUpdateUser:
-    def test_updates_user_with_valid_fields(self):
-        pass
+    def test_updates_user_with_valid_fields(self, create_user):
+        user = create_user()
+        fields_to_update = {"first_name": "Updated", "last_name": "Name", "email": "new-email@gmail.com", "password": "NewPassword123"}
+        updated_user = update_user(user, fields_to_update)
 
-    def test_raises_error_with_invalid_fields(self):
-        pass
+        assert updated_user.first_name == "Updated"
+        assert updated_user.last_name == "Name"
+        assert updated_user.email == "new-email@gmail.com"
+        assert updated_user.check_password("NewPassword123")
 
-    def test_raises_error_when_user_does_not_exist(self):
-        pass
+    def test_raises_error_with_invalid_fields(self, create_user):
+        user = create_user()
+        with pytest.raises(ValueError):
+            update_user(user, {"invalid_field": "value"})
+
+    def test_raises_error_with_invalid_field_values(self, create_user):
+        user = create_user()
+        with pytest.raises(Exception):
+            update_user(user, {"first_name": ""})
+        with pytest.raises(Exception):
+            update_user(user, {"email": "not-an-email"})
+
+    def test_raises_error_when_user_does_not_exist(self, app):
+        with pytest.raises(ValueError):
+            update_user(None, {"first_name": "Updated"})
 
 
 # ---- Child Query Tests ----
