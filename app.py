@@ -154,17 +154,21 @@ def get_user(user_id):
     return render_template('user.html', user=user)
 
 # Edit user profile page with form
-@app.route("/user/<int:user_id>/edit", methods=['GET','POST'])
+@app.get("/user/<int:user_id>/edit")
 def edit_user(user_id):
     user = db.get_or_404(User, user_id)
-    
-    if request.method == 'GET':
-        form=user_forms.EditUserForm(first_name=user.first_name,last_name=user.last_name,email=user.email)
 
-        return render_template('edit_user.html', user=user, form=form)
+    form=user_forms.EditUserForm(first_name=user.first_name,last_name=user.last_name,email=user.email)
+
+    return render_template('edit_user.html', user=user, form=form)
+
+# Update user profile
+@app.post("/user/<int:user_id>/edit") # TODO update this in documentation, changed from PATCH
+def update_user(user_id):
+    user = db.get_or_404(User, user_id)
     
     form = user_forms.EditUserForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if form.validate():
         if request.form["first_name"]:
             user.first_name = request.form["first_name"]
         if request.form["last_name"]:
