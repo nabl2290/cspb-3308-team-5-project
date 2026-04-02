@@ -49,16 +49,18 @@ After meeting:
 Key accomplishments include:
 - Completed Milestone 5
 - Initial testing framework in place
+- Progress on pages
 
 ## Completed Tasks
 - Testing framework setup
 - Built out some tests
 - prefix.py fixed, merged
+- Merged updates for Dashboard and Feeding Event pages
 
 ## Tasks on deck
 - Reviewing work on User pages
-- Completing work on Child pages and Feeding Event pages
-- adding more test coverage
+- Completing further work on Child pages and Feeding Event pages
+- Adding more test coverage
 - Refactor some forms to use WTForms
 
 ## Blockers and issues
