@@ -1,8 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, validates
 from typing import Optional
 from datetime import date, datetime
+import re
 from werkzeug.security import generate_password_hash, check_password_hash
+
+EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
 class Base(DeclarativeBase):
     pass
@@ -21,6 +24,32 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(db.String(120), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(db.String(256), nullable=False)
     children: Mapped[list["Child"]] = relationship(secondary=user_child, back_populates="parents")
+
+    @validates('first_name')
+    def validate_first_name(self, key, value):
+        if not value or not value.strip():
+            raise ValueError("First name cannot be empty")
+        if len(value) > 50:
+            raise ValueError("First name cannot exceed 50 characters")
+        return value
+
+    @validates('last_name')
+    def validate_last_name(self, key, value):
+        if not value or not value.strip():
+            raise ValueError("Last name cannot be empty")
+        if len(value) > 50:
+            raise ValueError("Last name cannot exceed 50 characters")
+        return value
+
+    @validates('email')
+    def validate_email(self, key, value):
+        if not value or not value.strip():
+            raise ValueError("Email cannot be empty")
+        if not re.match(EMAIL_REGEX, value):
+            raise ValueError("Invalid email address")
+        if len(value) > 120:
+            raise ValueError("Email cannot exceed 120 characters")
+        return value
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

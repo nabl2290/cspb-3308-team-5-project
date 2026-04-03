@@ -1,6 +1,18 @@
 from models import db, User, Child, FeedingEvent
 
 # ---- User Queries ----
+def create_user(user_data):
+    """Creates a new user. Returns new User."""
+    user = User(
+        first_name=user_data.get("first_name"),
+        last_name=user_data.get("last_name"),
+        email=user_data.get("email"),
+    )
+    user.set_password(user_data.get("password"))
+    db.session.add(user)
+    db.session.commit()
+    return user
+
 def get_user_by_id(user_id):
     """Retrieves a user by ID. Returns User or None."""
     return db.session.get(User, user_id)
@@ -8,12 +20,27 @@ def get_user_by_id(user_id):
 
 def get_user_by_email_and_password(email, password):
     """Retrieves a user by email and password. Returns User or None."""
-    pass
+    user = db.session.query(User).filter_by(email=email).first()
+    if user and user.check_password(password):
+        return user
+    return None
 
 
 def update_user(user, fields_to_update):
     """Updates a user's information. Returns updated User."""
-    pass
+    if not user:
+        raise ValueError("User cannot be None")
+
+    for field, value in fields_to_update.items():
+        if field == "password":
+            user.set_password(value)
+        elif field in User.__table__.columns.keys():
+            setattr(user, field, value)
+        else:
+            raise ValueError(f"Invalid field: {field}")
+
+    db.session.commit()
+    return user
 
 
 # ---- Child Queries ----
