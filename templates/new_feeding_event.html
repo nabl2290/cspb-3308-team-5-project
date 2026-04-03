@@ -1,10 +1,17 @@
 {% extends "base.html" %} 
 {% block title %}New Feed Event{% endblock %} 
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/feeding_event.css') }}">
+{% endblock %}
+
 {% block content %}
-<div style="text-align: center">
-    <form method="POST" action="/feeding-event">
+<div class="feeding-container">
+  <div class="feeding-title">Add Feeding Event</div>
+    <form method="POST" action="/feeding-event" class="feeding-form">
       <label>Child:</label>
       <select name="child_id" required>
+        <option value="" disabled selected>-- Select a child --</option>
         {% for child in children %}
         <option value="{{ child.id }}">{{ child.first_name }} {{ child.last_name }}</option>
         {% endfor %}
@@ -15,8 +22,10 @@
       <!-- <label for="time">Time:</label>
             <input type="time" id="time" name="time" required><br> -->
       <label for="description">Description:</label>
-      <input id="description" name="description" /><br />
-      <button type="submit">ADD FEED</button>
+      <textarea id="description" name="description"></textarea>
+      <div class="button-container">
+        <button type="submit">ADD FEED</button>
+      </div>
     </form>
 </div>
 {% endblock %}

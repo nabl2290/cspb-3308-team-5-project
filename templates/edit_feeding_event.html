@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Edit Event{% endblock %} 
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/feeding_event.css') }}">
+{% endblock %}
+
 {% block content %}
-<div style="text-align: center;">
-    <form method="POST" action="/feeding-event/{{ event.id }}/edit">
+<div class="feeding-container">
+    <div class="feeding-title">Edit Feeding Event</div>
+    <form method="POST" action="/feeding-event/{{ event.id }}/edit" class="feeding-form">
+        <label>Child:</label>
         <select name="child_id" required>
             {% for child in children %}
             <option value="{{ child.id }}"
@@ -17,9 +24,10 @@
                 required>
     
         <label>Description:</label>
-        <input name="description" value="{{ event.description or '' }}">
-    
-        <button type="submit">UPDATE FEED</button>
+        <textarea name="description" value="{{ event.description or '' }}"></textarea>
+        <div class="button-container">
+            <button type="submit">UPDATE FEED</button>
+        </div>
     </form>
 </div>
 {% endblock %}
