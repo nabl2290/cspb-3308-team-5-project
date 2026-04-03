@@ -246,13 +246,20 @@ def new_feeding_event():
     if not current_user:
         return redirect(url_for("login"))
     children = current_user.children
-    return render_template('new_feeding_event.html', children=children)
+    return render_template('new_feeding_event.html', children=children, user=current_user)
 
 # Create new feeding event based on new form submission
 @app.post("/feeding-event")
 def create_feeding_event():
     child_id = int(request.form.get("child_id"))
     date = request.form.get("date")
+    
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for("login"))
+    
+    if child_id not in [child.id for child in current_user.children]:
+        return "Unauthorized", 403
 
     if not child_id or not date:
         return "Missing required fields", 400
@@ -282,7 +289,7 @@ def edit_feeding_event(event_id):
     if event.child_id not in [child.id for child in current_user.children]:
         return "Unauthorized", 403
     children = current_user.children
-    return render_template('edit_feeding_event.html', event=event, children=children)
+    return render_template('edit_feeding_event.html', event=event, children=children, user=current_user)
 
 # Update feeding event based on edit form submission
 @app.post("/feeding-event/<int:event_id>/edit")
