@@ -1,20 +1,12 @@
 from datetime import date
 import os
-import re
-
 import prefix
-
 import user_forms
-
+from flask import Flask, request, render_template, redirect, url_for, session, flash
 import queries as q
-
-from flask import Flask, request, render_template, redirect, url_for, session
 from models import db, User, Child, FeedingEvent
-from queries import create_user, get_user_by_email_and_password
 from seeds import seed_db
 from datetime import datetime
-
-EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
 app = Flask(__name__)
 
@@ -62,85 +54,53 @@ def authorized_user(requested_user_id):
 def index():
     return render_template('index.html')
 
-@app.route("/sample")
-def sample():
-    return render_template('sample.html')
-
 # Registration page form
 @app.get("/register")
 def register():
-    return render_template('registration.html')
+    form = user_forms.RegistrationForm()
+    return render_template('registration.html', form=form)
 
 # Post registration for new user
 @app.post("/register")
 def register_post():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    email = request.form['email']
-    password = request.form['password']
-    confirm_password = request.form['confirm_password']
-
-    errors = {}
-
-    if not email:
-        errors['email'] = "Email is required."
-    elif not re.match(EMAIL_REGEX, email):
-        errors['email'] = "Please enter a valid email address."
-    else:
-        existing_user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
-        if existing_user is not None:
-            errors['email'] = "An account with this email already exists."
-
-    if not password:
-        errors['password'] = "Password is required."
-    elif len(password) < 8:
-        errors['password'] = "Password must be at least 8 characters long."
-
-    if not confirm_password:
-        errors['confirm_password'] = "Please confirm your password."
-    elif password != confirm_password:
-        errors['confirm_password'] = "Passwords do not match."
-
-    if not first_name:
-        errors['first_name'] = "First name is required."
-
-    if not last_name:
-        errors['last_name'] = "Last name is required."
-
-    if len(errors) > 0:
-        return render_template('registration.html', errors=errors, form=request.form), 422
-    else:
-        new_user = create_user({
-            "first_name": first_name,
-            "last_name": last_name,
-            "email": email,
-            "password": password,
+    form = user_forms.RegistrationForm(request.form)
+    if form.validate():
+        new_user = q.create_user({
+            "first_name": form.first_name.data,
+            "last_name": form.last_name.data,
+            "email": form.email.data,
+            "password": form.password.data,
         })
 
         # Log in the new user by saving their ID in the session
         session['user_id'] = new_user.id
         return redirect(url_for('dashboard', user_id=new_user.id))
+    else:
+        return render_template('registration.html', form=form), 422
 
 # Login page with form
 @app.get("/login")
 def login():
-    # Get any error message from query parameters (e.g., after unauthorized access)
-    error = request.args.get('error')
-    return render_template('login.html', error=error)
+    form = user_forms.LoginForm()
+    return render_template('login.html', form=form)
 
 # Post login for authentication
 @app.post("/login")
 def login_post():
-    email = request.form.get('email')
-    password = request.form.get('password')
+    form = user_forms.LoginForm(request.form)
 
-    user = get_user_by_email_and_password(email, password)
+    if form.validate():
+        user = q.get_user_by_email_and_password(form.email.data, form.password.data)
+        if user is None:
+            flash("Invalid email or password.", "error")
+            return render_template('login.html', form=form), 422
 
-    if user is None:
-        return render_template('login.html', error="Invalid email or password."), 422
-
-    session['user_id'] = user.id
-    return redirect(url_for('dashboard', user_id=user.id))
+        # If authentication is successful, save user ID in session
+        # and redirect to their dashboard
+        session['user_id'] = user.id
+        return redirect(url_for('dashboard', user_id=user.id))
+    else:
+        return render_template('login.html', form=form), 422
 
 # Logout route
 @app.post("/logout")
@@ -196,7 +156,8 @@ def update_user(user_id):
 @app.get("/user/<int:user_id>/dashboard")
 def dashboard(user_id):
     if not authorized_user(user_id):
-        return redirect(url_for('login', error="You are not authorized to access this page"))
+        flash("You are not authorized to access this page.", "error")
+        return redirect(url_for('login'))
 
     user = db.get_or_404(User, user_id)
     babies = user.children

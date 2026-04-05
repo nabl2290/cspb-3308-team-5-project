@@ -3,6 +3,7 @@ from models import db, User, Child, FeedingEvent
 from queries import (
     create_user as create_user_query,
     get_user_by_id,
+    get_user_by_email,
     get_user_by_email_and_password,
     update_user,
     get_child_by_id,
@@ -52,6 +53,18 @@ class TestGetUserById:
 
     def test_returns_none_when_not_found(self, app):
         retrieved_user = get_user_by_id(9999)  # Assuming this ID does not exist
+        assert retrieved_user is None
+
+
+class TestGetUserByEmail:
+    def test_returns_user_when_email_exists(self, create_user):
+        user = create_user(email="user@example.com")
+        retrieved_user = get_user_by_email("user@example.com")
+        assert retrieved_user is not None
+        assert retrieved_user.id == user.id
+
+    def test_returns_none_when_email_not_found(self, app):
+        retrieved_user = get_user_by_email("nonexistent@example.com")
         assert retrieved_user is None
 
 
