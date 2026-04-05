@@ -6,7 +6,7 @@ import prefix
 
 import user_forms
 
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session, flash
 from models import db, User, Child, FeedingEvent
 from queries import create_user, get_user_by_email_and_password
 from seeds import seed_db
@@ -93,23 +93,26 @@ def register_post():
 # Login page with form
 @app.get("/login")
 def login():
-    # Get any error message from query parameters (e.g., after unauthorized access)
-    error = request.args.get('error')
-    return render_template('login.html', error=error)
+    form = user_forms.LoginForm()
+    return render_template('login.html', form=form)
 
 # Post login for authentication
 @app.post("/login")
 def login_post():
-    email = request.form.get('email')
-    password = request.form.get('password')
+    form = user_forms.LoginForm(request.form)
 
-    user = get_user_by_email_and_password(email, password)
+    if form.validate():
+        user = get_user_by_email_and_password(form.email.data, form.password.data)
+        if user is None:
+            flash("Invalid email or password.", "error")
+            return render_template('login.html', form=form), 422
 
-    if user is None:
-        return render_template('login.html', error="Invalid email or password."), 422
-
-    session['user_id'] = user.id
-    return redirect(url_for('dashboard', user_id=user.id))
+        # If authentication is successful, save user ID in session
+        # and redirect to their dashboard
+        session['user_id'] = user.id
+        return redirect(url_for('dashboard', user_id=user.id))
+    else:
+        return render_template('login.html', form=form), 422
 
 # Logout route
 @app.post("/logout")
@@ -156,7 +159,8 @@ def update_user(user_id):
 @app.get("/user/<int:user_id>/dashboard")
 def dashboard(user_id):
     if not authorized_user(user_id):
-        return redirect(url_for('login', error="You are not authorized to access this page"))
+        flash("You are not authorized to access this page.", "error")
+        return redirect(url_for('login'))
 
     user = db.get_or_404(User, user_id)
     babies = user.children
