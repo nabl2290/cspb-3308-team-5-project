@@ -46,17 +46,36 @@ def update_user(user, fields_to_update):
 # ---- Child Queries ----
 def get_child_by_id(child_id):
     """Retrieves a child by ID. Returns Child or None."""
-    pass
-
+    return db.session.get(Child, child_id)
 
 def create_child(user_id, child_data):
     """Creates a new child record linked to a user. Returns new Child."""
-    pass
+    child = Child(
+        first_name=child_data.get("first_name"),
+        last_name=child_data.get("last_name"),
+        dob=child_data.get("dob"),
+        sex=child_data.get("sex"),
+        eye_color=child.data.get("eye_color"),
+        
+    )
+    db.session.add(child)
+    user = db.session.get(User, user_id)
+    user.children.append(child)
+    db.session.commit()
+    return child
 
 
 def update_child(child, fields_to_update):
     """Updates a child's information. Returns updated Child."""
-    pass
+    if not child:
+        raise ValueError("Child cannot be None")
+    for field, value in fields_to_update.items():
+        if field in Child.__table__.columns.keys():
+            setattr(child, field, value)
+        else:
+            raise ValueError(f"Invalid field: {field}")
+    db.session.commit()
+    return child
 
 
 # ---- Feeding Event Queries ----
