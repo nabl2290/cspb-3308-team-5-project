@@ -8,7 +8,7 @@
 {% block content %}
 <div class="feeding-container">
   <div class="feeding-title">Add Feeding Event</div>
-    <form method="POST" action="/feeding-event" class="feeding-form">
+    <form method="POST" action="{{ url_for('create_feeding_event') }}" class="feeding-form">
       <label>Child:</label>
       <select name="child_id" required>
         <option value="" disabled selected>-- Select a child --</option>
