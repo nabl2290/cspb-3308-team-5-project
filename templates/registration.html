@@ -6,41 +6,42 @@
   <h1 class="app-title">Baby Steps</h1>
   <section id="registration" class="form form__wrapper">
     <form action="{{ url_for('register') }}" method="post" class="registration-form">
+      {{ form.hidden_tag() }}
       <h2 class="form__title">Sign Up</h2>
       <div class="form__input-group">
         <label for="first_name">First Name</label>
-        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" value="{{ form.first_name if form }}" required>
-        {% if errors and errors.first_name %}
-          <span class="form__error">{{ errors.first_name }}</span>
-        {% endif %}
+        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" value="{{ form.first_name.data or '' }}" required>
+        {% for error in form.first_name.errors %}
+          <span class="form__error">{{ error }}</span>
+        {% endfor %}
       </div>
       <div class="form__input-group">
         <label for="last_name">Last Name</label>
-        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="{{ form.last_name if form }}" required>
-        {% if errors and errors.last_name %}
-          <span class="form__error">{{ errors.last_name }}</span>
-        {% endif %}
+        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="{{ form.last_name.data or '' }}" required>
+        {% for error in form.last_name.errors %}
+          <span class="form__error">{{ error }}</span>
+        {% endfor %}
       </div>
       <div class="form__input-group">
         <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" value="{{ form.email if form }}" required>
-        {% if errors and errors.email %}
-          <span class="form__error">{{ errors.email }}</span>
-        {% endif %}
+        <input type="email" id="email" name="email" placeholder="Enter your email" value="{{ form.email.data or '' }}" required>
+        {% for error in form.email.errors %}
+          <span class="form__error">{{ error }}</span>
+        {% endfor %}
       </div>
       <div class="form__input-group">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Enter your password" required>
-        {% if errors and errors.password %}
-          <span class="form__error">{{ errors.password }}</span>
-        {% endif %}
+        {% for error in form.password.errors %}
+          <span class="form__error">{{ error }}</span>
+        {% endfor %}
       </div>
       <div class="form__input-group">
-        <label for="confirm_password">Confirm Password</label>
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
-        {% if errors and errors.confirm_password %}
-          <span class="form__error">{{ errors.confirm_password }}</span>
-        {% endif %}
+        <label for="password_confirmed">Confirm Password</label>
+        <input type="password" id="password_confirmed" name="password_confirmed" placeholder="Confirm your password" required>
+        {% for error in form.password_confirmed.errors %}
+          <span class="form__error">{{ error }}</span>
+        {% endfor %}
       </div>
       <div class="form__actions">
         <button type="submit" class="form__submit btn btn--blue">Register</button>

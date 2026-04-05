@@ -69,7 +69,8 @@ def sample():
 # Registration page form
 @app.get("/register")
 def register():
-    return render_template('registration.html')
+    form = user_forms.RegistrationForm()
+    return render_template('registration.html', form=form)
 
 # Post registration for new user
 @app.post("/register")
