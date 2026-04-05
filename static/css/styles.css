@@ -132,14 +132,6 @@ header {
     overflow-y: auto;
 }
 
-.content p {
-    padding: 10px;
-}
-
-.content ul {
-    padding-left: 40px;
-}
-
 .banner {
     text-align: center;
     margin: 20px;
