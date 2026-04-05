@@ -62,10 +62,6 @@ def authorized_user(requested_user_id):
 def index():
     return render_template('index.html')
 
-@app.route("/sample")
-def sample():
-    return render_template('sample.html')
-
 # Registration page form
 @app.get("/register")
 def register():
