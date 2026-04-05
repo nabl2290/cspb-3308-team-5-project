@@ -50,7 +50,7 @@
     
                 </table>
             </card>
-            <button type="submit" class="dashboard-baby-fevent-button" onclick="window.location.href='{{ url_for('create_feeding_event', child_id=baby.id) }}'">New Event</button>
+            <button type="submit" class="dashboard-baby-fevent-button" onclick="window.location.href='{{ url_for('new_feeding_event', child_id=baby.id) }}'">New Event</button>
         </div>
             
     {% endfor %}
