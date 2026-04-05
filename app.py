@@ -74,52 +74,20 @@ def register():
 # Post registration for new user
 @app.post("/register")
 def register_post():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    email = request.form['email']
-    password = request.form['password']
-    confirm_password = request.form['confirm_password']
-
-    errors = {}
-
-    if not email:
-        errors['email'] = "Email is required."
-    elif not re.match(EMAIL_REGEX, email):
-        errors['email'] = "Please enter a valid email address."
-    else:
-        existing_user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
-        if existing_user is not None:
-            errors['email'] = "An account with this email already exists."
-
-    if not password:
-        errors['password'] = "Password is required."
-    elif len(password) < 8:
-        errors['password'] = "Password must be at least 8 characters long."
-
-    if not confirm_password:
-        errors['confirm_password'] = "Please confirm your password."
-    elif password != confirm_password:
-        errors['confirm_password'] = "Passwords do not match."
-
-    if not first_name:
-        errors['first_name'] = "First name is required."
-
-    if not last_name:
-        errors['last_name'] = "Last name is required."
-
-    if len(errors) > 0:
-        return render_template('registration.html', errors=errors, form=request.form), 422
-    else:
+    form = user_forms.RegistrationForm(request.form)
+    if form.validate():
         new_user = create_user({
-            "first_name": first_name,
-            "last_name": last_name,
-            "email": email,
-            "password": password,
+            "first_name": form.first_name.data,
+            "last_name": form.last_name.data,
+            "email": form.email.data,
+            "password": form.password.data,
         })
 
         # Log in the new user by saving their ID in the session
         session['user_id'] = new_user.id
         return redirect(url_for('dashboard', user_id=new_user.id))
+    else:
+        return render_template('registration.html', form=form), 422
 
 # Login page with form
 @app.get("/login")
