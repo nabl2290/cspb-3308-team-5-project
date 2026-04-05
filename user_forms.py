@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, validators, ValidationError
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, ValidationError, validators
 from queries import get_user_by_email
 
 # Custom validator to check for unique email
@@ -44,9 +43,14 @@ class LoginForm(FlaskForm):
         validators.DataRequired()
     ])
 
+
 class EditUserForm(FlaskForm):
-    first_name = StringField('First name', validators=[DataRequired()])
-    last_name = StringField('Last name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired()])
-    new_password = PasswordField('New Password', validators=[DataRequired()])
-    new_password_confirmed = PasswordField('New Password Confirmation', validators=[DataRequired()])
+    first_name = StringField('First name', validators=[validators.DataRequired()])
+    last_name = StringField('Last name', validators=[validators.DataRequired()])
+    email = StringField('Email', validators=[validators.DataRequired()])
+    password = PasswordField(
+        'New Password', 
+        validators=[
+            validators.EqualTo('password_confirmed',message='Passwords must match')
+        ])
+    password_confirmed = PasswordField('New Password Confirmation', validators=[])
