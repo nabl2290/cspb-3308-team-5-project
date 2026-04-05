@@ -1,6 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, validators
+from wtforms import StringField, PasswordField, validators, ValidationError
 from wtforms.validators import DataRequired
+from queries import get_user_by_email
+
+# Custom validator to check for unique email
+def validate_unique_email(form, field):
+    existing_user = get_user_by_email(field.data)
+    if existing_user is not None:
+        raise ValidationError("An account with this email already exists.")
+
 
 class RegistrationForm(FlaskForm):
     first_name = StringField('First name', [
@@ -14,7 +22,8 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', [
         validators.DataRequired(),
         validators.Email(message="Please enter a valid email address."),
-        validators.Length(max=120, message="Email cannot exceed 120 characters.")
+        validators.Length(max=120, message="Email cannot exceed 120 characters."),
+        validate_unique_email
     ])
     password = PasswordField('Password', [
         validators.DataRequired(),
@@ -24,6 +33,7 @@ class RegistrationForm(FlaskForm):
         validators.DataRequired(),
         validators.EqualTo('password', message="Passwords do not match.")
     ])
+
 
 class LoginForm(FlaskForm):
     email = StringField('Email', [
