@@ -9,36 +9,36 @@
       {{ form.hidden_tag() }}
       <h2 class="form__title">Sign Up</h2>
       <div class="form__input-group">
-        <label for="first_name">First Name</label>
-        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" value="{{ form.first_name.data or '' }}" required>
+        {{ form.first_name.label }}
+        {{ form.first_name(placeholder="Enter your first name", required=true) }}
         {% for error in form.first_name.errors %}
           <span class="form__error">{{ error }}</span>
         {% endfor %}
       </div>
       <div class="form__input-group">
-        <label for="last_name">Last Name</label>
-        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="{{ form.last_name.data or '' }}" required>
+        {{ form.last_name.label }}
+        {{ form.last_name(placeholder="Enter your last name", required=true) }}
         {% for error in form.last_name.errors %}
           <span class="form__error">{{ error }}</span>
         {% endfor %}
       </div>
       <div class="form__input-group">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" value="{{ form.email.data or '' }}" required>
+        {{ form.email.label }}
+        {{ form.email(placeholder="Enter your email", required=true) }}
         {% for error in form.email.errors %}
           <span class="form__error">{{ error }}</span>
         {% endfor %}
       </div>
       <div class="form__input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        {{ form.password.label }}
+        {{ form.password(placeholder="Enter your password", required=true) }}
         {% for error in form.password.errors %}
           <span class="form__error">{{ error }}</span>
         {% endfor %}
       </div>
       <div class="form__input-group">
-        <label for="password_confirmed">Confirm Password</label>
-        <input type="password" id="password_confirmed" name="password_confirmed" placeholder="Confirm your password" required>
+        {{ form.password_confirmed.label }}
+        {{ form.password_confirmed(placeholder="Confirm your password", required=true) }}
         {% for error in form.password_confirmed.errors %}
           <span class="form__error">{{ error }}</span>
         {% endfor %}
