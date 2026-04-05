@@ -1,0 +1,47 @@
+/* Feeding Event Form Styles */
+
+.feeding-container {
+	width: 400px;
+	margin: 50px auto;
+	padding: 25px;
+	background: #fff;
+    border: 2px solid;
+	border-radius: 10px;
+	text-align: center;
+
+}
+
+.feeding-title {
+	font-size: large;
+	font-weight: bold;
+	margin-bottom: 100px;
+}
+
+.feeding-form input,
+.feeding-form select,
+.feeding-form textarea {
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid;
+	border-radius: 6px;
+	font-size: 14px;
+}
+
+.feeding-form textarea {
+    height: 100px;
+    resize: none;
+}
+
+.button-container {
+    margin-top: 25px;
+}
+
+.button-container button {
+    background-color: green;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
