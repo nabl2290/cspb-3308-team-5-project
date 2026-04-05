@@ -8,6 +8,7 @@ import user_forms
 
 from flask import Flask, request, render_template, redirect, url_for, session
 from models import db, User, Child, FeedingEvent
+from queries import create_user, get_user_by_email_and_password
 from seeds import seed_db
 from datetime import datetime
 
@@ -107,12 +108,12 @@ def register_post():
     if len(errors) > 0:
         return render_template('registration.html', errors=errors, form=request.form), 422
     else:
-        # Set up new user object
-        new_user = User(first_name=first_name, last_name=last_name, email=email)
-        new_user.set_password(password)
-        # Save new user to database
-        db.session.add(new_user)
-        db.session.commit()
+        new_user = create_user({
+            "first_name": first_name,
+            "last_name": last_name,
+            "email": email,
+            "password": password,
+        })
 
         # Log in the new user by saving their ID in the session
         session['user_id'] = new_user.id
@@ -131,9 +132,9 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
+    user = get_user_by_email_and_password(email, password)
 
-    if user is None or not user.check_password(password):
+    if user is None:
         return render_template('login.html', error="Invalid email or password."), 422
 
     session['user_id'] = user.id

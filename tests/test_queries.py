@@ -1,6 +1,7 @@
 import pytest
 from models import db, User, Child, FeedingEvent
 from queries import (
+    create_user as create_user_query,
     get_user_by_id,
     get_user_by_email_and_password,
     update_user,
@@ -13,6 +14,35 @@ from queries import (
 )
 
 # ---- User Query Tests ----
+class TestCreateUser:
+    def test_creates_user_with_valid_data(self, app):
+        user = create_user_query({
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "email": "jane@example.com",
+            "password": "Password123",
+        })
+        assert user.id is not None
+        assert user.first_name == "Jane"
+        assert user.last_name == "Doe"
+        assert user.email == "jane@example.com"
+        assert user.check_password("Password123")
+
+    def test_raises_error_with_missing_fields(self, app):
+        with pytest.raises(Exception):
+            create_user_query({"first_name": "Jane"})
+
+    def test_raises_error_with_duplicate_email(self, app, create_user):
+        create_user(email="taken@example.com")
+        with pytest.raises(Exception):
+            create_user_query({
+                "first_name": "Jane",
+                "last_name": "Doe",
+                "email": "taken@example.com",
+                "password": "Password123",
+            })
+
+
 class TestGetUserById:
     def test_returns_user_when_exists(self, create_user):
         user = create_user()
@@ -26,22 +56,49 @@ class TestGetUserById:
 
 
 class TestGetUserByEmailAndPassword:
-    def test_returns_user_with_valid_credentials(self):
-        pass
+    def test_returns_user_with_valid_credentials(self, create_user):
+        user = create_user(email="user@example.com", password="test123")
+        retrieved_user = get_user_by_email_and_password("user@example.com", "test123")
+        assert retrieved_user is not None
+        assert retrieved_user.id == user.id
 
-    def test_returns_none_with_invalid_credentials(self):
-        pass
+    def test_returns_none_with_invalid_credentials(self, create_user):
+        user = create_user(email="user@example.com", password="test123")
+        # With wrong password
+        retrieved_user = get_user_by_email_and_password("user@example.com", "wrongpassword")
+        assert retrieved_user is None
+
+        # With wrong email
+        retrieved_user = get_user_by_email_and_password("wrong@example.com", "test123")
+        assert retrieved_user is None
 
 
 class TestUpdateUser:
-    def test_updates_user_with_valid_fields(self):
-        pass
+    def test_updates_user_with_valid_fields(self, create_user):
+        user = create_user()
+        fields_to_update = {"first_name": "Updated", "last_name": "Name", "email": "new-email@gmail.com", "password": "NewPassword123"}
+        updated_user = update_user(user, fields_to_update)
 
-    def test_raises_error_with_invalid_fields(self):
-        pass
+        assert updated_user.first_name == "Updated"
+        assert updated_user.last_name == "Name"
+        assert updated_user.email == "new-email@gmail.com"
+        assert updated_user.check_password("NewPassword123")
 
-    def test_raises_error_when_user_does_not_exist(self):
-        pass
+    def test_raises_error_with_invalid_fields(self, create_user):
+        user = create_user()
+        with pytest.raises(ValueError):
+            update_user(user, {"invalid_field": "value"})
+
+    def test_raises_error_with_invalid_field_values(self, create_user):
+        user = create_user()
+        with pytest.raises(Exception):
+            update_user(user, {"first_name": ""})
+        with pytest.raises(Exception):
+            update_user(user, {"email": "not-an-email"})
+
+    def test_raises_error_when_user_does_not_exist(self, app):
+        with pytest.raises(ValueError):
+            update_user(None, {"first_name": "Updated"})
 
 
 # ---- Child Query Tests ----
