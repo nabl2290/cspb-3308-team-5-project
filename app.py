@@ -6,6 +6,8 @@ import prefix
 
 import user_forms
 
+import queries as q
+
 from flask import Flask, request, render_template, redirect, url_for, session
 from models import db, User, Child, FeedingEvent
 from queries import create_user, get_user_by_email_and_password
@@ -151,7 +153,6 @@ def logout():
 def get_user(user_id):
     user = db.get_or_404(User, user_id)
 
-    # TODO: Add user profile template with user data
     return render_template('user.html', user=user)
 
 # Edit user profile page with form
@@ -169,22 +170,27 @@ def update_user(user_id):
     user = db.get_or_404(User, user_id)
     
     form = user_forms.EditUserForm(request.form)
-    if form.validate():
-        if request.form["first_name"]:
-            user.first_name = request.form["first_name"]
-        if request.form["last_name"]:
-            user.last_name = request.form["last_name"]
-        if request.form["email"]:
-            user.email = request.form["email"]
-        if request.form["new_password"]:
-            user.set_password(request.form["new_password"])
 
-        db.session.commit()
+    # first check the validation in the front end
+    if not form.validate():
+        print("invalid form!")
+        return render_template('edit_user.html', user=user, form=form)
 
-        return redirect(url_for('get_user', user_id=user.id))
-    
-    # otherwise show the edit screen again
-    return render_template('edit_user.html', user=user, form=form)
+    # then try to make the update to the database
+    # and handle an error if the database input validation raises an error too
+    try:
+        # build dictionary of any fields with non-null values
+        # and don't pass the csrf_token or password_confirmed in as updated fields,
+        # just any fields a User has
+        fields = { field: value for field, value in request.form.to_dict().items() if field not in ['csrf_token', 'password_confirmed'] and value }
+
+        q.update_user(user, fields)
+    except ValueError as e:
+        print(f"error: {e}")
+        return render_template('edit_user.html', user=user, form=form)  
+
+    # redirect to the dashboard if all went well
+    return redirect(url_for('dashboard', user_id=user.id))
 
 # User dashboard page
 @app.get("/user/<int:user_id>/dashboard")
