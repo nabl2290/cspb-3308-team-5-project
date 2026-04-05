@@ -16,6 +16,59 @@ This weekly status format is designed to:
 - Provide accountability for individual contributions
 - Supplement the project management tool used by the team
 
+
+---
+
+## Reporting Period
+**Week:** 10
+
+**Meeting Held:** Yes
+
+**Meeting Date:** April 1 standup and March 29 working session
+
+**Meeting Duration:** 0.5 hours, 1 hour
+
+**Meeting Format:** Zoom
+
+---
+
+## Project Management Snapshot
+
+The team is using a shared **Trello board** to manage tasks and sprint progress.
+At the time of the report:
+- Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done, Due Dates
+- Tasks are assigned to one or more individual team member(s)
+
+Before meeting:
+![2026-04-01 trello before meeting](meetings/trello_2026-04-01_beforemeeting.png)
+After meeting:
+![2026-04-01 trello after meeting](meetings/trello_2026-04-01_aftermeeting.png)
+
+## Progress Since Last Week
+
+Key accomplishments include:
+- Completed Milestone 5
+- Initial testing framework in place
+- Progress on pages
+
+## Completed Tasks
+- Testing framework setup
+- Built out some tests
+- prefix.py fixed, merged
+- Merged updates for Dashboard and Feeding Event pages
+
+## Tasks on deck
+- Reviewing work on User pages
+- Completing further work on Child pages and Feeding Event pages
+- Adding more test coverage
+- Refactor some forms to use WTForms
+
+## Blockers and issues
+- Some trouble integrating the base.html with feeding event pages
+
+## Risks and Mitigation
+- None
+
 ---
 
 ## Reporting Period
@@ -368,3 +421,18 @@ Quick notes for those earlier meetings is below:
 - Felice did registration and login, may move on to adding unit tests
 - Will did work on dashboard, ready for the next thing
 - Antonio did work on forms for feeding event, continuing working on formatting and testing, integrating with base.html
+
+### 2026-03-29
+- Felice got started on testing stuff, use pytest instead of unit test, merged PR with framework setup and initial tests
+- Will demoed work on dashboard and more integration, merged
+- Nate demoed progress on user pages and csel prefix.py, merged with help from team, next working on password update and fixing local run problem with prefix
+- Alana progress on child pages, will work on child data access tests too
+- Antonio demoed add/edit feeding event pages, merged
+
+### 2026-04-01
+- Alana - working on unit tests and html page for adding/editing baby profile, working from other html examples
+- Will - working on cleaning up css, picking up working on unit tests that aren't picked up yet
+- Felice - PR for user unit tests - create, get by email and id, update
+- Antonio - working on his pages, working through integration of base.html
+- Nate - worked on prefix bug and implementing update password. Got feedback on password, will update PR returning edit user GET and POST HTTP methods
+- (planning to meet on Easter)

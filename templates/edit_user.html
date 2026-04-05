@@ -13,11 +13,14 @@
 <section class="wt-form">
     <form method="POST" action="{{ url_for('update_user', user_id=user.id)}}" class="wt-form">
         {{ form.csrf_token }}
-        <div>{{ form.first_name.label }}: {{ form.first_name(size=20) }}</div>
-        <div>{{ form.last_name.label }}: {{ form.last_name(size=20) }}</div>
-        <div>{{ form.email.label }}: {{ form.email(size=20) }}</div>
-        <div>{{ form.new_password.label }}: {{ form.new_password(size=20) }}</div>
-        <div>{{ form.new_password_confirmed.label }}: {{ form.new_password_confirmed(size=20) }}</div>
+        <div class="form-box">
+            <div class="form-line">{{ form.first_name.label }}: {{ form.first_name(size=20) }}</div>
+            <div class="form-line">{{ form.last_name.label }}: {{ form.last_name(size=20) }}</div>
+            <div class="form-line">{{ form.email.label }}: {{ form.email(size=30) }}</div>
+            <div class="form-line">{{ form.password.label }}: {{ form.password(size=20) }}</div>
+            <div class="form-line">{{ form.password_confirmed.label }}: {{ form.password_confirmed(size=20) }}</div>
+        </div>
+        <div class="form-line">Note: leave both password fields empty to not change password, or ensure both passwords are the same new text to update your password</div>
         <input type="submit" value="Save" class="btn btn--blue">
     </form>
 </section>
