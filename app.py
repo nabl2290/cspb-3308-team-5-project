@@ -309,14 +309,6 @@ def update_feeding_event(event_id):
     db.session.commit()
     return redirect(url_for("edit_feeding_event", event_id=event.id))
 
-# @app.patch("/feeding-event/<int:event_id>")
-# def update_feeding_event(event_id):
-#     event = db.get_or_404(FeedingEvent, event_id)
-
-#     # TODO: Add logic to update feeding event based on request data
-
-#     return redirect(url_for('get_child', child_id=event.child_id))
-
 # Route to display all users (for testing purposes)
 @app.route("/users")
 def users():
