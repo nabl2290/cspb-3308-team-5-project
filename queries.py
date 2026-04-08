@@ -96,4 +96,22 @@ def get_feeding_events_by_child_id(child_id):
 
 def update_feeding_event(feeding_event, fields_to_update):
     """Updates a feeding event. Returns updated FeedingEvent."""
-    pass
+    for field, value in fields_to_update.items():
+        if field in FeedingEvent.__table__.columns.keys():
+            setattr(feeding_event, field, value)
+        else:
+            raise ValueError(f"Invalid field: {field}")
+    db.session.commit()
+    return feeding_event
+
+def create_feeding_event(event_data):
+    """Creates a new feeding event linked to a child. Returns new FeedingEvent."""
+    FeedingEvt = FeedingEvent(
+            id=event_data.get("id"),
+            child_id=event_data.get("child_id"),
+            timestamp=event_data.get("timestamp"),
+            description=event_data.get("description"),
+        )
+    db.session.add(FeedingEvt)
+    db.session.commit()
+    return FeedingEvt

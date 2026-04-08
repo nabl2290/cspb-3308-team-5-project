@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 from models import db, User, Child, FeedingEvent
 from queries import (
@@ -12,6 +14,7 @@ from queries import (
     get_feeding_event_by_id,
     get_feeding_events_by_child_id,
     update_feeding_event,
+    create_feeding_event,
 )
 
 # ---- User Query Tests ----
@@ -172,17 +175,40 @@ class TestGetFeedingEventsByChildId:
 
 
 class TestUpdateFeedingEvent:
-    def test_updates_event_with_valid_fields(self):
-        pass
+    def test_updates_event_with_valid_fields(self, app, create_feeding_event):
+        feedEvt = create_feeding_event({
+            "child_id": 1,
+            "timestamp": datetime(2024, 6, 1, 8, 0),
+            "description": "Original description"
+        })  # Placeholder for actual event creation
+        fields_to_update = {"timestamp": datetime(2024, 6, 1, 9, 0), "description": "Updated description"}
+        updated_event = update_feeding_event(feedEvt, fields_to_update)
+        assert updated_event.timestamp == datetime(2024, 6, 1, 9, 0)
+        assert updated_event.description == "Updated description"
+        
 
-    def test_raises_error_when_update_fails(self):
-        pass
+    def test_raises_error_when_update_fails(self, app, create_feeding_event):
+        FeedingEvent = create_feeding_event({
+            "child_id": 1,
+            "timestamp": datetime(2024, 6, 1, 8, 0),
+            "description": "Original description"
+        })  # Placeholder for actual event creation
+        with pytest.raises(ValueError):
+            update_feeding_event(FeedingEvent, {"invalid_field": "value"})
+        with pytest.raises(ValueError):
+            update_feeding_event(FeedingEvent, {"timestamp": "not-a-datetime"})
+        with pytest.raises(ValueError):
+            update_feeding_event(FeedingEvent, {"child_id": "not-an-integer"})
 
 
 # ---- user.children Relationship Tests ----
 class TestUserChildrenRelationship:
-    def test_returns_children_when_associated(self):
-        pass
+    def test_returns_children_when_associated(self, create_user, create_child):
+        user = create_user()
+        child = create_child("Test", "Child", datetime(2026, 1, 1), "F", "blue", user.id)
+        assert child in user.children 
+        assert user in child.parents
 
-    def test_returns_empty_list_when_no_children(self):
-        pass
+    def test_returns_empty_list_when_no_children(self, create_user):
+        user = create_user()
+        assert user.children == []
