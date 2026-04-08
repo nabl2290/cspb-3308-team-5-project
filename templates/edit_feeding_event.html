@@ -8,7 +8,7 @@
 {% block content %}
 <div class="feeding-container">
     <div class="feeding-title">Edit Feeding Event</div>
-    <form method="POST" action="{{ url_for('update_feeding_event', event_id=event.id) }}" class="feeding-form">
+    <form method="POST" action="{{ url_for('update_feeding_event', event_id=event.id) }}" id="update-form" class="feeding-form">
         <label>Child:</label>
         <select name="child_id" required>
             {% for child in children %}
@@ -25,9 +25,13 @@
     
         <label>Description:</label>
         <textarea name="description">{{ event.description or '' }}</textarea>
-        <div class="button-container">
-            <button type="submit">UPDATE FEED</button>
-        </div>
     </form>
+    <div class="button-container">
+        <button type="submit" class="update" form="update-form">UPDATE FEED</button>
+        <form method="POST" action="{{ url_for('delete_feeding_event', event_id=event.id) }}"
+        onsubmit="return confirm('Are you sure you want to delete this feeding event?');" class="inline">
+            <button type="submit" class="delete-feed">DELETE</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
