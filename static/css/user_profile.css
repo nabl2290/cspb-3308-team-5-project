@@ -1,0 +1,38 @@
+/* User Profile Styles */
+
+.user-container {
+    max-width: 50%;
+	min-width: 400px;
+	margin: 50px auto;
+    margin-top: 25px;
+	padding: 25px;
+	background: #fff;
+    border: 2px solid;
+	border-radius: 10px;
+	text-align: center;
+
+}
+
+.user-container p {
+    margin: 10px 15px;
+}
+
+.form-line {
+    text-align: left;
+    margin: 10px;
+}
+
+.user-container button {
+    background-color: #66d575;
+    border: solid 2px #45914f;
+    padding: 10px 15px;
+    border-radius: 6px;
+    color: black;
+    cursor: pointer;
+    cursor: pointer;
+    text-align: center;
+}
+
+.user-container button:hover{
+    background-color: #6ee67e;
+}
