@@ -84,12 +84,12 @@ Right click any webpage → Inspect → click any colored element and it shows y
       padding: 10px 24px;
       border-radius: 6px;
       font-size: 15px;
-      cursor: not-allowed;
+      cursor: pointer;
       opacity: 0.85;
     }
 
     /* Data display section */
-    .data-section {
+    /* .data-section {
       flex: 1;
       background-color: #d0e8f8;
       border: 2px solid #4a9fd4;
@@ -100,5 +100,56 @@ Right click any webpage → Inspect → click any colored element and it shows y
       min-height: 200px;
       color: #555;
       font-size: 16px;
+    } */
+
+    /* Data display section */
+    .data-section {
+      flex: 1;
+      background-color: #d0e8f8;
+      border: 2px solid #4a9fd4;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
     }
 
+    .feeding-table-container{
+      max-height: 550px;
+      overflow-y: auto;
+    }
+
+    .feeding-table{
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .feeding-table-header {
+      background-color: #4a9fd4;
+      color: white;
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .feeding-table-header th{
+      padding: 12px;
+      text-align: left;
+      
+    }
+
+    .feeding-table-row{
+      border-bottom: 1px solid #ccc;
+      background-color: white;
+    }
+    .feeding-table-row td{
+      padding: 12px;
+    }
+
+    .feeding-table-row:hover{
+      box-shadow: 0px 2px 10px #4a9fd4;
+      border-bottom: 1px solid #4a9fd4;
+    }
+
+    

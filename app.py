@@ -176,8 +176,9 @@ def get_child(child_id):
     child = db.get_or_404(Child, child_id)
 
     user = db.get_or_404(User, session.get('user_id'))
+    feeding_events = FeedingEvent.query.filter_by(child_id=child_id).order_by(FeedingEvent.timestamp.desc()).all()
     # TODO: Add child profile template with child data
-    return render_template('child.html', child=child, user=user)
+    return render_template('child.html', child=child, user=user, feeding_events=feeding_events)
 
 # New baby/child form
 @app.get("/child/new")

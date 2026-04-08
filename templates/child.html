@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/child_profile.css') }}">
 {% endblock %}
 
-    {% block content %}
+{% block content %}
     <!-- Main Content -->
     <div class="main-content">
 
@@ -27,7 +27,35 @@
 
       <!-- TBD Data Section -->
       <div class="data-section">
-        TBD Data display?
+        <div class="feeding-table-container">
+          <table class = "feeding-table">
+          <thead>
+            <tr class="feeding-table-header">
+              <th>Date</th>
+              <th>Time</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th></th>
+              <!-- <th></th> -->
+            </tr>
+          </thead>
+          <tbody>
+            {%  for event in feeding_events %}
+            <tr class="feeding-table-row">
+              <td>{{ event.timestamp.strftime("%Y-%m-%d") }}</td>
+              <td>{{ event.timestamp.strftime("%I:%M %p") }}</td>
+              <td> feeding</td>
+              <td>{{ event.description }}</td>
+              <td><button class="edit-btn" onclick="window.location.href='{{url_for('edit_feeding_event', event_id=event.id)}}'" >Edit</button></td>
+              <!-- <td><button class="delete-btn" onclick="">Delete</button></td> -->
+            </tr>
+            {% endfor %}
+          </tbody>
+          </table>
+
+
+        </div>
+        
       </div>
 
     </div>
