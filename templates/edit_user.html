@@ -1,16 +1,12 @@
 {% extends "base.html" %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_profile.css') }}">
 {% endblock %}
 
 {% block content %}
 <h1 class="dashboard-h1">Edit User Profile</h1>
-<section>
-    <img src = "{{ url_for('static', filename='images/Default_pfp.jpg') }}" alt = "Profile Picture" class = "profile-pic">
-</section>
-<section class="wt-form">
+<div class ="user-container">
     <form method="POST" action="{{ url_for('update_user', user_id=user.id)}}" class="wt-form">
         {{ form.csrf_token }}
         <div class="form-box">
@@ -21,8 +17,8 @@
             <div class="form-line">{{ form.password_confirmed.label }}: {{ form.password_confirmed(size=20) }}</div>
         </div>
         <div class="form-line">Note: leave both password fields empty to not change password, or ensure both passwords are the same new text to update your password</div>
-        <input type="submit" value="Save" class="btn btn--blue">
+        <button type="submit" class="btn btn--blue">Save</button>
     </form>
-</section>
+</div>
 
 {% endblock %}

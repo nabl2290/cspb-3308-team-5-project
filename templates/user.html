@@ -1,20 +1,14 @@
 {% extends "base.html" %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_profile.css') }}">
 {% endblock %}
 
 {% block content %}
 <h1 class="dashboard-h1">User Profile</h1>
-<section>
-    <img src = "{{ url_for('static', filename='images/Default_pfp.jpg') }}" alt = "Profile Picture" class = "profile-pic">
-</section>
-<section>
+<div class ="user-container">
     <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
     <p>Email: {{ user.email }}</p>
-</section>
-<section>
-    <p><a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn--blue">Edit</a></p>
-</section>
+    <button onclick="window.location.href='{{ url_for('edit_user', user_id=user.id) }}'">Edit</button>
+</div>
 {% endblock %}
