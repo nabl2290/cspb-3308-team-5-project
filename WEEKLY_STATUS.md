@@ -15,9 +15,55 @@ This weekly status format is designed to:
 - Surface risks and blockers early
 - Provide accountability for individual contributions
 - Supplement the project management tool used by the team
+---
 
+## Reporting Period
+**Week:** 11
+
+**Meeting Held:** Yes
+
+**Meeting Date:** April 8 standup and April 5 quick working session
+
+**Meeting Duration:** 1 hour, 1 hour
+
+**Meeting Format:** Zoom
 
 ---
+
+## Project Management Snapshot
+
+The team is using a shared **Trello board** to manage tasks and sprint progress.
+At the time of the report:
+- Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done, Due Dates
+- Tasks are assigned to one or more individual team member(s)
+
+![2026-04-08 trello](meetings/trello_2026-04-08.png)
+
+---
+
+## Progress Since Last Week
+
+Key accomplishments include:
+- Added last of outstanding pages and MVP features
+- Some unit testing and database access methods in place
+
+## Completed Tasks
+- Add Child Page
+- Add/Edit/Delete Feeding Event Pages
+
+## Tasks on deck
+- Conform User profile page to design of Child and Feeding Event pages
+- Project presentation Powerpoint
+- Rooting out routing problems
+- Finishing touches
+
+## Blockers and issues
+- None
+
+## Risks and Mitigation
+- None
+
+--- 
 
 ## Reporting Period
 **Week:** 10
@@ -436,3 +482,19 @@ Quick notes for those earlier meetings is below:
 - Antonio - working on his pages, working through integration of base.html
 - Nate - worked on prefix bug and implementing update password. Got feedback on password, will update PR returning edit user GET and POST HTTP methods
 - (planning to meet on Easter)
+
+### 2026-04-05 going over PRs
+
+Nate - demoed and merged 41, 43
+Antonio - demoed and merged 45
+Will - demoed and merged
+Felice - demoed 48, something in PR 43 broke validation
+Alana - couldn't meet
+
+### 2026-04-08
+
+Alana - PR 47 for Child and unit test
+Nate - in progress work updated user page css, will complete and work on notifications for updates if there is time
+Antonio - added PR 50 for delete feeding event
+Will - PR 49 for showing recent feeding events on child profile page, will look for any page navigation problems
+Felice - started Powerpoint for our presentation, will start work and look for any hanging work too
