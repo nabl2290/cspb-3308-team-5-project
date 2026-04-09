@@ -35,13 +35,31 @@
 
 .button-container {
     margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
 }
 
-.button-container button {
-    background-color: green;
+.inline {
+	display: inline;
+    margin: 0;
+}
+
+.update,
+.delete-feed {
     padding: 10px 15px;
     border: none;
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    color: white;
+}
+
+.update {
+    background-color: green;
+}
+
+.delete-feed {
+	background-color: red;
 }

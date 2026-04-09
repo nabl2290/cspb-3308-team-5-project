@@ -279,6 +279,19 @@ def update_feeding_event(event_id):
     db.session.commit()
     return redirect(url_for("edit_feeding_event", event_id=event.id))
 
+@app.post("/feeding-event/<int:event_id>/delete")
+def delete_feeding_event(event_id):
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for("login"))
+    
+    event = db.get_or_404(FeedingEvent, event_id)
+
+    db.session.delete(event)
+    db.session.commit()
+
+    return redirect(url_for("dashboard", user_id=current_user.id))
+
 # Route to display all users (for testing purposes)
 @app.route("/users")
 def users():
