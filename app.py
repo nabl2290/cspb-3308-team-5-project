@@ -1,20 +1,12 @@
 from datetime import date
 import os
-import re
-
 import prefix
-
 import user_forms
-
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session, flash
+import queries as q
 from models import db, User, Child, FeedingEvent
-from queries import create_user, get_user_by_email_and_password
 from seeds import seed_db
 from datetime import datetime
-
-from flask_wtf import FlaskForm
-
-EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
 app = Flask(__name__)
 
@@ -62,85 +54,53 @@ def authorized_user(requested_user_id):
 def index():
     return render_template('index.html')
 
-@app.route("/sample")
-def sample():
-    return render_template('sample.html')
-
 # Registration page form
 @app.get("/register")
 def register():
-    return render_template('registration.html')
+    form = user_forms.RegistrationForm()
+    return render_template('registration.html', form=form)
 
 # Post registration for new user
 @app.post("/register")
 def register_post():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    email = request.form['email']
-    password = request.form['password']
-    confirm_password = request.form['confirm_password']
-
-    errors = {}
-
-    if not email:
-        errors['email'] = "Email is required."
-    elif not re.match(EMAIL_REGEX, email):
-        errors['email'] = "Please enter a valid email address."
-    else:
-        existing_user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
-        if existing_user is not None:
-            errors['email'] = "An account with this email already exists."
-
-    if not password:
-        errors['password'] = "Password is required."
-    elif len(password) < 8:
-        errors['password'] = "Password must be at least 8 characters long."
-
-    if not confirm_password:
-        errors['confirm_password'] = "Please confirm your password."
-    elif password != confirm_password:
-        errors['confirm_password'] = "Passwords do not match."
-
-    if not first_name:
-        errors['first_name'] = "First name is required."
-
-    if not last_name:
-        errors['last_name'] = "Last name is required."
-
-    if len(errors) > 0:
-        return render_template('registration.html', errors=errors, form=request.form), 422
-    else:
-        new_user = create_user({
-            "first_name": first_name,
-            "last_name": last_name,
-            "email": email,
-            "password": password,
+    form = user_forms.RegistrationForm(request.form)
+    if form.validate():
+        new_user = q.create_user({
+            "first_name": form.first_name.data,
+            "last_name": form.last_name.data,
+            "email": form.email.data,
+            "password": form.password.data,
         })
 
         # Log in the new user by saving their ID in the session
         session['user_id'] = new_user.id
         return redirect(url_for('dashboard', user_id=new_user.id))
+    else:
+        return render_template('registration.html', form=form), 422
 
 # Login page with form
 @app.get("/login")
 def login():
-    # Get any error message from query parameters (e.g., after unauthorized access)
-    error = request.args.get('error')
-    return render_template('login.html', error=error)
+    form = user_forms.LoginForm()
+    return render_template('login.html', form=form)
 
 # Post login for authentication
 @app.post("/login")
 def login_post():
-    email = request.form.get('email')
-    password = request.form.get('password')
+    form = user_forms.LoginForm(request.form)
 
-    user = get_user_by_email_and_password(email, password)
+    if form.validate():
+        user = q.get_user_by_email_and_password(form.email.data, form.password.data)
+        if user is None:
+            flash("Invalid email or password.", "error")
+            return render_template('login.html', form=form), 422
 
-    if user is None:
-        return render_template('login.html', error="Invalid email or password."), 422
-
-    session['user_id'] = user.id
-    return redirect(url_for('dashboard', user_id=user.id))
+        # If authentication is successful, save user ID in session
+        # and redirect to their dashboard
+        session['user_id'] = user.id
+        return redirect(url_for('dashboard', user_id=user.id))
+    else:
+        return render_template('login.html', form=form), 422
 
 # Logout route
 @app.post("/logout")
@@ -153,7 +113,6 @@ def logout():
 def get_user(user_id):
     user = db.get_or_404(User, user_id)
 
-    # TODO: Add user profile template with user data
     return render_template('user.html', user=user)
 
 # Edit user profile page with form
@@ -169,25 +128,36 @@ def edit_user(user_id):
 @app.post("/user/<int:user_id>/edit") # TODO update this in documentation, changed from PATCH
 def update_user(user_id):
     user = db.get_or_404(User, user_id)
+    
+    form = user_forms.EditUserForm(request.form)
 
-    if request.form["first_name"]:
-        user.first_name = request.form["first_name"]
-    if request.form["last_name"]:
-        user.last_name = request.form["last_name"]
-    if request.form["email"]:
-        user.email = request.form["email"]
+    # first check the validation in the front end
+    if not form.validate():
+        print("invalid form!")
+        return render_template('edit_user.html', user=user, form=form)
 
-    # TODO update password too
+    # then try to make the update to the database
+    # and handle an error if the database input validation raises an error too
+    try:
+        # build dictionary of any fields with non-null values
+        # and don't pass the csrf_token or password_confirmed in as updated fields,
+        # just any fields a User has
+        fields = { field: value for field, value in request.form.to_dict().items() if field not in ['csrf_token', 'password_confirmed'] and value }
 
-    db.session.commit()
+        q.update_user(user, fields)
+    except ValueError as e:
+        print(f"error: {e}")
+        return render_template('edit_user.html', user=user, form=form)  
 
-    return redirect(url_for('get_user', user_id=user.id))
+    # redirect to the dashboard if all went well
+    return redirect(url_for('dashboard', user_id=user.id))
 
 # User dashboard page
 @app.get("/user/<int:user_id>/dashboard")
 def dashboard(user_id):
     if not authorized_user(user_id):
-        return redirect(url_for('login', error="You are not authorized to access this page"))
+        flash("You are not authorized to access this page.", "error")
+        return redirect(url_for('login'))
 
     user = db.get_or_404(User, user_id)
     babies = user.children
@@ -246,13 +216,20 @@ def new_feeding_event():
     if not current_user:
         return redirect(url_for("login"))
     children = current_user.children
-    return render_template('new_feeding_event.html', children=children)
+    return render_template('new_feeding_event.html', children=children, user=current_user)
 
 # Create new feeding event based on new form submission
 @app.post("/feeding-event")
 def create_feeding_event():
     child_id = int(request.form.get("child_id"))
     date = request.form.get("date")
+    
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for("login"))
+    
+    if child_id not in [child.id for child in current_user.children]:
+        return "Unauthorized", 403
 
     if not child_id or not date:
         return "Missing required fields", 400
@@ -282,7 +259,7 @@ def edit_feeding_event(event_id):
     if event.child_id not in [child.id for child in current_user.children]:
         return "Unauthorized", 403
     children = current_user.children
-    return render_template('edit_feeding_event.html', event=event, children=children)
+    return render_template('edit_feeding_event.html', event=event, children=children, user=current_user)
 
 # Update feeding event based on edit form submission
 @app.post("/feeding-event/<int:event_id>/edit")
@@ -302,13 +279,18 @@ def update_feeding_event(event_id):
     db.session.commit()
     return redirect(url_for("edit_feeding_event", event_id=event.id))
 
-# @app.patch("/feeding-event/<int:event_id>")
-# def update_feeding_event(event_id):
-#     event = db.get_or_404(FeedingEvent, event_id)
+@app.post("/feeding-event/<int:event_id>/delete")
+def delete_feeding_event(event_id):
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for("login"))
+    
+    event = db.get_or_404(FeedingEvent, event_id)
 
-#     # TODO: Add logic to update feeding event based on request data
+    db.session.delete(event)
+    db.session.commit()
 
-#     return redirect(url_for('get_child', child_id=event.child_id))
+    return redirect(url_for("dashboard", user_id=current_user.id))
 
 # Route to display all users (for testing purposes)
 @app.route("/users")

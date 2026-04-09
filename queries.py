@@ -18,6 +18,11 @@ def get_user_by_id(user_id):
     return db.session.get(User, user_id)
 
 
+def get_user_by_email(email):
+    """Retrieves a user by email. Returns User or None."""
+    return db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
+
+
 def get_user_by_email_and_password(email, password):
     """Retrieves a user by email and password. Returns User or None."""
     user = db.session.query(User).filter_by(email=email).first()
