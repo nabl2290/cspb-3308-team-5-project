@@ -5,7 +5,7 @@
 
 **Team Number:** 5
 
-**Team Name:** FAWNA
+**Team Name:** FAAWN
 
 ## Overview
 This document captures the **weekly status** of the Baby managing project for the specified reporting period. It is intended to provide a concise snapshot of progress, plans, and risks, and will be updated weekly throughout the project.
@@ -53,6 +53,7 @@ Key accomplishments include:
 
 ## Tasks on deck
 - Conform User profile page to design of Child and Feeding Event pages
+- Complete adding child to database via form
 - Project presentation Powerpoint
 - Rooting out routing problems
 - Finishing touches
