@@ -1,28 +1,29 @@
 {% extends "base.html" %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_profile.css') }}">
 {% endblock %}
 
 {% block content %}
-<h1 class="dashboard-h1">Edit User Profile</h1>
-<section>
-    <img src = "{{ url_for('static', filename='images/Default_pfp.jpg') }}" alt = "Profile Picture" class = "profile-pic">
-</section>
-<section class="wt-form">
+<div class ="user-container">
+    <div class="user-title">Edit User Profile</div>
     <form method="POST" action="{{ url_for('update_user', user_id=user.id)}}" class="wt-form">
         {{ form.csrf_token }}
         <div class="form-box">
-            <div class="form-line">{{ form.first_name.label }}: {{ form.first_name(size=20) }}</div>
-            <div class="form-line">{{ form.last_name.label }}: {{ form.last_name(size=20) }}</div>
-            <div class="form-line">{{ form.email.label }}: {{ form.email(size=30) }}</div>
-            <div class="form-line">{{ form.password.label }}: {{ form.password(size=20) }}</div>
-            <div class="form-line">{{ form.password_confirmed.label }}: {{ form.password_confirmed(size=20) }}</div>
+            <div class="form-label">{{ form.first_name.label }}</div>
+            <div>{{ form.first_name(size=20) }}</div>
+            <div class="form-label">{{ form.last_name.label }}</div>
+            <div> {{ form.last_name(size=20) }}</div>
+            <div class="form-label">{{ form.email.label }}</div>
+            <div> {{ form.email(size=20) }}</div>
+            <div class="form-label">{{ form.password.label }}</div>
+            <div> {{ form.password(size=20) }}</div>
+            <div class="form-label">{{ form.password_confirmed.label }}</div>
+            <div> {{ form.password_confirmed(size=20) }}</div>
         </div>
-        <div class="form-line">Note: leave both password fields empty to not change password, or ensure both passwords are the same new text to update your password</div>
-        <input type="submit" value="Save" class="btn btn--blue">
+        <div class="form-note"><em>Note: leave both password fields empty to not change password, or ensure both passwords are the same new text to update your password.</em></div>
+        <button type="submit" class="edit-btn">Save</button>
     </form>
-</section>
+</div>
 
 {% endblock %}
