@@ -182,6 +182,7 @@ def get_child(child_id):
 # New baby/child form
 @app.get("/child/new")
 def new_child():
+    user=get_current_user()
     return render_template('new_child.html', user=user)
 
 # Create new baby/child based on new form submission

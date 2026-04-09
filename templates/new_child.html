@@ -3,7 +3,7 @@
 {% block content %}
 <div>
   <section class="form form__wrapper">
-    <form method="post">
+    <form method="post" action="{{ url_for('create_child')}}">
       <h2 class="form__title">Add a New Baby</h2>
 
 	<!-- first name, last name, dob, gender/sex, eye color -->
