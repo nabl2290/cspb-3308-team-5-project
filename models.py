@@ -62,7 +62,7 @@ class Child(db.Model):
     first_name: Mapped[str] = mapped_column(db.String(50), nullable=False)
     last_name: Mapped[str] = mapped_column(db.String(50), nullable=False)
     dob: Mapped[date] = mapped_column(db.Date, nullable=False)
-    sex: Mapped[str] = mapped_column(db.CHAR(1), nullable=False)
+    gender: Mapped[str] = mapped_column(db.CHAR(1), nullable=False)
     eye_color: Mapped[Optional[str]] = mapped_column(db.String(20))
     parents: Mapped[list["User"]] = relationship( secondary=user_child, back_populates="children")
 
