@@ -1,10 +1,10 @@
-/* .dashboard-h1{
-    color: green; 
-} */
+.dashboard-header h1{
+    text-align: center;
+}
 
-.dashboard-user-info p{
+.dashboard-header p{
+    text-align: center;
     padding: 20px 20px 20px 0px;
-
 }
 
 .dashboard-user-icon {
