@@ -94,7 +94,7 @@ def get_feeding_event_by_id(event_id):
 
 def get_feeding_events_by_child_id(child_id):
     """Retrieves all feeding events for a child. Returns list of FeedingEvents."""
-    child = db.session.get(child_id)
+    child = db.session.get(Child, child_id)
     if not child:
         raise ValueError("Child not found.")
     
