@@ -1,4 +1,5 @@
 import pytest
+from datetime import datetime, date
 from models import db, User, Child, FeedingEvent
 from queries import (
     create_user as create_user_query,
@@ -150,14 +151,38 @@ class TestUpdateChild:
 
 # ---- Feeding Event Query Tests ----
 class TestGetFeedingEventById:
-    def test_returns_event_when_exists(self):
-        pass
+    def test_returns_event_when_exists(self, app, create_user):
+        user = create_user()
+        child = create_child(user.id, {
+            "first_name": "Test",
+            "last_name": "Child",
+            "dob": date(2026,1,1),
+            "gender": "M",
+            "eye_color": "blue",
+        })
+        event = FeedingEvent(
+            child_id=child.id,
+            timestamp=datetime.now(),
+            description="Test Feed"
+        )
+        db.session.add(event)
+        db.session.commit()
+        
+        retrieved_event = get_feeding_event_by_id(event.id)
 
-    def test_returns_none_when_not_found(self):
-        pass
+        assert retrieved_event is not None
+        assert retrieved_event.id == event.id
+        assert retrieved_event.timestamp == event.timestamp
+        assert retrieved_event.description == event.description
 
-    def test_raises_error_with_invalid_id(self):
-        pass
+    def test_returns_none_when_not_found(self, app):
+        retrieved_event = get_feeding_event_by_id(9999)
+        assert retrieved_event is None
+
+    def test_raises_error_with_invalid_id(self, app):
+        with pytest.raises(ValueError):
+            get_feeding_event_by_id("Totally real event id")
+        
 
 
 class TestGetFeedingEventsByChildId:
