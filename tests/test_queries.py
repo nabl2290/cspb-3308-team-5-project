@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 from datetime import datetime, date
 from models import db, User, Child, FeedingEvent
@@ -13,6 +15,7 @@ from queries import (
     get_feeding_event_by_id,
     get_feeding_events_by_child_id,
     update_feeding_event,
+    create_feeding_event
 )
 
 # ---- User Query Tests ----
@@ -233,17 +236,34 @@ class TestGetFeedingEventsByChildId:
 
 
 class TestUpdateFeedingEvent:
-    def test_updates_event_with_valid_fields(self):
-        pass
+    def test_updates_event_with_valid_fields(self, create_feeding_event):
+        #confirm that a child with id 1 exists
+        feedEvt = create_feeding_event()  # Placeholder for actual event creation
+        fields_to_update = {
+            "child_id": 2,
+            "timestamp": datetime(2024, 6, 1, 9, 0),
+            "description": "Updated description"}
+        updated_event = update_feeding_event(feedEvt, fields_to_update)
+        assert updated_event.child_id == 2
+        assert updated_event.timestamp == datetime(2024, 6, 1, 9, 0)
+        assert updated_event.description == "Updated description"
+        
 
-    def test_raises_error_when_update_fails(self):
-        pass
+    def test_raises_error_when_update_fails(self, create_feeding_event):
+        FeedingEvt = create_feeding_event() 
+        with pytest.raises(ValueError):
+            update_feeding_event(FeedingEvt, {"invalid_field": "value"})
+        
 
 
 # ---- user.children Relationship Tests ----
 class TestUserChildrenRelationship:
-    def test_returns_children_when_associated(self):
-        pass
+    def test_returns_children_when_associated(self, create_user, create_child):
+        user = create_user()
+        child = create_child("Test", "Child", datetime(2026, 1, 1), "F", "blue", user.id)
+        assert child in user.children 
+        assert user in child.parents
 
-    def test_returns_empty_list_when_no_children(self):
-        pass
+    def test_returns_empty_list_when_no_children(self, create_user):
+        user = create_user()
+        assert user.children == []
