@@ -28,7 +28,7 @@ https://github.com/nabl2290/cspb-3308-team-5-project
 - An MVP version of the Baby Steps web application with the following features:
   - User registration and login
   - Dashboard with overview of each baby's data
-  - Ability to add and edit baby profiles
+  - Ability to add baby profiles
   - Ability to add, view, and edit baby data. For MVP, we only implemented feeding event tracking.
   - User profile management
 - Form validation and error handling
@@ -37,6 +37,7 @@ https://github.com/nabl2290/cspb-3308-team-5-project
 
 ### What was in progress
 - Better consistency of UI styling and design across the application
+- Finishing the edit child profile feature
 - More testing
 
 ### Future planned work
