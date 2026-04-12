@@ -249,7 +249,7 @@ def create_feeding_event():
     db.session.add(new_feed)
     db.session.commit()
     
-    return redirect(url_for("new_feeding_event"))
+    return redirect(url_for("get_child", child_id=child_id))
 
 # Edit feeding event form
 @app.get("/feeding-event/<int:event_id>/edit")
