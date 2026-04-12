@@ -59,8 +59,8 @@ def create_child(user_id, child_data):
         first_name=child_data.get("first_name"),
         last_name=child_data.get("last_name"),
         dob=child_data.get("dob"),
-        sex=child_data.get("sex"),
-        eye_color=child.data.get("eye_color"),
+        gender=child_data.get("gender"),
+        eye_color=child_data.get("eye_color"),
         
     )
     db.session.add(child)
