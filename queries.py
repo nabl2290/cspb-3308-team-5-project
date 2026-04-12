@@ -105,22 +105,6 @@ def update_feeding_event(feeding_event, fields_to_update):
             setattr(feeding_event, field, value)
         else:
             raise ValueError(f"Invalid field: {field}")
-        #uncomment below if validation for FeedingEvent is implemented
-        # if field == "child_id":
-        #     if not isinstance(value, int):
-        #         raise ValueError("child_id must be an integer")
-        #     setattr(feeding_event, field, value)
-        # elif field == "timestamp":
-        #     #timestamp must be datetime object, otherwise raise error
-        #     if not isinstance(value, datetime):
-        #         raise ValueError("timestamp must be a datetime object")
-        #     setattr(feeding_event, field, value)
-        # elif field == "description":
-        #     if not isinstance(value, str):
-        #         raise ValueError("description must be a string")
-        #     setattr(feeding_event, field, value)
-        # else:
-        #     raise ValueError(f"Invalid field: {field}")
     db.session.commit()
     return feeding_event
 
