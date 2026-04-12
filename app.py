@@ -187,13 +187,27 @@ def new_child():
     return render_template('new_child.html', user=user)
 
 # Create new baby/child based on new form submission
+
 @app.post("/child")
 def create_child():
-    # TODO: Add logic to create new child profile based on request data
-    #
-    # TODO: After creating the child, redirect to their profile page
-    return '', 201
-
+    user_id = session.get('user_id')
+    
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    dob = datetime.strptime(request.form['dob'], '%Y-%m-%d').date()
+    gender = request.form['gender']
+    eye_color = request.form.get('eye_color')
+    
+    new_child = q.create_child(user_id, {
+        "first_name": first_name,
+        "last_name": last_name,
+        "dob": dob,
+        "gender": gender,
+        "eye_color": eye_color,
+    })
+    
+    return redirect(url_for('dashboard', user_id=user_id))
+    
 # Edit baby/child form
 @app.get("/child/<int:child_id>/edit")
 def edit_child(child_id):

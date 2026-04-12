@@ -39,16 +39,16 @@
 </div>
 
 <div class="form__input-group">
-<label for="sex">Sex</label>
-<select id="sex" name="sex" required>
-    <option value="">Choose sex of child</option>
+<label for="gender">Gender</label>
+<select id="gender" name="gender" required>
+    <option value="">Choose gender of child</option>
     <option value="F">Female</option>
     <option value="M">Male</option>
     <option value="I">Intersex</option>
   </select>
 
-{% if errors and errors.sex %}
-<span class="form__error">{{ errors.sex }}</span>
+{% if errors and errors.gender %}
+<span class="form__error">{{ errors.gender }}</span>
 
 {% endif %}
 </div>
