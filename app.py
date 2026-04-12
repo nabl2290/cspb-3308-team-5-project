@@ -133,8 +133,8 @@ def update_user(user_id):
 
     # first check the validation in the front end
     if not form.validate():
-        print("invalid form!")
-        return render_template('edit_user.html', user=user, form=form)
+        message = "Form error! Make sure passwords match or are both empty."
+        return render_template('edit_user.html', user=user, form=form, error=message)
 
     # then try to make the update to the database
     # and handle an error if the database input validation raises an error too
@@ -147,7 +147,7 @@ def update_user(user_id):
         q.update_user(user, fields)
     except ValueError as e:
         print(f"error: {e}")
-        return render_template('edit_user.html', user=user, form=form)  
+        return render_template('edit_user.html', user=user, form=form, error=e)  
 
     # redirect to the dashboard if all went well
     return redirect(url_for('dashboard', user_id=user.id))

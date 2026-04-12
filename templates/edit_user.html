@@ -21,6 +21,9 @@
             <div class="form-label">{{ form.password_confirmed.label }}</div>
             <div> {{ form.password_confirmed(size=20) }}</div>
         </div>
+        {% if error %}
+            <div class="form-error">{{ error }}</div>
+        {% endif %}
         <div class="form-note"><em>Note: leave both password fields empty to not change password, or ensure both passwords are the same new text to update your password.</em></div>
         <button type="submit" class="edit-btn">Save</button>
     </form>

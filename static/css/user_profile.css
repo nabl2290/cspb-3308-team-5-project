@@ -87,3 +87,21 @@
 .form-note {
     margin: 20px;
 }
+
+.form-error {
+    color: #b71c1c;
+    margin-top: 12px;
+}
+
+.info-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.info-list {
+    list-style: none;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+}
