@@ -62,6 +62,7 @@ Additional documentation is also available in the repository:
 - [Page Testing Documentation](PAGE_TESTING.md)
 - [SQL Database Testing Documentation](SQL_TESTING.md)
 - TODO - [Demo Video]()
+- [Link to presentation slides](https://o365coloradoedu-my.sharepoint.com/:p:/r/personal/fefo3515_colorado_edu/Documents/Team_5_Presentation.pptx?d=wf5738855e17143b8bec235ddd6e519e2&csf=1&web=1&e=DdHVyv)
 
 ## System Overview
 We build both our backend and frontend using the Flask framework. The Flask backend handles the endpoint routing, database interactions, and business logic. The frontend is built using Flask's templating engine (Jinja) to render dynamic HTML pages with data pull from a SQLite database. Page styles were implemented using vanilla CSS. Our page templates allow for page-specific CSS to be included on a per-page basis to prevent styling conflicts.
