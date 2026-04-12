@@ -6,16 +6,12 @@
 
 {% block content %}
 
-<div class = "dashboard-user-info">
+<div class = "dashboard-header">
     <h1 class="dashboard-h1">Homepage</h1>
-    <!-- <img src="{{ url_for('static', filename='images/Default_pfp.jpg') }}" alt="User Icon" class="dashboard-user-icon"> -->
-    <!-- <span>{{ user.first_name }} {{ user.last_name }}</span> -->
-    <!-- <br> -->
     <p>Welcome back, here you can manage your babies and add new feeding events.</p>
     <hr>
-    <span>Showing
-         {{ babies|length }} babies</span>
-    
+    <br>
+    <span>Showing {{ babies|length }} babies</span>
 </div>
     
 
@@ -41,16 +37,17 @@
                             <p> <strong>Gender:</strong> {{ baby.gender }} </p>
                             <p> <strong>Age:</strong> {{ (current_date - baby.dob).days // 30 }} months</p>
                             <div>
+                                <br>
                                 <p><strong>Last Feeding:</strong></p>
                                 <p>{{ feeding_event.timestamp.strftime("%A, %I:%M %p") if feeding_event else "No feeding events" }}</p>
-                                <p>Description: <br>{{ feeding_event.description if feeding_event else "No description available" }}</p>
+                                <p>Description: <br>{{ (feeding_event.description if feeding_event else "No description available") | truncate(40, killwords=False, end='...') }}</p>
                             </div>
                         </td>
                     </tr>
     
                 </table>
             </card>
-            <button type="submit" class="dashboard-baby-fevent-button" onclick="window.location.href='{{ url_for('create_feeding_event', child_id=baby.id) }}'">New Event</button>
+            <button type="submit" class="dashboard-baby-fevent-button" onclick="window.location.href='{{ url_for('new_feeding_event') }}'">New Event</button>
         </div>
             
     {% endfor %}
