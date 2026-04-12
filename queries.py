@@ -86,12 +86,19 @@ def update_child(child, fields_to_update):
 # ---- Feeding Event Queries ----
 def get_feeding_event_by_id(event_id):
     """Retrieves a feeding event by ID. Returns FeedingEvent or None."""
-    pass
+    if isinstance(event_id, int):
+        return db.session.get(FeedingEvent, event_id)
+    else:
+        raise ValueError("Invalid Id!")
 
 
 def get_feeding_events_by_child_id(child_id):
     """Retrieves all feeding events for a child. Returns list of FeedingEvents."""
-    pass
+    child = db.session.get(child_id)
+    if not child:
+        raise ValueError("Child not found.")
+    
+    return db.session.execute(db.select(FeedingEvent).filter_by(child_id=child_id)).scalars().all()
 
 
 def update_feeding_event(feeding_event, fields_to_update):
