@@ -499,3 +499,15 @@ Nate - in progress work updated user page css, will complete and work on notific
 Antonio - added PR 50 for delete feeding event
 Will - PR 49 for showing recent feeding events on child profile page, will look for any page navigation problems
 Felice - started Powerpoint for our presentation, will start work and look for any hanging work too
+
+### 2026-04-12
+
+Longer working session! 2.5 hours
+
+Nate - finished out edit user updates, printing validation errors to UI PR 58
+Felice - worked on project presentation powerpoint, and made initial final report MD doc PR 55 and 61
+Antonio - implemented more unit tests in PR 54, redirect to dashboard after creating new event PR 59
+Will - implemented more unit tests PR 56, PR 53 fixed a link and cleaned up styling in dashboard
+Alana - hooked up add child form to database PR 60, began work on edit_child feature
+
+Worked together on project presentation slides and made a plan dividing up presentation, involved a good discussion reflecting on the project and working together
