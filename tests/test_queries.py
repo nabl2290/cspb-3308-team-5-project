@@ -1,4 +1,7 @@
+from datetime import datetime
+
 import pytest
+from datetime import datetime, date
 from models import db, User, Child, FeedingEvent
 from queries import (
     create_user as create_user_query,
@@ -12,6 +15,7 @@ from queries import (
     get_feeding_event_by_id,
     get_feeding_events_by_child_id,
     update_feeding_event,
+    create_feeding_event
 )
 
 # ---- User Query Tests ----
@@ -150,39 +154,116 @@ class TestUpdateChild:
 
 # ---- Feeding Event Query Tests ----
 class TestGetFeedingEventById:
-    def test_returns_event_when_exists(self):
-        pass
+    def test_returns_event_when_exists(self, app, create_user):
+        user = create_user()
+        child = create_child(user.id, {
+            "first_name": "Test",
+            "last_name": "Child",
+            "dob": date(2026,1,1),
+            "gender": "M",
+            "eye_color": "blue",
+        })
+        event = FeedingEvent(
+            child_id=child.id,
+            timestamp=datetime.now(),
+            description="Test Feed"
+        )
+        db.session.add(event)
+        db.session.commit()
+        
+        retrieved_event = get_feeding_event_by_id(event.id)
 
-    def test_returns_none_when_not_found(self):
-        pass
+        assert retrieved_event is not None
+        assert retrieved_event.id == event.id
+        assert retrieved_event.timestamp == event.timestamp
+        assert retrieved_event.description == event.description
 
-    def test_raises_error_with_invalid_id(self):
-        pass
+    def test_returns_none_when_not_found(self, app):
+        retrieved_event = get_feeding_event_by_id(9999)
+        assert retrieved_event is None
+
+    def test_raises_error_with_invalid_id(self, app):
+        with pytest.raises(ValueError):
+            get_feeding_event_by_id("Totally real event id")
+        
 
 
 class TestGetFeedingEventsByChildId:
-    def test_returns_events_for_child(self):
-        pass
+    def test_returns_events_for_child(self, app, create_user):
+        user = create_user()
+        child = create_child(user.id, {
+            "first_name": "Test",
+            "last_name": "Child",
+            "dob": date(2026,1,1),
+            "gender": "M",
+            "eye_color": "blue",
+        })
+        event1 = FeedingEvent(
+            child_id=child.id,
+            timestamp=datetime.now(),
+            description="Test Feed"
+        )
+        event2 = FeedingEvent(
+            child_id=child.id,
+            timestamp=datetime.now(),
+            description="Test Feed Number 2"
+        )
+        db.session.add_all([event1, event2])
+        db.session.commit()
 
-    def test_returns_empty_list_when_no_events(self):
-        pass
+        events = get_feeding_events_by_child_id(child.id)
+
+        assert len(events) == 2
+        assert events[1].description == "Test Feed Number 2"
+
+    def test_returns_empty_list_when_no_events(self, app, create_user):
+        user = create_user()
+        child = create_child(user.id, {
+            "first_name": "Test",
+            "last_name": "Child",
+            "dob": date(2026,1,1),
+            "gender": "M",
+            "eye_color": "blue",
+        })
+        no_events = get_feeding_events_by_child_id(child.id)
+
+        assert len(no_events) == 0
+
 
     def test_raises_error_when_child_does_not_exist(self):
-        pass
+        with pytest.raises(Exception):
+            get_feeding_events_by_child_id(9999)
 
 
 class TestUpdateFeedingEvent:
-    def test_updates_event_with_valid_fields(self):
-        pass
+    def test_updates_event_with_valid_fields(self, create_feeding_event):
+        #confirm that a child with id 1 exists
+        feedEvt = create_feeding_event()  # Placeholder for actual event creation
+        fields_to_update = {
+            "child_id": 2,
+            "timestamp": datetime(2024, 6, 1, 9, 0),
+            "description": "Updated description"}
+        updated_event = update_feeding_event(feedEvt, fields_to_update)
+        assert updated_event.child_id == 2
+        assert updated_event.timestamp == datetime(2024, 6, 1, 9, 0)
+        assert updated_event.description == "Updated description"
+        
 
-    def test_raises_error_when_update_fails(self):
-        pass
+    def test_raises_error_when_update_fails(self, create_feeding_event):
+        FeedingEvt = create_feeding_event() 
+        with pytest.raises(ValueError):
+            update_feeding_event(FeedingEvt, {"invalid_field": "value"})
+        
 
 
 # ---- user.children Relationship Tests ----
 class TestUserChildrenRelationship:
-    def test_returns_children_when_associated(self):
-        pass
+    def test_returns_children_when_associated(self, create_user, create_child):
+        user = create_user()
+        child = create_child("Test", "Child", datetime(2026, 1, 1), "F", "blue", user.id)
+        assert child in user.children 
+        assert user in child.parents
 
-    def test_returns_empty_list_when_no_children(self):
-        pass
+    def test_returns_empty_list_when_no_children(self, create_user):
+        user = create_user()
+        assert user.children == []

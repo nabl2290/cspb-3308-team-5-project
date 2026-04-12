@@ -1,6 +1,6 @@
 # PAGE_TESTING.md
 
-This document defines the **pages** the Baby Steps app will implement and waht is required to (1) render them correctly and (2) test them consistently.
+This document defines the **pages** the Baby Steps app will implement and what is required to (1) render them correctly and (2) test them consistently.
 
 ---
 ## Conventions Used in This Document
