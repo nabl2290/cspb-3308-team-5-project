@@ -57,9 +57,14 @@ def create_child(app):
 @pytest.fixture
 def create_feeding_event(app):
     #TODO: need to add a child befor creating a feeding event, otherwise the foreign key constraint will fail.
-
-    def _create_feeding_event(child_id=1, timestamp=datetime(2024, 6, 1, 8, 0), description="test event"):
-        event = FeedingEvent(child_id=child_id, timestamp=timestamp, description=description)
+    def _create_feeding_event(
+            child_id=1,
+            timestamp=datetime(2024, 6, 1, 8, 0),
+            description="test event"):
+        event = FeedingEvent(
+            child_id=child_id,
+            timestamp=timestamp,
+            description=description)
         db.session.add(event)
         db.session.commit()
         return event   
