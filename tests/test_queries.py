@@ -186,14 +186,50 @@ class TestGetFeedingEventById:
 
 
 class TestGetFeedingEventsByChildId:
-    def test_returns_events_for_child(self):
-        pass
+    def test_returns_events_for_child(self, app, create_user):
+        user = create_user()
+        child = create_child(user.id, {
+            "first_name": "Test",
+            "last_name": "Child",
+            "dob": date(2026,1,1),
+            "gender": "M",
+            "eye_color": "blue",
+        })
+        event1 = FeedingEvent(
+            child_id=child.id,
+            timestamp=datetime.now(),
+            description="Test Feed"
+        )
+        event2 = FeedingEvent(
+            child_id=child.id,
+            timestamp=datetime.now(),
+            description="Test Feed Number 2"
+        )
+        db.session.add_all([event1, event2])
+        db.session.commit()
 
-    def test_returns_empty_list_when_no_events(self):
-        pass
+        events = get_feeding_events_by_child_id(child.id)
+
+        assert len(events) == 2
+        assert events[1].description == "Test Feed Number 2"
+
+    def test_returns_empty_list_when_no_events(self, app, create_user):
+        user = create_user()
+        child = create_child(user.id, {
+            "first_name": "Test",
+            "last_name": "Child",
+            "dob": date(2026,1,1),
+            "gender": "M",
+            "eye_color": "blue",
+        })
+        no_events = get_feeding_events_by_child_id(child.id)
+
+        assert len(no_events) == 0
+
 
     def test_raises_error_when_child_does_not_exist(self):
-        pass
+        with pytest.raises(Exception):
+            get_feeding_events_by_child_id(9999)
 
 
 class TestUpdateFeedingEvent:
