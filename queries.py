@@ -59,8 +59,8 @@ def create_child(user_id, child_data):
         first_name=child_data.get("first_name"),
         last_name=child_data.get("last_name"),
         dob=child_data.get("dob"),
-        sex=child_data.get("sex"),
-        eye_color=child.data.get("eye_color"),
+        gender=child_data.get("gender"),
+        eye_color=child_data.get("eye_color"),
         
     )
     db.session.add(child)
@@ -86,12 +86,19 @@ def update_child(child, fields_to_update):
 # ---- Feeding Event Queries ----
 def get_feeding_event_by_id(event_id):
     """Retrieves a feeding event by ID. Returns FeedingEvent or None."""
-    pass
+    if isinstance(event_id, int):
+        return db.session.get(FeedingEvent, event_id)
+    else:
+        raise ValueError("Invalid Id!")
 
 
 def get_feeding_events_by_child_id(child_id):
     """Retrieves all feeding events for a child. Returns list of FeedingEvents."""
-    pass
+    child = db.session.get(Child, child_id)
+    if not child:
+        raise Exception("Child not found.")
+    
+    return db.session.execute(db.select(FeedingEvent).filter_by(child_id=child_id)).scalars().all()
 
 
 def update_feeding_event(feeding_event, fields_to_update):
