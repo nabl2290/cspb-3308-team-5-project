@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Edit Baby Profile{% endblock %}
+{% block content %}
+<div>
+  <section class="form form__wrapper">
+    <form method="post" action="{{ url_for('update_child', child_id=child.id)}}">
+      <h2 class="form__title">Edit Existing Baby Profile</h2>
+
+      <div class="form__input-group">
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" value="{{ child.first_name }}" required>
+        {% if errors and errors.first_name %}
+          <span class="form__error">{{ errors.first_name }}</span>
+        {% endif %}
+      </div>
+
+      <div class="form__input-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" value="{{ child.last_name }}" required>
+        {% if errors and errors.last_name %}
+          <span class="form__error">{{ errors.last_name }}</span>
+        {% endif %}
+      </div>
+
+      <div class="form__input-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" value="{{ child.dob }}" required>
+        {% if errors and errors.dob %}
+          <span class="form__error">{{ errors.dob }}</span>
+        {% endif %}
+      </div>
+
+      <div class="form__input-group">
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+          <option value="">Choose gender of child</option>
+          <option value="F" {{ 'selected' if child.gender == 'F' }}>Female</option>
+          <option value="M" {{ 'selected' if child.gender == 'M' }}>Male</option>
+          <option value="I" {{ 'selected' if child.gender == 'I' }}>Intersex</option>
+        </select>
+        {% if errors and errors.gender %}
+          <span class="form__error">{{ errors.gender }}</span>
+        {% endif %}
+      </div>
+
+      <div class="form__input-group">
+        <label for="eye_color">Eye Color</label>
+        <select id="eye_color" name="eye_color" required>
+          <option value="">Choose eye color of child</option>
+          <option value="N/A" {{ 'selected' if child.eye_color == 'N/A' }}>Eye color not fully developed yet</option>
+          <option value="blue" {{ 'selected' if child.eye_color == 'blue' }}>Blue</option>
+          <option value="brown" {{ 'selected' if child.eye_color == 'brown' }}>Brown</option>
+          <option value="green" {{ 'selected' if child.eye_color == 'green' }}>Green</option>
+          <option value="hazel" {{ 'selected' if child.eye_color == 'hazel' }}>Hazel</option>
+          <option value="heterochromia" {{ 'selected' if child.eye_color == 'heterochromia' }}>Heterochromia</option>
+        </select>
+        {% if errors and errors.eye_color %}
+          <span class="form__error">{{ errors.eye_color }}</span>
+        {% endif %}
+      </div>
+
+      <div class="form__actions">
+        <button type="button">Cancel</button>
+        <button type="submit" class="btn btn--blue">Save</button>
+      </div>
+
+    </form>
+  </section>
+</div>
+{% endblock %}
+ 
