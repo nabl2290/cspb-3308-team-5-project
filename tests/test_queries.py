@@ -192,13 +192,6 @@ class TestUpdateFeedingEvent:
         FeedingEvt = create_feeding_event() 
         with pytest.raises(ValueError):
             update_feeding_event(FeedingEvt, {"invalid_field": "value"})
-         # uncomment below if validation for FeedingEvent Table is implemented
-        # with pytest.raises(Exception):
-        #     update_feeding_event(FeedingEvt, {"child_id": "not-an-integer"})
-        # with pytest.raises(Exception):
-        #     update_feeding_event(FeedingEvt, {"timestamp": "not-a-datetime"})
-        # with pytest.raises(Exception):
-        #     update_feeding_event(FeedingEvt, {"description": 5.5})
         
 
 
