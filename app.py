@@ -149,8 +149,8 @@ def update_user(user_id):
         print(f"error: {e}")
         return render_template('edit_user.html', user=user, form=form, error=e)  
 
-    # redirect to the user profile if all went well
-    return redirect(url_for('get_user', user_id=user.id))
+    # redirect to the dashboard if all went well
+    return redirect(url_for('dashboard', user_id=user.id))
 
 # User dashboard page
 @app.get("/user/<int:user_id>/dashboard")
@@ -212,18 +212,24 @@ def create_child():
 @app.get("/child/<int:child_id>/edit")
 def edit_child(child_id):
     child = db.get_or_404(Child, child_id)
-
-    # TODO: Add child profile template with child data
-    return render_template('edit_child.html', child=child)
+    user = get_current_user()
+    return render_template('edit_child.html', child=child, user=user)
 
 # Update baby/child profile based on edit form submission
-@app.patch("/child/<int:child_id>")
+@app.post("/child/<int:child_id>/edit")
 def update_child(child_id):
     child = db.get_or_404(Child, child_id)
-
+    dob = datetime.strptime(request.form['dob'], '%Y-%m-%d').date()
+    q.update_child(child, {
+        "first_name": request.form['first_name'],
+        "last_name": request.form['last_name'],
+        "dob": dob,
+        "gender": request.form['gender'],
+        "eye_color": request.form.get('eye_color'),
+    })
+    return redirect(url_for('get_child', child_id=child_id))
     # TODO: Add logic to update child profile based on request data
 
-    return redirect(url_for('get_child', child_id=child_id))
 
 # New feeding event form
 @app.get("/feeding-event/new")
@@ -293,7 +299,7 @@ def update_feeding_event(event_id):
     event.description = description
 
     db.session.commit()
-    return redirect(url_for("get_child", child_id=child_id))
+    return redirect(url_for("edit_feeding_event", event_id=event.id))
 
 @app.post("/feeding-event/<int:event_id>/delete")
 def delete_feeding_event(event_id):
@@ -302,12 +308,11 @@ def delete_feeding_event(event_id):
         return redirect(url_for("login"))
     
     event = db.get_or_404(FeedingEvent, event_id)
-    child_id = event.child_id
 
     db.session.delete(event)
     db.session.commit()
 
-    return redirect(url_for("get_child", child_id=child_id))
+    return redirect(url_for("dashboard", user_id=current_user.id))
 
 # Route to display all users (for testing purposes)
 @app.route("/users")

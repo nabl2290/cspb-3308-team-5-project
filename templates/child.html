@@ -20,7 +20,7 @@
               <li>{{ "Female" if child.gender == "F" else "Male" }}</li>
               <li>{{ child.eye_color | capitalize if child.eye_color else "Eye color not recorded" }} Eyes</li>
             </ul>
-            <button class="edit-btn" disabled>Edit</button>
+            <button class="edit-btn" onclick="window.location.href='{{ url_for('edit_child', child_id=child.id) }}'">Edit</button>
           </div>
         </div>
       </div>
