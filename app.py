@@ -133,8 +133,8 @@ def update_user(user_id):
 
     # first check the validation in the front end
     if not form.validate():
-        print("invalid form!")
-        return render_template('edit_user.html', user=user, form=form)
+        message = "Form error! Make sure passwords match or are both empty."
+        return render_template('edit_user.html', user=user, form=form, error=message)
 
     # then try to make the update to the database
     # and handle an error if the database input validation raises an error too
@@ -147,7 +147,7 @@ def update_user(user_id):
         q.update_user(user, fields)
     except ValueError as e:
         print(f"error: {e}")
-        return render_template('edit_user.html', user=user, form=form)  
+        return render_template('edit_user.html', user=user, form=form, error=e)  
 
     # redirect to the dashboard if all went well
     return redirect(url_for('dashboard', user_id=user.id))
@@ -164,9 +164,9 @@ def dashboard(user_id):
     current_date = date.today()
     recent_feeding_evts = {}
     for baby in babies:
-        latest = FeedingEvent.query.filter_by(child_id=baby.id).order_by(FeedingEvent.timestamp).first()
+        latest = FeedingEvent.query.filter_by(child_id=baby.id).order_by(FeedingEvent.timestamp.desc()).first()
         recent_feeding_evts[baby.id] = latest
-    # TODO: Add dashboard template with user-specific data
+    # dashboard template with user-specific data
     #  (e.g., list of children, recent feeding events)
     return render_template('dashboard.html', user=user, babies=babies, current_date=current_date, recent_feedings=recent_feeding_evts)
 
@@ -176,8 +176,9 @@ def get_child(child_id):
     child = db.get_or_404(Child, child_id)
 
     user = db.get_or_404(User, session.get('user_id'))
+    feeding_events = FeedingEvent.query.filter_by(child_id=child_id).order_by(FeedingEvent.timestamp.desc()).all()
     # TODO: Add child profile template with child data
-    return render_template('child.html', child=child, user=user)
+    return render_template('child.html', child=child, user=user, feeding_events=feeding_events)
 
 # New baby/child form
 @app.get("/child/new")
@@ -268,7 +269,7 @@ def create_feeding_event():
     db.session.add(new_feed)
     db.session.commit()
     
-    return redirect(url_for("new_feeding_event"))
+    return redirect(url_for("get_child", child_id=child_id))
 
 # Edit feeding event form
 @app.get("/feeding-event/<int:event_id>/edit")
