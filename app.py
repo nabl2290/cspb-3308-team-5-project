@@ -149,8 +149,8 @@ def update_user(user_id):
         print(f"error: {e}")
         return render_template('edit_user.html', user=user, form=form, error=e)  
 
-    # redirect to the dashboard if all went well
-    return redirect(url_for('dashboard', user_id=user.id))
+    # redirect to the user profile if all went well
+    return redirect(url_for('get_user', user_id=user.id))
 
 # User dashboard page
 @app.get("/user/<int:user_id>/dashboard")
@@ -293,7 +293,7 @@ def update_feeding_event(event_id):
     event.description = description
 
     db.session.commit()
-    return redirect(url_for("edit_feeding_event", event_id=event.id))
+    return redirect(url_for("get_child", child_id=child_id))
 
 @app.post("/feeding-event/<int:event_id>/delete")
 def delete_feeding_event(event_id):
@@ -302,11 +302,12 @@ def delete_feeding_event(event_id):
         return redirect(url_for("login"))
     
     event = db.get_or_404(FeedingEvent, event_id)
+    child_id = event.child_id
 
     db.session.delete(event)
     db.session.commit()
 
-    return redirect(url_for("dashboard", user_id=current_user.id))
+    return redirect(url_for("get_child", child_id=child_id))
 
 # Route to display all users (for testing purposes)
 @app.route("/users")
