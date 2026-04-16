@@ -18,7 +18,7 @@ health, and milestones.
 Trello Board: https://trello.com/b/XiGBDKNQ/team-fawn
 
 ## Demo Video
-TODO
+Demo video is available in this repo at [Team_5_Demo.mp4](Team_5_Demo.mp4) or in our [OneDrive](https://o365coloradoedu-my.sharepoint.com/:v:/r/personal/fefo3515_colorado_edu/Documents/CSPB%203308%20Team%205/Team_5_Demo.mp4?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=v55zp7).
 
 ## Github Repository
 https://github.com/nabl2290/cspb-3308-team-5-project
@@ -61,8 +61,10 @@ Additional documentation is also available in the repository:
 - [Weekly Progress Reports](WEEKLY_REPORTS.md)
 - [Page Testing Documentation](PAGE_TESTING.md)
 - [SQL Database Testing Documentation](SQL_TESTING.md)
-- TODO - [Demo Video]()
-- [Link to presentation slides](https://o365coloradoedu-my.sharepoint.com/:p:/r/personal/fefo3515_colorado_edu/Documents/Team_5_Presentation.pptx?d=wf5738855e17143b8bec235ddd6e519e2&csf=1&web=1&e=DdHVyv)
+- [Demo Video](Team_5_Demo.mp4)
+  - [Link to demo video on OneDrive](https://o365coloradoedu-my.sharepoint.com/:v:/r/personal/fefo3515_colorado_edu/Documents/CSPB%203308%20Team%205/Team_5_Demo.mp4?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=v55zp7)
+- [Link to presentation slides](https://o365coloradoedu-my.sharepoint.com/:p:/r/personal/fefo3515_colorado_edu/Documents/CSPB%203308%20Team%205/Team_5_Presentation.pptx?d=wf5738855e17143b8bec235ddd6e519e2&csf=1&web=1&e=QrV2n3)
+- [Link to presentation recording](https://o365coloradoedu-my.sharepoint.com/:v:/r/personal/fefo3515_colorado_edu/Documents/CSPB%203308%20Team%205/Team_5_Demo.mp4?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=v55zp7)
 
 ## System Overview
 We build both our backend and frontend using the Flask framework. The Flask backend handles the endpoint routing, database interactions, and business logic. The frontend is built using Flask's templating engine (Jinja) to render dynamic HTML pages with data pull from a SQLite database. Page styles were implemented using vanilla CSS. Our page templates allow for page-specific CSS to be included on a per-page basis to prevent styling conflicts.
