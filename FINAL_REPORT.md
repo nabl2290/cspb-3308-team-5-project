@@ -26,10 +26,11 @@ https://github.com/nabl2290/cspb-3308-team-5-project
 ## Final Status Report
 ### What was completed
 - An MVP version of the Baby Steps web application with the following features:
+  - Basic landing page with information about the app and links to register or login
   - User registration and login
   - Dashboard with overview of each baby's data
-  - Ability to add baby profiles
-  - Ability to add, view, and edit baby data. For MVP, we only implemented feeding event tracking.
+  - Ability to add, view, and edit baby profiles
+  - Ability to add, view, and edit baby "event" data. For MVP, we only implemented feeding event tracking.
   - User profile management
 - Form validation and error handling
 - Basic authorization to ensure users can only access their own data
@@ -37,8 +38,7 @@ https://github.com/nabl2290/cspb-3308-team-5-project
 
 ### What was in progress
 - Better consistency of UI styling and design across the application
-- Finishing the edit child profile feature
-- More testing
+- Finish child data query tests
 
 ### Future planned work
 - Add more data tracking for babies, such as diaper events, sleep tracking, and weight tracking
@@ -56,11 +56,11 @@ https://github.com/nabl2290/cspb-3308-team-5-project
 Source code is available in the Github repository linked above.
 
 Additional documentation is also available in the repository:
-- [Project Proposal](README.md)
-- [How to set up and run the project](SETUP.md)
-- [Weekly Progress Reports](WEEKLY_REPORTS.md)
-- [Page Testing Documentation](PAGE_TESTING.md)
-- [SQL Database Testing Documentation](SQL_TESTING.md)
+- [Project Proposal](README.md) (README.md)
+- [How to set up and run the project](SETUP.md) (SETUP.md)
+- [Weekly Progress Reports](WEEKLY_STATUS.md) (WEEKLY_STATUS.md)
+- [Page Testing Documentation](PAGE_TESTING.md) (PAGE_TESTING.md)
+- [SQL Database Testing Documentation](SQL_TESTING.md) (SQL_TESTING.md)
 - [Demo Video](Team_5_Demo.mp4)
   - [Link to demo video on OneDrive](https://o365coloradoedu-my.sharepoint.com/:v:/r/personal/fefo3515_colorado_edu/Documents/CSPB%203308%20Team%205/Team_5_Demo.mp4?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=v55zp7)
 - [Link to presentation slides](https://o365coloradoedu-my.sharepoint.com/:p:/r/personal/fefo3515_colorado_edu/Documents/CSPB%203308%20Team%205/Team_5_Presentation.pptx?d=wf5738855e17143b8bec235ddd6e519e2&csf=1&web=1&e=QrV2n3)
@@ -78,7 +78,10 @@ We build both our backend and frontend using the Flask framework. The Flask back
 - **Flask SQL Alchemy ORM**: database-to-model mapping and query
 helpers
 - **WTForms extension**: form helpers and validations
+- **Werkzeug Security**: password hashing
 - **Pytest**: unit testing
 
 ## Testing
 We implemented unit tests for our database access methods using the Pytest framework. These tests cover the basic CRUD operations for our database models, ensuring that data can be created, read, updated, and deleted correctly. We also performed manual testing of the application to validate expected behavior.
+
+Tests are located in the `tests/` directory. For instructions on how to run the tests, please see the "Testing" section of the [SETUP.md](SETUP.md) document.
