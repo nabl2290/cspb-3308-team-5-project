@@ -18,6 +18,52 @@ This weekly status format is designed to:
 ---
 
 ## Reporting Period
+**Week:** 13 and 12
+
+**Meeting Held:** Yes
+
+**Meeting Dates:** April 22 standup, April 15 standup, and April 12 quick working session
+
+**Meeting Duration:** 1 hour, 1 hour, 1 hour
+
+**Meeting Format:** Zoom
+
+---
+
+## Project Management Snapshot
+
+The team is using a shared **Trello board** to manage tasks and sprint progress.
+At the time of the report:
+- Columns include: Backlog, Design, To Do, Doing, Code Review, Testing, Done, Due Dates
+- Tasks are assigned to one or more individual team member(s)
+
+![trello board before last meeting](meetings/trello_2026-04-22.png)
+
+---
+
+## Progress Since Last Report
+
+Key accomplishments include:
+- Completed documents for remaining milestones
+- Implemented last user-facing features
+
+## Completed Tasks
+- Edit child form implementation
+- Revise view and edit user profile implementation
+- Recorded presentation video
+
+## Tasks on deck
+- None
+
+## Blockers and issues
+- None
+
+## Risks and Mitigation
+- None
+
+--- 
+
+## Reporting Period
 **Week:** 11
 
 **Meeting Held:** Yes
