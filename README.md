@@ -1,12 +1,12 @@
 # Project Proposal
 
-Project Title: Baby Tracker
+Project Title: Baby Steps
 
 ## Team
 
 Team #5
 
-Team Name: FAWN
+Team Name: FAAWN
 
 Team Members:
 - Felice Forby
@@ -15,6 +15,9 @@ Team Members:
 - Antonio Duran
   - Github: antonio11duran
   - Email: Antonio.DuranJr@colorado.edu
+- Alana Powell
+  - Github: alanapowell
+  - Email: alana.powell@colorado.edu
 - Will Hansen
   - Github: willthethrill824
   - Email: Will.Hansen-2@colorado.edu
@@ -22,7 +25,7 @@ Team Members:
   - Github: nabl2290
   - Email: nabl2290@colorado.edu
 
-Meeting time: Wednesday 8:00pm EST / 6:00pm MT
+Meeting time: Wednesday 7:00pm EST / 5:00pm MT
 
 ## Vision Statement
 
